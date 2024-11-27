@@ -1,6 +1,6 @@
-# Dakapathi: Tax Management and Economic Assistance Web App
+# Dakapathi: Tax Management and Economic Assistance Web App 💰📈
 
-Dakapathi is a modern web application designed to simplify tax management and enhance financial literacy for users in Sri Lanka. The platform offers features such as accurate tax calculations, real-time updates on tax policies, multilingual support, and educational resources to guide users through the tax system. Built with a scalable and robust architecture.
+Dakapathi is a modern web application designed to simplify tax management and enhance financial literacy for users in Sri Lanka. The platform offers features such as accurate tax calculations, real-time updates on tax policies, multilingual support, and educational resources to guide users through the tax system. It is built with a scalable and robust architecture.
 
 # Key Features:
 
@@ -14,4 +14,3 @@ Educational resources, tutorials, and gamified tax learning.
 Backend: Node.js with TypeScript.
 Frontend: React.
 Database: MongoDB.
-This repository serves as the foundation for the implementation and evolution of Dakapathi. Contributions and feedback are welcome to further enhance its capabilities.
