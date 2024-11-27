@@ -5,12 +5,12 @@ Dakapathi is a modern web application designed to simplify tax management and en
 # Key Features:
 
 Secure user authentication and data management.
-Real-time tax calculations based on Sri Lankan policies.
-Notifications for tax deadlines and updates.
-Multilingual support (Sinhala, Tamil, English).
-Educational resources, tutorials, and gamified tax learning.
+- Real-time tax calculations based on Sri Lankan policies.
+- Notifications for tax deadlines and updates.
+- Multilingual support (Sinhala, Tamil, English).
+- Educational resources, tutorials, and gamified tax learning.
 
 # Tech Stack:
-Backend: Node.js with TypeScript.
-Frontend: React.
-Database: MongoDB.
+- *Backend* - : Node.js with TypeScript.
+- *Frontend* - : React.
+- *Database* - : MongoDB.
