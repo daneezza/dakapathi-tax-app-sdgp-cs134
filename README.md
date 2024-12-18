@@ -12,5 +12,5 @@ Secure user authentication and data management.
 
 # Tech Stack:
 - *Backend* - : Node.js with TypeScript.
-- *Frontend* - : React.
-- *Database* - : MongoDB.
+- *Frontend* - : Vite-React
+- *Database* - : MongoDB
