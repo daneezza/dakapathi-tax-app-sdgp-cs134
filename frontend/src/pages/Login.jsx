@@ -1,0 +1,70 @@
+import { useState } from 'react';
+import AuthHeader from '../components/auth/AuthHeader';
+import AuthForm from '../components/auth/AuthForm';
+import OTPVerification from '../components/auth/OTPVerification';
+
+
+const Login = () => {
+  const [isLogin, setIsLogin] = useState(true);
+  const [showOTP, setShowOTP] = useState(false);
+  const [otp, setOTP] = useState(['', '', '', '', '', '']);
+
+  const handleGoogleAuth = () => {
+    console.log('Google auth clicked');
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!isLogin) {
+      setShowOTP(true);
+    }
+  };
+
+  const handleOTPSubmit = (e) => {
+    e.preventDefault();
+    console.log('OTP submitted:', otp.join(''));
+  };
+
+  const handleOTPChange = (index, value) => {
+    if (value.length <= 1) {
+      const newOTP = [...otp];
+      newOTP[index] = value;
+      setOTP(newOTP);
+      
+      if (value && index < 5) {
+        const nextInput = document.getElementById(`otp-${index + 1}`);
+        if (nextInput) nextInput.focus();
+      }
+    }
+  };
+
+  const handleForgotPassword = () => {
+    console.log('Forgot password clicked');
+  };
+
+  if (showOTP) {
+    return (
+      <OTPVerification 
+        otp={otp}
+        handleOTPChange={handleOTPChange}
+        handleOTPSubmit={handleOTPSubmit}
+      />
+    );
+  }
+
+  return (
+    <div className="auth-container">
+      <div className="auth-box">
+        <AuthHeader isLogin={isLogin} setIsLogin={setIsLogin} />
+        <AuthForm 
+          isLogin={isLogin}
+          handleSubmit={handleSubmit}
+          handleGoogleAuth={handleGoogleAuth}
+          handleForgotPassword={handleForgotPassword}
+        />
+      </div>
+    </div>
+  );
+};
+
+export default Login;

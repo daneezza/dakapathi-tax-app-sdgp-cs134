@@ -56,14 +56,22 @@
   };
 
   // Error messages
-  export const getErrorMessage = (field, value) => {
+  export const getErrorMessage = (field, value, isLogin = false) => {
+    // For login page, only validate email and password
+
+    // For signup page, validate all fields
     switch (field) {
       case 'email':
         return !isValidEmail(value) ? 'Please enter a valid email address' : '';
+
       case 'password':
-        return !isValidPassword(value) 
-          ? 'Password must be at least 8 characters long and contain uppercase, lowercase, number and special character' 
-          : '';
+        if (!isLogin) {
+          return !isValidPassword(value) 
+            ? 'Password must be at least 8 characters long and contain uppercase, lowercase, number and special character' 
+            : '';
+        }
+        return '';
+
       case 'nic':
         return !isValidNIC(value) 
           ? 'Please enter a valid NIC number (old or new format)' 
@@ -87,4 +95,4 @@
       default:
         return '';
     }
-  };
+  }
