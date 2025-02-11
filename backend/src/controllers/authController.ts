@@ -10,27 +10,42 @@ interface User {
   birthdate: string;
   email: string;
   password: string;
+  type: string;
 }
 
 const users: User[] = [];
 
 // Signup Controller
 export const signup = async (req: Request, res: Response): Promise<void> => {
-  const { fullname, nic, address, birthdate, email, password } = req.body;
+  const { fullname, nic, address, birthdate, email, password, type } = req.body;
 
   // Validate all required fields
-  if (!fullname || !nic || !address || !birthdate || !email || !password) {
-    res.status(400).json({ message: 'All fields are required: fullname, NIC, address, birthdate, email, and password.' });
+  if (!fullname || !nic || !address || !birthdate || !email || !password || !type) {
+    res.status(400).json({ message: 'All fields are required: fullname, NIC, address, birthdate, email, password, and type.' });
     return;
   }
+
+  // Validate type value
+  if (type !== 'Admin' && type !== 'User') {
+    res.status(400).json({ message: "Type must be either 'Admin' or 'User'." });
+    return;
+  }
+
+  // Check for duplicate email
+  const existingUser = users.find((u) => u.email === email);
+  if (existingUser) {
+    res.status(400).json({ message: 'Email already exists. Please use a different email.' });
+    return;
+  }
+
 
   // Hash the password
   const hashedPassword = await hashPassword(password);
 
   // Store user (mocked for now)
-  users.push({ fullname, nic, address, birthdate, email, password: hashedPassword });
+  users.push({ fullname, nic, address, birthdate, email, password: hashedPassword, type });
 
-  res.status(201).json({ message: 'User registered successfully.', fullname, email });
+  res.status(201).json({ message: 'User registered successfully.', fullname, email, type });
 };
 
 // Login Controller
@@ -64,8 +79,3 @@ export const login = async (req: Request, res: Response): Promise<void> => {
 
   res.status(200).json({ message: 'Login successful.', fullname: user.fullname, email: user.email });
 };
-
-
-
-
-
