@@ -1,6 +1,7 @@
 // src/controllers/authController.ts
 import { Request, Response } from 'express';
 import { hashPassword, comparePassword } from '../utils/passwordUtil';
+import { sendOTPEmail } from '../utils/emailService';
 
 // Mocked user storage (in-memory)
 interface User {
@@ -78,4 +79,70 @@ export const login = async (req: Request, res: Response): Promise<void> => {
   }
 
   res.status(200).json({ message: 'Login successful.', fullname: user.fullname, email: user.email });
+};
+
+
+
+// OTP
+
+
+// Temporary storage for OTPs (Use a database in production)
+const otpStore: { [key: string]: { otp: string; expiresAt: number } } = {};
+
+// Generate OTP
+const generateOTP = () => Math.floor(100000 + Math.random() * 900000).toString();
+
+// Send OTP to User
+export const sendOTP = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { email } = req.body;
+    if (!email) {
+      res.status(400).json({ message: 'Email is required' });
+      return;
+    }
+
+    const otp = generateOTP();
+    const expiresAt = Date.now() + 5 * 60 * 1000; // Expires in 5 minutes
+    otpStore[email] = { otp, expiresAt };
+
+    await sendOTPEmail(email, otp);
+    res.status(200).json({ message: 'OTP sent successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to send OTP' });
+  }
+};
+
+// Verify OTP
+export const verifyOTP = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { email, otp } = req.body;
+    if (!email || !otp) {
+      res.status(400).json({ message: 'Email and OTP are required' });
+      return;
+    }
+
+    const storedOTP = otpStore[email];
+    if (!storedOTP) {
+      res.status(400).json({ message: 'No OTP found. Request a new one.' });
+      return;
+    }
+
+    if (Date.now() > storedOTP.expiresAt) {
+      delete otpStore[email];
+      res.status(400).json({ message: 'OTP expired. Request a new one.' });
+      return;
+    }
+
+    if (storedOTP.otp !== otp) {
+      res.status(400).json({ message: 'Invalid OTP. Try again.' });
+      return;
+    }
+
+    delete otpStore[email];
+    res.status(200).json({ message: 'OTP verified successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to verify OTP' });
+  }
 };
