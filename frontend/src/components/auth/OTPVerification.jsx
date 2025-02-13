@@ -22,10 +22,22 @@ const OTPVerification = ({ otp, handleOTPChange, handleOTPSubmit }) => {
       email: JSON.parse(localStorage.getItem('signupData')).email,
       otp: otpCode
     });
+    alert("OTP Valid! Signing up User.....");
 
     // If OTP is valid, complete the signup
-    const signupData = JSON.parse(localStorage.getItem('signupData'));
-    await axios.post('http://localhost:3000/api/auth/signup', signupData);
+    const storedData = JSON.parse(localStorage.getItem('signupData'));
+
+    // Construct the final signup data
+    const finalSignupData = {
+      fullname: storedData.name,              // Rename `name` to `fullname`
+      nic: storedData.nic,
+      address: storedData.address,
+      birthdate: storedData.birthDate,        // Rename `birthDate` to `birthdate`
+      email: storedData.email,
+      password: storedData.password,          // Ensure password is included
+      type: 'User'                            // Add default type
+    };
+    await axios.post('http://localhost:3000/api/auth/signup', finalSignupData);
 
     alert('Signup successful!');
     localStorage.removeItem('signupData'); // Clear data
