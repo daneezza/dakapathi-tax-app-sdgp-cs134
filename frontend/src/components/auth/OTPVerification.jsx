@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { getErrorMessage } from '../../utils/validations.jsx';
 import { useState } from 'react';
+import axios from 'axios';
 
 const OTPVerification = ({ otp, handleOTPChange, handleOTPSubmit }) => {
   const [errors, setErrors] = useState({});
