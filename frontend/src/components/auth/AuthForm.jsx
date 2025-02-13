@@ -142,7 +142,7 @@ const SignupForm = ({ handleSubmit, handleGoogleAuth }) => {
     validateField(name, value);
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async(e) => {
     e.preventDefault();
     
     const newErrors = {};
@@ -160,6 +160,21 @@ const SignupForm = ({ handleSubmit, handleGoogleAuth }) => {
 
     if (Object.values(newErrors).every(error => !error)) {
       handleSubmit(e, formData);
+    }
+    if (Object.values(newErrors).every(error => !error)) {
+      try {
+        // Save form data to local storage for later signup
+        localStorage.setItem('signupData', JSON.stringify(formData));
+  
+        // Send OTP request
+        await axios.post('http://localhost:3000/api/otp/send-otp', { email: formData.email });
+  
+        alert('OTP sent to your email!');
+        setShowOTP(true); // Show OTP page
+      } catch (error) {
+        console.error('Error sending OTP:', error);
+        alert('Failed to send OTP. Please try again.');
+      }
     }
   };
 

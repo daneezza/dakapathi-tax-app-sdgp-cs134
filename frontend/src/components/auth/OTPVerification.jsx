@@ -12,17 +12,28 @@ const OTPVerification = ({ otp, handleOTPChange, handleOTPSubmit }) => {
     handleOTPSubmit: PropTypes.func.isRequired
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const otpString = otp.join('');
-    
-    const otpError = getErrorMessage('otp', otpString);
-    if (!otpError) {
-      handleOTPSubmit(e);
-      setErrors({});
-    } else {
-      setErrors({ otp: otpError });
-    }
+    const otpCode = otp.join('');
+
+  try {
+    // Verify OTP
+    await axios.post('http://localhost:3000/api/otp/verify-otp', {
+      email: JSON.parse(localStorage.getItem('signupData')).email,
+      otp: otpCode
+    });
+
+    // If OTP is valid, complete the signup
+    const signupData = JSON.parse(localStorage.getItem('signupData'));
+    await axios.post('http://localhost:3000/api/auth/signup', signupData);
+
+    alert('Signup successful!');
+    localStorage.removeItem('signupData'); // Clear data
+    window.location.href = '/login'; // Redirect to login
+  } catch (error) {
+    console.error('Error verifying OTP or signing up:', error);
+    alert('OTP verification failed. Please try again.');
+  }
   };
 
   return (
