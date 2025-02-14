@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes';
 import otpRoutes from './routes/otpRoutes';
+import forgotPasswordRoutes from './routes/forgotPasswordRoutes';
 import cors from 'cors';
 
 
@@ -17,6 +18,7 @@ app.use(bodyParser.json());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/otp', otpRoutes);
+app.use('/api/password', forgotPasswordRoutes);
 
 
 app.listen(PORT, () => {

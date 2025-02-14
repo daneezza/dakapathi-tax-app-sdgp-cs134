@@ -146,3 +146,5 @@ export const verifyOTP = async (req: Request, res: Response): Promise<void> => {
     res.status(500).json({ message: 'Failed to verify OTP' });
   }
 };
+
+export { users };
