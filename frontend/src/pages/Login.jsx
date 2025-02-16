@@ -70,7 +70,7 @@ const Login = () => {
   }
 
   if (showForgotPassword) {
-    return <ForgotPassword />;
+    return <ForgotPassword onBack={() => setShowForgotPassword(false)} />;
   }
 
   return (
