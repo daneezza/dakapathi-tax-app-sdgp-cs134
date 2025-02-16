@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const ForgotPassword = ({ onBack }) => {
 const [email, setEmail] = useState('');
 
-const handleSubmit = (e) => {
-e.preventDefault();
-alert('Password reset instructions have been sent to your email.');
+const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+        await axios.post('http://localhost:3000/api/password/request-reset', { email });
+        alert('Password reset instructions have been sent to your email.');
+    } catch (error) {
+        console.error('Error sending reset link:', error);
+        alert('Failed to send reset link. Please try again.');
+    } 
 };
 
 return (
