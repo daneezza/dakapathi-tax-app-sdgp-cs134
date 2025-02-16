@@ -1,19 +1,26 @@
 import React, { useState } from 'react';
+import ResetPassword from './ResetPassword';
 import axios from 'axios';
 
 const ForgotPassword = ({ onBack }) => {
 const [email, setEmail] = useState('');
+const [showResetForm, setShowResetForm] = useState(false);
 
 const handleSubmit = async (e) => {
     e.preventDefault();
     try {
         await axios.post('http://localhost:3000/api/password/request-reset', { email });
         alert('Password reset instructions have been sent to your email.');
+        setShowResetForm(true);
     } catch (error) {
         console.error('Error sending reset link:', error);
         alert('Failed to send reset link. Please try again.');
     } 
 };
+
+if (showResetForm) {
+    return <ResetPassword email={email} />;
+}
 
 return (
 <div className="auth-container">
@@ -45,7 +52,7 @@ return (
             required
         />
         </div>
-        <button type="submit" className="auth-button">Send Reset Link</button>
+        <button type="submit" className="auth-button">Send OTP</button>
     </form>
     </div>
 </div>
