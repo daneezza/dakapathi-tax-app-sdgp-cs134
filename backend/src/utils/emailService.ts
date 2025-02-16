@@ -11,12 +11,12 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-export const sendOTPEmail = async (email: string, otp: string) => {
+export const sendOTPEmail = async (type:String,subject:string,email: string, otp: string) => {
     const mailOptions = {
         from: process.env.EMAIL_USER,
         to: email,
-        subject: 'Your Dakapathi OTP Code',
-        text: `Your OTP code is: ${otp}. This code is valid for 5 minutes.`,
+        subject: subject,
+        text: `Your ${type} OTP code is: ${otp}. This code is valid for 5 minutes.`,
 };
 
 await transporter.sendMail(mailOptions);

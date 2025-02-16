@@ -105,8 +105,8 @@ export const sendOTP = async (req: Request, res: Response): Promise<void> => {
     const expiresAt = Date.now() + 5 * 60 * 1000; // Expires in 5 minutes
     otpStore[email] = { otp, expiresAt };
 
-    await sendOTPEmail(email, otp);
-    res.status(200).json({ message: 'OTP sent successfully' });
+    await sendOTPEmail("account creation","Your Dakapathi Account Creation OTP Code",email, otp);
+    res.status(200).json({ message: 'Account Creation OTP sent to your mail' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Failed to send OTP' });
