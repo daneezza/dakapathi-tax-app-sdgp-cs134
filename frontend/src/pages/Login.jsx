@@ -3,12 +3,14 @@ import AuthHeader from '../components/auth/AuthHeader';
 import AuthForm from '../components/auth/AuthForm';
 import OTPVerification from '../components/auth/OTPVerification';
 import axios from 'axios';
+import ForgotPassword from './ForgotPassword';
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [showOTP, setShowOTP] = useState(false);
   const [otp, setOTP] = useState(['', '', '', '', '', '']);
   const [errorMessage, setErrorMessage] = useState('');
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
 
   const handleGoogleAuth = () => {
     console.log('Google auth clicked');
@@ -54,7 +56,7 @@ const Login = () => {
   };
 
   const handleForgotPassword = () => {
-    console.log('Forgot password clicked');
+    setShowForgotPassword(true);
   };
 
   if (showOTP) {
@@ -65,6 +67,10 @@ const Login = () => {
         handleOTPSubmit={handleOTPSubmit}
       />
     );
+  }
+
+  if (showForgotPassword) {
+    return <ForgotPassword />;
   }
 
   return (
