@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import QuestionForm from './components/QuestionForm';
 import QuestionList from './components/QuestionList';
-import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import './App.css';
 
@@ -182,7 +181,6 @@ const App: React.FC = () => {
 
   return (
     <div className="app-container">
-      <Sidebar />
       <div className="main-content">
         <Header />
         <div className="content-wrapper">
