@@ -2,6 +2,8 @@
 import { Request, Response } from 'express';
 import { hashPassword, comparePassword } from '../utils/passwordUtil';
 import { sendOTPEmail } from '../utils/emailService';
+import jwt from 'jsonwebtoken';
+import { OAuth2Client } from 'google-auth-library';
 
 // Mocked user storage (in-memory)
 interface User {
@@ -15,6 +17,7 @@ interface User {
 }
 
 const users: User[] = [];
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 // Signup Controller
 export const signup = async (req: Request, res: Response): Promise<void> => {
@@ -144,6 +147,50 @@ export const verifyOTP = async (req: Request, res: Response): Promise<void> => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Failed to verify OTP' });
+  }
+};
+
+// Google Sign-In Controller
+export const googleSignIn = async (req: Request, res: Response) => {
+  const { token } = req.body;
+
+  try {
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+
+    const payload = ticket.getPayload();
+
+    if (!payload) {
+      return res.status(400).json({ message: 'Google authentication failed' });
+    }
+
+    const { email, name } = payload;
+
+    let user = users.find(u => u.email === email);
+
+    if (!user) {
+      user = {
+        fullname: name || 'Google User',
+        nic: 'N/A',
+        address: 'N/A',
+        birthdate: 'N/A',
+        email:email ?? '',
+        password: '',
+        type: 'User',
+      };
+      users.push(user);
+    }
+
+    const authToken = jwt.sign({ email: user.email, fullname: user.fullname }, process.env.JWT_SECRET || 'secret', {
+      expiresIn: '1h',
+    });
+
+    res.status(200).json({ message: 'Google Sign-In successful', token: authToken, fullname: user.fullname, email: user.email });
+  } catch (error) {
+    console.error('Error verifying Google token:', error);
+    res.status(500).json({ message: 'Failed to authenticate Google user' });
   }
 };
 
