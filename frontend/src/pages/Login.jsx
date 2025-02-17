@@ -12,8 +12,16 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [showForgotPassword, setShowForgotPassword] = useState(false);
 
-  const handleGoogleAuth = () => {
-    console.log('Google auth clicked');
+  const handleGoogleAuth = async (credentialResponse) => {
+    try {
+      const { credential } = credentialResponse;
+      const response = await axios.post('http://localhost:3000/api/auth/google-signin', { token: credential });
+      alert(response.data.message);
+      console.log('Google Sign-In successful:', response.data);
+    } catch (error) {
+      console.error('Google Sign-In failed:', error);
+      alert('Google Sign-In failed. Please try again.');
+    }
   };
 
   const handleSubmit = async(e,formData) => {
