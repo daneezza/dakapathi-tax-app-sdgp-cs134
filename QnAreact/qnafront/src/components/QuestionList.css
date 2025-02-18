@@ -1,6 +1,6 @@
 .question-list-container {
-    position: relative;
-    top: 70px;
+    position: absolute;
+    top: 450px;
     padding: 2rem;
     max-width: 800px;
     color: #000000; /* Changed to match Dashboard.css */
@@ -14,7 +14,6 @@
     background: #efefefbd; /* Changed to match Dashboard.css */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     transition: all 0.3s ease;
-    margin-bottom: 20px;
 }
 
 .question-list-container:hover {

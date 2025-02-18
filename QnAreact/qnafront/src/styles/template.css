@@ -5,11 +5,11 @@
     
 }
 
+
 html, body, #root, .app-container {
     
     height: 100%;
     width: 100%;
-    overflow-x: hidden;
     background-color: #ffffff;
     background-image: url("/bg.jpg");
     background-size: cover;
@@ -209,7 +209,7 @@ html, body, #root, .app-container {
     flex-direction: column; /* Stack elements vertically */
     justify-content: center; /* Stack elements vertically */
     align-items: center; /* Center horizontally */
-    margin-top: 80px; /* Adjust based on navbar height */
+    margin-top: 140px; /* Adjust based on navbar height */
     min-height: calc(100vh - 80px); /* Keep this for min height */
     width: 100%; /* Ensure full width for centering */
     padding: 20px; /* Add some padding around content */
