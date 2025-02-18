@@ -11,7 +11,8 @@ const userGuides = [
       '2. Enter your Fullname, NIC, Address, and Birthdate.',
       '3. Provide a valid Email and create a secure Password.',
       '4. Click the Signup button to complete the registration process.'
-    ]
+    ],
+    videoPath: 'create-account.mp4' 
   },
   {
     id: 2,
@@ -21,7 +22,8 @@ const userGuides = [
       '2. On the Dashboard, view an overview of your tax status.',
       '3. Use the menu on the left to explore different sections, including Reports and Tax Calculator.',
       '4. Click on any section to see detailed information.'
-    ]
+    ],
+    videoPath: 'navigate-dashboarde.mp4' 
   },
   {
     id: 3,
@@ -31,7 +33,8 @@ const userGuides = [
       '2. Enter your income details accurately.',
       '3. Click the Calculate button to see the tax results.',
       '4. Review the calculated tax amount displayed on the page.'
-    ]
+    ],
+    videoPath: 'tax-calculator.mp4' 
   }
 ];
 
