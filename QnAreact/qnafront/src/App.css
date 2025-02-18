@@ -1,14 +1,15 @@
 body {
   margin: 0;
   padding: 0;
+   
 }
 
 .app-container {
   margin: 0;
   padding: 0;
   display: flex;
-  flex-direction: column; /* Stack elements vertically */
-  justify-content: center; /* Center vertically */
+  flex-direction: column; 
+  justify-content: center; 
   align-items: center;
   background-color: #a97e07;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

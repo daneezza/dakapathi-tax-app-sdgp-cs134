@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import QuestionForm from './components/QuestionForm';
 import QuestionList from './components/QuestionList';
-import Header from './components/Header';
 import './App.css';
+import Template from './components/template';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';  // Updated import
 
 interface Answer {
   id: number;
@@ -36,21 +37,21 @@ const App: React.FC = () => {
       } catch (error) {
         // For demo, let's add some default questions
         setQuestions([
-          { 
-            id: 1, 
-            title: 'What is the Tax Ratio of 2024 for income tax?', 
-            likes: 28, 
-            shares: 72, 
+          {
+            id: 1,
+            title: 'What is the Tax Ratio of 2024 for income tax?',
+            likes: 28,
+            shares: 72,
             isBookmarked: false,
-            answers: []
+            answers: [],
           },
-          { 
-            id: 2, 
-            title: 'What is the Tax Ratio of 2022 for income tax?', 
-            likes: 28, 
-            shares: 72, 
+          {
+            id: 2,
+            title: 'What is the Tax Ratio of 2022 for income tax?',
+            likes: 28,
+            shares: 72,
             isBookmarked: false,
-            answers: []
+            answers: [],
           },
         ]);
         console.error("Error fetching questions:", error);
@@ -75,27 +76,25 @@ const App: React.FC = () => {
       }
 
       const createdQuestion: Question = await response.json();
-      // For demo, let's create a question with default values
       const newQuestion = {
         ...createdQuestion,
         likes: 0,
         shares: 0,
         isBookmarked: false,
-        answers: []
+        answers: [],
       };
-      setQuestions(prevQuestions => [...prevQuestions, newQuestion]);
+      setQuestions((prevQuestions) => [...prevQuestions, newQuestion]);
     } catch (error) {
       console.error("Error submitting question:", error);
-      // For demo, create a new question locally
       const newQuestion = {
-        id: Math.max(0, ...questions.map(q => q.id)) + 1,
+        id: Math.max(0, ...questions.map((q) => q.id)) + 1,
         title: question.title,
         likes: 0,
         shares: 0,
         isBookmarked: false,
-        answers: []
+        answers: [],
       };
-      setQuestions(prevQuestions => [...prevQuestions, newQuestion]);
+      setQuestions((prevQuestions) => [...prevQuestions, newQuestion]);
     }
   };
 
@@ -114,49 +113,42 @@ const App: React.FC = () => {
       }
 
       const createdAnswer: Answer = await response.json();
-      setQuestions(prevQuestions =>
-        prevQuestions.map(q =>
-          q.id === questionId
-            ? { ...q, answers: [...q.answers, createdAnswer] }
-            : q
+      setQuestions((prevQuestions) =>
+        prevQuestions.map((q) =>
+          q.id === questionId ? { ...q, answers: [...q.answers, createdAnswer] } : q
         )
       );
     } catch (error) {
       console.error("Error submitting answer:", error);
-      // For demo, create a new answer locally
       const newAnswer = {
         id: Math.floor(Math.random() * 10000),
         content: answerContent,
         questionId: questionId,
-        likes: 0
+        likes: 0,
       };
-      setQuestions(prevQuestions =>
-        prevQuestions.map(q =>
-          q.id === questionId
-            ? { ...q, answers: [...q.answers, newAnswer] }
-            : q
+      setQuestions((prevQuestions) =>
+        prevQuestions.map((q) =>
+          q.id === questionId ? { ...q, answers: [...q.answers, newAnswer] } : q
         )
       );
     }
   };
 
   const handleLikeQuestion = (questionId: number) => {
-    setQuestions(prevQuestions =>
-      prevQuestions.map(q =>
-        q.id === questionId ? { ...q, likes: q.likes + 1 } : q
-      )
+    setQuestions((prevQuestions) =>
+      prevQuestions.map((q) => (q.id === questionId ? { ...q, likes: q.likes + 1 } : q))
     );
   };
 
   const handleLikeAnswer = (questionId: number, answerId: number) => {
-    setQuestions(prevQuestions =>
-      prevQuestions.map(q =>
+    setQuestions((prevQuestions) =>
+      prevQuestions.map((q) =>
         q.id === questionId
           ? {
               ...q,
-              answers: q.answers.map(a =>
+              answers: q.answers.map((a) =>
                 a.id === answerId ? { ...a, likes: a.likes + 1 } : a
-              )
+              ),
             }
           : q
       )
@@ -164,38 +156,37 @@ const App: React.FC = () => {
   };
 
   const handleShareQuestion = (questionId: number) => {
-    setQuestions(prevQuestions =>
-      prevQuestions.map(q =>
-        q.id === questionId ? { ...q, shares: q.shares + 1 } : q
-      )
+    setQuestions((prevQuestions) =>
+      prevQuestions.map((q) => (q.id === questionId ? { ...q, shares: q.shares + 1 } : q))
     );
   };
 
   const handleBookmarkQuestion = (questionId: number) => {
-    setQuestions(prevQuestions =>
-      prevQuestions.map(q =>
+    setQuestions((prevQuestions) =>
+      prevQuestions.map((q) =>
         q.id === questionId ? { ...q, isBookmarked: !q.isBookmarked } : q
       )
     );
   };
 
   return (
-    <div className="app-container">
-      <div className="main-content">
-        <Header />
-        <div className="content-wrapper">
-          <QuestionForm onSubmit={handleSubmitQuestion} />
-          <QuestionList
-            questions={questions}
-            onLike={handleLikeQuestion}
-            onLikeAnswer={handleLikeAnswer}
-            onShare={handleShareQuestion}
-            onBookmark={handleBookmarkQuestion}
-            onSubmitAnswer={handleSubmitAnswer}
-          />
-        </div>
-      </div>
-    </div>
+    <Router> {/* Wrap with Router */}
+      <Routes> {/* Use Routes */}
+        <Route path="/" element={<Template>
+          <div className="content-wrapper">
+            <QuestionForm onSubmit={handleSubmitQuestion} />
+            <QuestionList
+              questions={questions}
+              onLike={handleLikeQuestion}
+              onLikeAnswer={handleLikeAnswer}
+              onShare={handleShareQuestion}
+              onBookmark={handleBookmarkQuestion}
+              onSubmitAnswer={handleSubmitAnswer}
+            />
+          </div>
+        </Template>} />
+      </Routes>
+    </Router>
   );
 };
 

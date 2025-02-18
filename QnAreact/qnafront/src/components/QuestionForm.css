@@ -1,9 +1,25 @@
 .question-form-container {
-    background-color: #931b9b;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 30px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    position: relative;
+    top: 70px;
+    padding: 2rem;
+    max-width: 800px;
+    color: #000000; /* Changed to match Dashboard.css */
+    z-index: 5;
+    margin: 0 auto;
+    /*border: 2px solid #ffd500; /* Changed to match Dashboard.css */
+    border-radius: 12px;
+    width: 1000px;
+    align-items: center;
+    text-align: center;
+    background: #efefefbd; /* Changed to match Dashboard.css */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.question-form-container:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Slightly enhanced shadow */
+    transform: translateY(-2px);
 }
 
 .question-form-container h1 {
