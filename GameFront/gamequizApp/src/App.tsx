@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import Quiz from './Quiz'; // Import the Quiz component
+import Quiz from './components/Quiz'; 
+import Template from './components/template';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';// Import the Quiz component
 
 
 interface Question {
@@ -142,72 +144,77 @@ const App: React.FC = () => {
   }, [questions, currentQuestionIndex]);
 
   return (
-    <div>
-      <h1 className='quiz-head'>Quiz</h1>
-
-      {!isQuizStarted ? (
-        <div className='level-button-container'>
-          <button onClick={() => fetchQuizQuestions("easy")} disabled={isLoading} className='level-button'>Easy</button>
-          <button onClick={() => fetchQuizQuestions("medium")} disabled={isLoading} className='level-button'>Medium</button>
-          <button onClick={() => fetchQuizQuestions("hard")} disabled={isLoading} className='level-button'>Hard</button>
-        </div>
-      ) : isQuizCompleted ? (
+    <Router>
+      <Template>
         <div>
-          {error && <p style={{ color: 'red' }}>{error}</p>}
-          {results.map((result) => {
-            const question = questions.find((q) => q.id === result.questionId);
-            return (
-              <div key={result.questionId}>
-                <p>{question?.question} Correct Answer: {result.correctOption}</p>
-                <p>{result.feedback}</p>
-              </div>
-            );
-          })}
-          <div className='quiz-card'>
-            <div className='final-txt'>
-              <h1>Quiz Completed!</h1>
-              <h1>Results:</h1>
-              <p className='score'>Your Score: {score} / {questions.length}</p>
-              <button onClick={handleRestartQuiz} className='restart'>Restart Quiz</button>
-            </div>
-          </div>
-        </div>
-      ) : currentQuestion ? (
-        <div className="quiz-card"> {/* Wrap Quiz component with quiz-card */}
-          {error && <p style={{ color: 'red' }}>{error}</p>}
-          <Quiz
-            questions={questions}
-            currentQuestionIndex={currentQuestionIndex}
-            answers={answers}
-            handleOptionChange={handleOptionChange}
-            handleSubmitAnswer={handleSubmitAnswer}
-            currentQuestionId={currentQuestionId}
-            handleNextQuestion={handleNextQuestion} // Add this prop
-            isLastQuestion={currentQuestionIndex === questions.length - 1} // Add this prop
-            submittedAnswer={submittedAnswer}
-          />
-          <div className='button-container'>
-            <button
-              className="button-primary"
-              onClick={handleNextQuestion}
-              disabled={isLoading || !submittedAnswers[currentQuestion.id]}
-            >
-              {currentQuestionIndex === questions.length - 1 ? "Submit Quiz" : "Next"}
-            </button>
-          </div>
-          
+          <h1 className='quiz-head'>Quiz</h1>
 
-          {submittedAnswers[currentQuestion.id] && (
-            <div className="final-ans">
-              <p>
-                Correct Answer: {submittedAnswers[currentQuestion.id]?.correctOption} ||{" "}
-                {submittedAnswers[currentQuestion.id]?.feedback}
-              </p>
+          {!isQuizStarted ? (
+            <div className='level-button-container'>
+              <button onClick={() => fetchQuizQuestions("easy")} disabled={isLoading} className='level-button'>Easy</button>
+              <button onClick={() => fetchQuizQuestions("medium")} disabled={isLoading} className='level-button'>Medium</button>
+              <button onClick={() => fetchQuizQuestions("hard")} disabled={isLoading} className='level-button'>Hard</button>
             </div>
-          )}
+          ) : isQuizCompleted ? (
+            <div>
+              {error && <p style={{ color: 'red' }}>{error}</p>}
+              {results.map((result) => {
+                const question = questions.find((q) => q.id === result.questionId);
+                return (
+                  <div key={result.questionId}>
+                    <p>{question?.question} Correct Answer: {result.correctOption}</p>
+                    <p>{result.feedback}</p>
+                  </div>
+                );
+              })}
+              <div className='quiz-card'>
+                <div className='final-txt'>
+                  <h1>Quiz Completed!</h1>
+                  <h1>Results:</h1>
+                  <p className='score'>Your Score: {score} / {questions.length}</p>
+                  <button onClick={handleRestartQuiz} className='restart'>Restart Quiz</button>
+                </div>
+              </div>
+            </div>
+          ) : currentQuestion ? (
+            <div className="quiz-card"> {/* Wrap Quiz component with quiz-card */}
+              {error && <p style={{ color: 'red' }}>{error}</p>}
+              <Quiz
+                questions={questions}
+                currentQuestionIndex={currentQuestionIndex}
+                answers={answers}
+                handleOptionChange={handleOptionChange}
+                handleSubmitAnswer={handleSubmitAnswer}
+                currentQuestionId={currentQuestionId}
+                handleNextQuestion={handleNextQuestion} // Add this prop
+                isLastQuestion={currentQuestionIndex === questions.length - 1} // Add this prop
+                submittedAnswer={submittedAnswer}
+              />
+              <div className='button-container'>
+                <button
+                  className="button-primary"
+                  onClick={handleNextQuestion}
+                  disabled={isLoading || !submittedAnswers[currentQuestion.id]}
+                >
+                  {currentQuestionIndex === questions.length - 1 ? "Submit Quiz" : "Next"}
+                </button>
+              </div>
+              
+
+              {submittedAnswers[currentQuestion.id] && (
+                <div className="final-ans">
+                  <p>
+                    Correct Answer: {submittedAnswers[currentQuestion.id]?.correctOption} ||{" "}
+                    {submittedAnswers[currentQuestion.id]?.feedback}
+                  </p>
+                </div>
+              )}
+            </div>
+          ) : null}
         </div>
-      ) : null}
-    </div>
+      </Template>
+    </Router>
+    
   );
 
 };
