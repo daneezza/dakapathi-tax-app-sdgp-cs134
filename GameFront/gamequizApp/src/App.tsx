@@ -1,15 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-<<<<<<< Updated upstream
-import Quiz from './components/Quiz'; 
-import Template from './components/template';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';// Import the Quiz component
-=======
 import Quiz from './components/Quiz';
 import Template from './components/template';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Import the Quiz component
->>>>>>> Stashed changes
-
+import { BrowserRouter as Router} from 'react-router-dom';
 
 interface Question {
   id: number;
@@ -152,38 +145,45 @@ const App: React.FC = () => {
   return (
     <Router>
       <Template>
-        <div>
+        <div className="quiz-container">
           <h1 className='quiz-head'>Quiz</h1>
 
           {!isQuizStarted ? (
             <div className='level-button-container'>
-              <button onClick={() => fetchQuizQuestions("easy")} disabled={isLoading} className='level-button'>Easy</button>
-              <button onClick={() => fetchQuizQuestions("medium")} disabled={isLoading} className='level-button'>Medium</button>
-              <button onClick={() => fetchQuizQuestions("hard")} disabled={isLoading} className='level-button'>Hard</button>
+              <button 
+                onClick={() => fetchQuizQuestions("easy")} 
+                disabled={isLoading} 
+                className='level-button'
+              >
+                Easy
+              </button>
+              <button 
+                onClick={() => fetchQuizQuestions("medium")} 
+                disabled={isLoading} 
+                className='level-button'
+              >
+                Medium
+              </button>
+              <button 
+                onClick={() => fetchQuizQuestions("hard")} 
+                disabled={isLoading} 
+                className='level-button'
+              >
+                Hard
+              </button>
             </div>
           ) : isQuizCompleted ? (
-            <div>
+            <div className="quiz-card">
               {error && <p style={{ color: 'red' }}>{error}</p>}
-              {results.map((result) => {
-                const question = questions.find((q) => q.id === result.questionId);
-                return (
-                  <div key={result.questionId}>
-                    <p>{question?.question} Correct Answer: {result.correctOption}</p>
-                    <p>{result.feedback}</p>
-                  </div>
-                );
-              })}
-              <div className='quiz-card'>
-                <div className='final-txt'>
-                  <h1>Quiz Completed!</h1>
-                  <h1>Results:</h1>
-                  <p className='score'>Your Score: {score} / {questions.length}</p>
-                  <button onClick={handleRestartQuiz} className='restart'>Restart Quiz</button>
-                </div>
+              <div className='final-txt'>
+                <h1>Quiz Completed!</h1>
+                <h1>Results:</h1>
+                <p className='score'>Your Score: {score} / {questions.length}</p>
+                <button onClick={handleRestartQuiz} className='restart'>Restart Quiz</button>
               </div>
             </div>
           ) : currentQuestion ? (
-            <div className="quiz-card"> {/* Wrap Quiz component with quiz-card */}
+            <div className="quiz-card">
               {error && <p style={{ color: 'red' }}>{error}</p>}
               <Quiz
                 questions={questions}
@@ -192,10 +192,11 @@ const App: React.FC = () => {
                 handleOptionChange={handleOptionChange}
                 handleSubmitAnswer={handleSubmitAnswer}
                 currentQuestionId={currentQuestionId}
-                handleNextQuestion={handleNextQuestion} // Add this prop
-                isLastQuestion={currentQuestionIndex === questions.length - 1} // Add this prop
+                handleNextQuestion={handleNextQuestion}
+                isLastQuestion={currentQuestionIndex === questions.length - 1}
                 submittedAnswer={submittedAnswer}
               />
+              
               <div className='button-container'>
                 <button
                   className="button-primary"
@@ -205,7 +206,6 @@ const App: React.FC = () => {
                   {currentQuestionIndex === questions.length - 1 ? "Submit Quiz" : "Next"}
                 </button>
               </div>
-              
 
               {submittedAnswers[currentQuestion.id] && (
                 <div className="final-ans">
@@ -220,7 +220,6 @@ const App: React.FC = () => {
         </div>
       </Template>
     </Router>
-    
   );
 
 };

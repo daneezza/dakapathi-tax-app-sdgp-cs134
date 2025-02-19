@@ -1,5 +1,6 @@
 import React from 'react';
 import ProgressBar from "./ProgressBar";
+import '../styles/quizz.css';
 
 interface Question {
   id: number;

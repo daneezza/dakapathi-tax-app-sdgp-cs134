@@ -1,14 +1,75 @@
-/* Container and Layout */
-body {
-  background-color: rgb(247, 147, 147); /* Pink */
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column; /* Stack elements vertically */
-  justify-content: center; /* Center vertically */
-  align-items: center;
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-.quiz-container {
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+/* Container and Layout */
+
+/* .quiz-container {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,7 +96,7 @@ body {
   position: relative;
 }
 
-/* Text and Headings */
+
 .quiz-title {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: 1.75rem;
@@ -73,7 +134,7 @@ body {
   margin-top: 10px;
 }
 
-/* Buttons */
+
 .quiz-option {
   display: inline-block;
   width: 94%;
@@ -167,26 +228,26 @@ body {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   color: linen;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.733);
-  margin: 0 auto; /* Center horizontally */
+  margin: 0 auto;
   display: block;
 }
 
-.button-container { /* Add a container around your buttons */
+.button-container { 
   display: flex;
   justify-content: center;
-  margin-top: 10px; /* Center horizontally */
+  margin-top: 10px; 
 }
 
 .level-button{
   background-color: #3c8299;
   color: white;
-  padding: 1rem 10rem;   /* Increased padding for larger buttons */
+  padding: 1rem 10rem;   
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
   transition: background-color 0.3s;
   font-weight: bold;
-  font-size: 1.2rem;       /* Increased font size */
+  font-size: 1.2rem;       
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   color: linen;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.733);
@@ -194,18 +255,18 @@ body {
   min-width: 120px;
 }
 
-@media (max-width: 768px) { /* Adjust breakpoint as needed */
+@media (max-width: 768px) { 
   .level-button-container {
-    flex-direction: column; /* Stack buttons vertically */
-    align-items: center; /* Center horizontally again */
+    flex-direction: column; 
+    align-items: center; 
   }
 }
 
-.level-button-container { /* Container for the buttons */
+.level-button-container { 
   display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center;     /* Center vertically (if container has height) */
-  min-height: 400px;         /* Ensure container has some height for vertical centering */
+  justify-content: center; 
+  align-items: center;     
+  min-height: 400px;         
   gap: 10rem;
   margin-top: 2rem; 
 }
@@ -277,4 +338,4 @@ body {
   background-color: #4caf50;
   transition: width 0.3s ease;
   width: 0%;
-}
+} */
