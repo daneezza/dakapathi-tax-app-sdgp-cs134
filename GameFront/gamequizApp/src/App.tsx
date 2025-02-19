@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+<<<<<<< Updated upstream
 import Quiz from './components/Quiz'; 
 import Template from './components/template';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';// Import the Quiz component
+=======
+import Quiz from './components/Quiz';
+import Template from './components/template';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Import the Quiz component
+>>>>>>> Stashed changes
 
 
 interface Question {
