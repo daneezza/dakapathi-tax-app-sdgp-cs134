@@ -68,8 +68,8 @@ const Quiz: React.FC<QuizProps> = ({
           </label>
         </div>
       ))}
-      <div className='button-container'>
-        <button className="button-primary" onClick={handleSubmitAnswer} disabled={submittedAnswer !== null || (currentQuestionId === null || !answers[currentQuestionId])}>
+      <div className='submit-button-container'>
+        <button className='submit-button' onClick={handleSubmitAnswer} disabled={submittedAnswer !== null || (currentQuestionId === null || !answers[currentQuestionId])}>
           Submit
         </button>
       </div>

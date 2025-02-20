@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useRef,useEffect } from 'react';
 import axios from 'axios';
 import Quiz from './components/Quiz';
 import Template from './components/template';
@@ -34,6 +34,10 @@ const App: React.FC = () => {
   const [currentQuestionId, setCurrentQuestionId] = useState<number | null>(null);
   const [submittedAnswers, setSubmittedAnswers] = useState<Record<number, Result | null>>({});
   const [selectedLevel, setSelectedLevel] = useState<string | null>(null);
+  const confettiRef = useRef<HTMLDivElement>(null);
+  const [confetti, setConfetti] = useState<any[]>([]);
+  const sadEmojisRef = useRef<HTMLDivElement>(null);
+  const [sadEmojis, setSadEmojis] = useState<any[]>([]);
   
 
 
@@ -101,13 +105,72 @@ const App: React.FC = () => {
       if (result.isCorrect) {
         setScore((prevScore) => prevScore + 1);
       }
+      if (result.isCorrect) {
+        setConfetti([]); // Clear existing confetti first
+        setTimeout(() => createConfetti(currentQuestionId!), 0);  // Pass questionId
+      } else {
+        setSadEmojis([]); // Clear existing emojis first
+        setTimeout(() => createSadEmojis(currentQuestionId!), 0); // Pass questionId
+      }
     } catch (error) {
-      console.error('Error submitting answer:', error);
-      setError('Error submitting answer. Please try again later.');
+        console.error('Error submitting answer:', error);
+        setError('Error submitting answer. Please try again later.');
     } finally {
-      setIsLoading(false);
+        setIsLoading(false);
     }
+      
   };
+  const createConfetti = (questionId: number) => {
+      const newConfetti: any[] = []; // Explicitly type the newConfetti array
+      const confettiCount = 1000;
+
+      if (confettiRef.current) {
+          for (let i = 0; i < confettiCount; i++) {
+              newConfetti.push({
+                  x: Math.random() * confettiRef.current.offsetWidth,
+                  y: 0,
+                  size: Math.random() * 10 + 5,
+                  color: getRandomColor(),
+                  delay: Math.random() * 1
+              });
+          }
+      }
+
+      setConfetti(newConfetti);
+  };
+  const createSadEmojis = (questionId: number) => {
+      const newSadEmojis: any[] = []; // Explicitly type the newSadEmojis array
+      const emojiCount = 100;
+
+      if (sadEmojisRef.current) {
+          for (let i = 0; i < emojiCount; i++) {
+              newSadEmojis.push({
+                  x: Math.random() * sadEmojisRef.current.offsetWidth,
+                  y: 0,
+                  
+                  delay: Math.random() * 2,
+                  emoji: getRandomSadEmoji()
+              });
+          }
+      }
+      setSadEmojis(newSadEmojis);
+  };
+
+
+  const getRandomColor = () => {
+      const letters = '0123456789ABCDEF';
+      let color = '#';
+      for (let i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+  };
+
+  const getRandomSadEmoji = () => {
+      const sadEmojis = ["😞", "😔", "🙁", "😖"];
+      return sadEmojis[Math.floor(Math.random() * sadEmojis.length)];
+  };
+
 
   const handleNextQuestion = () => {
     if (currentQuestionIndex < questions.length - 1) {
@@ -197,9 +260,9 @@ const App: React.FC = () => {
                 submittedAnswer={submittedAnswer}
               />
               
-              <div className='button-container'>
+              <div className='next-button-container'>
                 <button
-                  className="button-primary"
+                  className='next-button'
                   onClick={handleNextQuestion}
                   disabled={isLoading || !submittedAnswers[currentQuestion.id]}
                 >
@@ -208,10 +271,48 @@ const App: React.FC = () => {
               </div>
 
               {submittedAnswers[currentQuestion.id] && (
-                <div className="final-ans">
+                <div>
                   <p>
-                    Correct Answer: {submittedAnswers[currentQuestion.id]?.correctOption} ||{" "}
-                    {submittedAnswers[currentQuestion.id]?.feedback}
+                    {submittedAnswers[currentQuestion.id]?.correctOption === submittedAnswers[currentQuestion.id]?.selectedOption ? (
+                      <span className="correct">
+                        Correct
+                        <div className="confetti-container" ref={confettiRef}>
+                            {confetti.map((c:any, index:number) => (
+                              <div
+                                key={index}
+                                  className="confetti"
+                                    style={{
+                                      left: c.x,
+                                        top: c.y,
+                                        width: c.size,
+                                        height: c.size,
+                                        backgroundColor: c.color,
+                                        animationDelay: `${c.delay}s`
+                                    }}
+                              />
+                            ))}
+                        </div>
+                      </span>
+                    ) : (
+                        <span className="incorrect">
+                          {submittedAnswers[currentQuestion.id]?.feedback || "Incorrect. Please try again."}
+                          <div className="sad-emojis-container" ref={sadEmojisRef}>
+                            {sadEmojis.map((e, index) => (
+                              <span
+                                key={index}
+                                className="sad-emoji"
+                                style={{
+                                  left: e.x,
+                                  top: e.y,
+                                  animationDelay: `${e.delay}s`
+                                }}
+                              >
+                                {e.emoji}
+                              </span>
+                            ))}
+                          </div>
+                        </span>
+                      )}
                   </p>
                 </div>
               )}
