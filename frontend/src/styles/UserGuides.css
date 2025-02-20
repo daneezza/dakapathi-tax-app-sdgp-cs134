@@ -1,0 +1,66 @@
+.user-guides-page {
+max-width: 1200px;
+margin: 0 auto;
+padding: 20px;
+}
+
+.heading {
+text-align: center;
+margin-bottom: 40px;
+font-size: 2.5rem;
+color: #085632;
+}
+
+.guides-container {
+display: flex;
+flex-direction: column;
+gap: 40px;
+}
+
+.guide {
+display: flex;
+align-items: center;
+gap: 20px;
+flex-wrap: wrap;
+/* Optional: add bottom padding if needed */
+padding-bottom: 20px;
+}
+
+.video-container {
+flex: 1;
+min-width: 300px;
+max-width: 500px;
+}
+
+.video-container video {
+width: 100%;
+border-radius: 8px;
+}
+
+.text-container {
+flex: 1;
+min-width: 300px;
+}
+
+.guide-title {
+font-size: 1.8rem;
+margin-bottom: 10px;
+color: #1a7631;
+}
+
+.guide-content {
+font-size: 1rem;
+color: #d8c7c7;
+line-height: 1.5;
+}
+
+.guide-content p {
+margin: 0.5em 0;
+}
+
+/* Horizontal line styling */
+.guide-divider {
+border: none;
+border-top: 1px solid #F7EF8A;
+margin: 20px 0;
+}

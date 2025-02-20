@@ -32,10 +32,11 @@ const userGuides = [
       '1. Navigate to the Tax Calculator page from the menu.',
       '2. Enter your income details accurately.',
       '3. Click the Calculate button to see the tax results.',
-      '4. Review the calculated tax amount displayed on the page.'
+      '4. Review the calculated tax amount displayed on the page.',
     ],
     videoPath: 'tax-calculator.mp4' 
   }
+  
 ];
 
 

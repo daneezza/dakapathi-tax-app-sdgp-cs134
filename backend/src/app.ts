@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
+import cors from 'cors';
 import { getUserGuides, getUserGuideById } from './controllers/authController';
 import path from 'path';
 
@@ -10,9 +11,10 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(cors());
 
 app.use(bodyParser.json());
-app.use('/videos', express.static(path.join(__dirname, 'public/videos')));
+app.use('/videos', express.static(path.join(__dirname, '../public/videos')));
 
 
 

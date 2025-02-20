@@ -1,9 +1,14 @@
-function App() {
-  return(
-      <>
+import React from 'react';
+import UserGuides from './components/UserGuides';
+// import './styles/global.css';
+import './styles/UserGuides.css';
 
-      </>
+function App() {
+  return (
+    <div className="app-container">
+      <UserGuides />
+    </div>
   );
 }
-// hello
-export default App
+
+export default App;
