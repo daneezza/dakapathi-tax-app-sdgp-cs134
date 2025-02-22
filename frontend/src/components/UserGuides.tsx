@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import '../styles/UserGuides.css';
+
 
 interface Guide {
     id: number;
