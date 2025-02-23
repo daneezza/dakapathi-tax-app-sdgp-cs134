@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import '../styles/template.css';
+import Chatbot from '../components/Chatbot.tsx'
 import { Link } from 'react-router-dom';
 
 //import logo
@@ -160,6 +161,7 @@ const Template: React.FC<TemplateProps> = ({
     <div className="app-container">
       <Navbar links={navLinks} toggleSidebar={toggleSidebar} />
       <Sidebar isCollapsed={isSidebarCollapsed} menuItems={sidebarItems} />
+      <Chatbot/>
       <main className="main-content">
         {children}
       </main>
