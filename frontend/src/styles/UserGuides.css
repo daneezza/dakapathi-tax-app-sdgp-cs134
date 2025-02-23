@@ -22,8 +22,10 @@ display: flex;
 align-items: center;
 gap: 20px;
 flex-wrap: wrap;
-/* Optional: add bottom padding if needed */
-padding-bottom: 20px;
+padding: 20px;
+background-color: rgba(255, 255, 255, 0.8); /* White with 80% opacity */
+border-radius: 10px;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .video-container {
@@ -50,7 +52,7 @@ color: #1a7631;
 
 .guide-content {
 font-size: 1rem;
-color: #d8c7c7;
+color: #343030;
 line-height: 1.5;
 }
 

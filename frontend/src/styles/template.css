@@ -96,7 +96,7 @@ html, body, #root, .app-container {
 }
 
 .menu-button {
-    margin-left: -35px;
+    margin-left: -10px;
     border: none;
     outline: none;
 }
@@ -371,29 +371,11 @@ html, body, #root, .app-container {
   .final-txt h1{
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     background-image: linear-gradient(to right, #3b3b3b, #d1d812, #e1e102,#757575); /* Your gradient */
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-  
-  /* Buttons */
-  
-  
-  /* .final-ans{
-    display: block;
-    width: 99%;
-    padding: 0.1rem;
-    text-align: center;
-    border: 1px solid #ddd;
-    border-radius: 0.5rem;
-    background-color: #e99802;
-    margin-top: 0.8rem;
-    transition: background-color 0.2s;
-    font-weight: bold;
-    font-size: 1rem;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    color: linen;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.733);
-  } */
+
 
   @keyframes correctans{
     from {background-color: #04a80f;}
