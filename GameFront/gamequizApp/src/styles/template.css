@@ -308,6 +308,22 @@ html, body, #root, .app-container {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     transition: all 0.3s ease;
   }
+
+  .correct-gif {
+    width: 600px; /* Adjust size as needed */
+    height: auto;
+    position: absolute; /* Position relative to the parent */
+    top: 10px; /* Adjust top position */
+    right: 10px; /* Adjust right position */
+  }
+  .incorrect-gif {
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    top: 50%; /* Set top to 50% of the parent */
+    left: 50%; /* Set left to 50% of the parent */
+    transform: translate(-50%, -50%);
+  }
   
   .quiz-head {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
