@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Notification from '../components/auth/Notification.jsx';
+import { getErrorMessage } from '../utils/validations.jsx';
 
 
 const ResetPassword = ({ email }) => {
@@ -8,14 +9,33 @@ const [otp, setOtp] = useState('');
 const [newPassword, setNewPassword] = useState('');
 const [confirmPassword, setConfirmPassword] = useState('');
 const [notification, setNotification] = useState({ message: '', variant: 'info' });
+const [errors, setErrors] = useState({});
+
+const handleOtpChange = (e) => {
+    const value = e.target.value;
+    setOtp(value);
+    setErrors((prev) => ({ ...prev, otp: getErrorMessage('otp', value) }));
+};
+
+const handleNewPasswordChange = (e) => {
+    const value = e.target.value;
+    setNewPassword(value);
+    setErrors((prev) => ({ ...prev, password: getErrorMessage('password', value, false) }));
+};
+
+const handleConfirmPasswordChange = (e) => {
+    const value = e.target.value;
+    setConfirmPassword(value);
+    setErrors((prev) => ({
+        ...prev,
+        confirmPassword: value !== newPassword ? 'Passwords do not match' : ''
+    }));
+};
 
 const handleSubmit = async (e) => {
 e.preventDefault();
 
-if (newPassword !== confirmPassword) {
-    setNotification({ message: 'Passwords do not match.', variant: 'error' });
-    return;
-}
+if (errors.otp || errors.password || errors.confirmPassword) return;
 
 try {
     const response = await axios.post('http://localhost:3000/api/password/reset-password', {
@@ -55,30 +75,33 @@ return (
             <input
             type="text"
             value={otp}
-            onChange={(e) => setOtp(e.target.value)}
+            onChange={handleOtpChange}
             placeholder="Enter OTP"
             required
             />
+            {errors.otp && <span className="error-message">{errors.otp}</span>}
         </div>
         <div className="form-group">
             <label>New Password</label>
             <input
             type="password"
             value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
+            onChange={handleNewPasswordChange}
             placeholder="Enter new password"
             required
             />
+            {errors.password && <span className="error-message">{errors.password}</span>}
         </div>
         <div className="form-group">
             <label>Confirm New Password</label>
             <input
             type="password"
             value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            onChange={handleConfirmPasswordChange}
             placeholder="Confirm new password"
             required
             />
+            {errors.confirmPassword && <span className="error-message">{errors.confirmPassword}</span>}
         </div>
         <button type="submit" className="auth-button">Reset Password</button>
         </form>

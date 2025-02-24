@@ -2,13 +2,21 @@ import React, { useState } from 'react';
 import ResetPassword from './ResetPassword';
 import axios from 'axios';
 import Notification from '../components/auth/Notification.jsx';
+import { getErrorMessage } from '../utils/validations.jsx';
+
 
 
 const ForgotPassword = ({ onBack }) => {
 const [email, setEmail] = useState('');
 const [showResetForm, setShowResetForm] = useState(false);
 const [notification, setNotification] = useState({ message: '', variant: 'info' });
+const [errors, setErrors] = useState({});
 
+const handleChange = (e) => {
+    const { value } = e.target;
+    setEmail(value);
+    setErrors((prev) => ({ ...prev, email: getErrorMessage('email', value, true) }));
+};
 
 const handleSubmit = async (e) => {
     e.preventDefault();
@@ -62,10 +70,12 @@ return (
             type="email"
             name="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter your email"
             required
             />
+            {errors.email && <span className="error-message">{errors.email}</span>}
+
         </div>
         <button type="submit" className="auth-button">Send OTP</button>
         </form>
