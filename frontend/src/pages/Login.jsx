@@ -4,6 +4,7 @@ import AuthForm from '../components/auth/AuthForm';
 import OTPVerification from '../components/auth/OTPVerification';
 import axios from 'axios';
 import ForgotPassword from './ForgotPassword';
+import Notification from '../components/auth/Notification.jsx';
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -11,16 +12,17 @@ const Login = () => {
   const [otp, setOTP] = useState(['', '', '', '', '', '']);
   const [errorMessage, setErrorMessage] = useState('');
   const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [notification, setNotification] = useState({ message: '', variant: 'info' });
 
   const handleGoogleAuth = async (credentialResponse) => {
     try {
       const { credential } = credentialResponse;
       const response = await axios.post('http://localhost:3000/api/auth/google-signin', { token: credential });
-      alert(response.data.message);
+      setNotification({ message: response.data.message, variant: 'success' });
       console.log('Google Sign-In successful:', response.data);
     } catch (error) {
       console.error('Google Sign-In failed:', error);
-      alert('Google Sign-In failed. Please try again.');
+      setNotification({ message: 'Google Sign-In failed. Please try again.', variant: 'error' });
     }
   };
 
@@ -37,11 +39,11 @@ const Login = () => {
       });
 
       console.log('Login successful:', response.data);
-      alert('Login Successful!'); // Replace with actual session handling logic
+      setNotification({ message: 'Login Succesful', variant: 'success' });
       setErrorMessage('');
     } catch (error) {
       console.error('Login failed:', error);
-      setErrorMessage(error.response?.data?.message || 'Login failed. Please try again.');
+      setNotification({ message: 'Login Failed', variant: 'error' });
     }
   };
 
@@ -67,32 +69,45 @@ const Login = () => {
     setShowForgotPassword(true);
   };
 
+  let content;
   if (showOTP) {
-    return (
+    content = (
       <OTPVerification 
         otp={otp}
         handleOTPChange={handleOTPChange}
         handleOTPSubmit={handleOTPSubmit}
       />
     );
+  } else if (showForgotPassword) {
+    content = <ForgotPassword onBack={() => setShowForgotPassword(false)} />;
+  } else {
+    content = (
+      <div className="auth-container">
+        <div className="auth-box">
+          <AuthHeader isLogin={isLogin} setIsLogin={setIsLogin} />
+          <AuthForm 
+            isLogin={isLogin}
+            handleSubmit={handleSubmit}
+            handleGoogleAuth={handleGoogleAuth}
+            handleForgotPassword={handleForgotPassword}
+          />
+        </div>
+      </div>
+    );
   }
 
-  if (showForgotPassword) {
-    return <ForgotPassword onBack={() => setShowForgotPassword(false)} />;
-  }
 
   return (
-    <div className="auth-container">
-      <div className="auth-box">
-        <AuthHeader isLogin={isLogin} setIsLogin={setIsLogin} />
-        <AuthForm 
-          isLogin={isLogin}
-          handleSubmit={handleSubmit}
-          handleGoogleAuth={handleGoogleAuth}
-          handleForgotPassword={handleForgotPassword}
-        />
-      </div>
-    </div>
+    <>
+    {notification.message && (
+      <Notification 
+        message={notification.message}
+        variant={notification.variant}
+        onClose={() => setNotification({ message: '', variant: 'info' })}
+      />
+    )}
+    {content}
+  </>
   );
 };
 
