@@ -2,9 +2,12 @@ import PropTypes from 'prop-types';
 import { getErrorMessage } from '../../utils/validations.jsx';
 import { useState } from 'react';
 import axios from 'axios';
+import Notification from '../auth/Notification.jsx'; // Adjust path if needed
+
 
 const OTPVerification = ({ otp, handleOTPChange, handleOTPSubmit }) => {
   const [errors, setErrors] = useState({});
+  const [notification, setNotification] = useState({ message: '', variant: 'info' });
 
   OTPVerification.propTypes = {
     otp: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -22,8 +25,8 @@ const OTPVerification = ({ otp, handleOTPChange, handleOTPSubmit }) => {
       email: JSON.parse(localStorage.getItem('signupData')).email,
       otp: otpCode
     });
-    alert("OTP Valid! Signing up User.....");
-
+      setNotification({ message: 'OTP Valid! Signing up User.....', variant: 'success' });
+      await new Promise(resolve => setTimeout(resolve, 2000));
     // If OTP is valid, complete the signup
     const storedData = JSON.parse(localStorage.getItem('signupData'));
 
@@ -39,48 +42,59 @@ const OTPVerification = ({ otp, handleOTPChange, handleOTPSubmit }) => {
     };
     await axios.post('http://localhost:3000/api/auth/signup', finalSignupData);
 
-    alert('Signup successful!');
+    setNotification({ message: 'Signup successful!', variant: 'success' });
     localStorage.removeItem('signupData'); // Clear data
-    window.location.href = '/login'; // Redirect to login
+    setTimeout(() => {
+        window.location.href = '/login'; // Redirect to login
+    }, 1500); 
   } catch (error) {
     console.error('Error verifying OTP or signing up:', error);
-    alert('OTP verification failed. Please try again.');
+    setNotification({ message: 'OTP verification failed. Please try again.', variant: 'error' });
   }
   };
 
   return (
-    <div className="auth-container">
-      <div className="auth-box">
-        <div className="auth-header">
-          <h2>Email Verification</h2>
-          <p>Enter the 6-digit code sent to your email</p>
-        </div>
-        <form onSubmit={handleSubmit} className="auth-form">
-          <div className='otp-container'>
-            {otp.map((digit, index) => (
-              <input
-                key={index}
-                id={`otp-${index}`}
-                type="text"
-                value={digit}
-                onChange={(e) => handleOTPChange(index, e.target.value)}
-                style={{
-                  width: '40px',
-                  height: '40px',
-                  textAlign: 'center',
-                  fontSize: '20px',
-                  borderRadius: '8px',
-                  border: '1px solid #e0e0e0'
-                }}
-                maxLength={1}
-              />
-            ))}
+    <>
+      {notification.message && (
+        <Notification 
+          message={notification.message}
+          variant={notification.variant}
+          onClose={() => setNotification({ message: '', variant: 'info' })}
+        />
+      )}
+      <div className="auth-container">
+        <div className="auth-box">
+          <div className="auth-header">
+            <h2>Email Verification</h2>
+            <p>Enter the 6-digit code sent to your email</p>
           </div>
-          {errors.otp && <span className="error-message">{errors.otp}</span>}
-          <button type="submit" className="auth-button">Verify OTP</button>
-        </form>
+          <form onSubmit={handleSubmit} className="auth-form">
+            <div className="otp-container">
+              {otp.map((digit, index) => (
+                <input
+                  key={index}
+                  id={`otp-${index}`}
+                  type="text"
+                  value={digit}
+                  onChange={(e) => handleOTPChange(index, e.target.value)}
+                  style={{
+                    width: '40px',
+                    height: '40px',
+                    textAlign: 'center',
+                    fontSize: '20px',
+                    borderRadius: '8px',
+                    border: '1px solid #e0e0e0'
+                  }}
+                  maxLength={1}
+                />
+              ))}
+            </div>
+            {errors.otp && <span className="error-message">{errors.otp}</span>}
+            <button type="submit" className="auth-button">Verify OTP</button>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
