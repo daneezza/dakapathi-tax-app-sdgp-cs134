@@ -161,8 +161,6 @@ const SignupForm = ({ handleSubmit, handleGoogleAuth }) => {
 
     if (Object.values(newErrors).every(error => !error)) {
       handleSubmit(e, formData);
-    }
-    if (Object.values(newErrors).every(error => !error)) {
       try {
         // Save form data to local storage for later signup
         localStorage.setItem('signupData', JSON.stringify(formData));
