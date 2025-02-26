@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent } from 'react';
-import './QuestionForm.css';
+import '../styles/QuestionForm.css';
 
 interface QuestionFormProps {
     onSubmit: (question: { title: string }) => void;

@@ -16,7 +16,7 @@ html, body, #root, .app-container {
     background-position: center;
     background-repeat: no-repeat;
     color: #000000;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .app-container {
