@@ -1,7 +1,7 @@
 .user-guides-page {
-max-width: 1200px;
-margin: 0 auto;
-padding: 140px 20px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 140px 20px 20px;
 }
 
 .heading {
@@ -10,14 +10,11 @@ padding: 140px 20px 20px;
     font-size: 3rem;
     font-weight: 700;
     color: #ffffff;
-    /* Crisp white for contrast */
     background-color: rgba(0, 0, 0, 0.764);
-    /* Transparent black */
     display: inline-block;
     padding: 10px 30px;
     border-radius: 50px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    /* Soft shadow */
     letter-spacing: 1px;
     text-transform: uppercase;
     position: relative;
@@ -26,57 +23,57 @@ padding: 140px 20px 20px;
 }
 
 .guides-container {
-display: flex;
-flex-direction: column;
-gap: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
 }
 
 .guide {
-display: flex;
-align-items: center;
-gap: 20px;
-flex-wrap: wrap;
-padding: 20px;
-background-color: rgba(255, 255, 255, 0.8); /* White with 80% opacity */
-border-radius: 10px;
-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8); 
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .video-container {
-flex: 1;
-min-width: 300px;
-max-width: 500px;
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
 }
 
 .video-container video {
-width: 100%;
-border-radius: 8px;
+    width: 100%;
+    border-radius: 8px;
 }
 
 .text-container {
-flex: 1;
-min-width: 300px;
+    flex: 1;
+    min-width: 300px;
 }
 
 .guide-title {
-font-size: 1.8rem;
-margin-bottom: 10px;
-color: #1a7631;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #1a7631;
 }
 
 .guide-content {
-font-size: 1rem;
-color: #343030;
-line-height: 1.5;
+    font-size: 1rem;
+    color: #343030;
+    line-height: 1.5;
 }
 
 .guide-content p {
-margin: 0.5em 0;
+    margin: 0.5em 0;
 }
 
 /* Horizontal line styling */
 .guide-divider {
-border: none;
-border-top: 1px solid #F7EF8A;
-margin: 20px 0;
+    border: none;
+    border-top: 1px solid #F7EF8A;
+    margin: 20px 0;
 }
