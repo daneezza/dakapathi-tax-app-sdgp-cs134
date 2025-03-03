@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 interface Article {
@@ -10,6 +11,7 @@ interface Article {
 
 const NewsFeed: React.FC = () => {
   const [articles, setArticles] = useState<Article[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -24,10 +26,14 @@ const NewsFeed: React.FC = () => {
     fetchNews();
   }, []);
 
+  const handleCardClick = (article: Article) => {
+    navigate(`/news/${article.id}`, { state: { article } });
+  };
+
   return (
     <div className="news-feed">
       {articles.map(article => (
-        <div key={article.id} className="news-card">
+        <div key={article.id} className="news-card" onClick={() => handleCardClick(article)}>
           <img src={article.image} alt={article.title} className="news-image" />
           <h3 className="news-title">{article.title}</h3>
         </div>
