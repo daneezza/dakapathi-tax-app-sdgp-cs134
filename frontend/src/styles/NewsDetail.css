@@ -6,16 +6,25 @@
     color: #fff;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 150px;
 }
 
 .back-button {
-    background: #ff4757;
+    background: linear-gradient(45deg, #ffd700, #ffc107);
+    color: #1e1e1e;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
     border: none;
-    padding: 10px 15px;
-    border-radius: 8px;
-    color: #fff;
-    font-size: 16px;
+    border-radius: 25px;
     cursor: pointer;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.back-button:hover {
+    background: linear-gradient(45deg, #ffc107, #ffd700);
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
 }
 
 .news-image-large {
@@ -31,14 +40,21 @@
 }
 
 .read-more {
-    display: inline-block;
-    background: #ff6b81;
-    padding: 10px 15px;
-    border-radius: 8px;
-    color: #fff;
+    background: linear-gradient(45deg, #ffd700, #ffc107);
+    color: #1e1e1e;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
     text-decoration: none;
+    display: inline-block;
 }
 
 .read-more:hover {
-    background: #ff4757;
+    background: linear-gradient(45deg, #ffc107, #ffd700);
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
 }

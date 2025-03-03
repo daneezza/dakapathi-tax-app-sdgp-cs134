@@ -31,13 +31,16 @@ const NewsFeed: React.FC = () => {
   };
 
   return (
-    <div className="news-feed">
-      {articles.map(article => (
-        <div key={article.id} className="news-card" onClick={() => handleCardClick(article)}>
-          <img src={article.image} alt={article.title} className="news-image" />
-          <h3 className="news-title">{article.title}</h3>
-        </div>
-      ))}
+    <div className="news-feed-page">
+      <h1 className="heading">News Feed</h1>
+      <div className="news-feed">
+        {articles.map(article => (
+          <div key={article.id} className="news-card" onClick={() => handleCardClick(article)}>
+            <img src={article.image} alt={article.title} className="news-image" />
+            <h3 className="news-title">{article.title}</h3>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
