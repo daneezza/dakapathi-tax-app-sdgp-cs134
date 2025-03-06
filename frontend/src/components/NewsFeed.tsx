@@ -12,6 +12,8 @@ interface Article {
 const NewsFeed: React.FC = () => {
   const [articles, setArticles] = useState<Article[]>([]);
   const navigate = useNavigate();
+    const [loading, setLoading] = useState(true); 
+
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -20,6 +22,8 @@ const NewsFeed: React.FC = () => {
         setArticles(response.data);
       } catch (error) {
         console.error('Error fetching news:', error);
+      } finally{
+        setLoading(false);
       }
     };
 
@@ -29,6 +33,14 @@ const NewsFeed: React.FC = () => {
   const handleCardClick = (article: Article) => {
     navigate(`/news/${article.id}`, { state: { article } });
   };
+
+  if (loading) {
+    return (
+      <div className="loader-container">
+        <div className="spinner"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="news-feed-page">
