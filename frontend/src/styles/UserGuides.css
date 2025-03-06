@@ -34,9 +34,14 @@
     gap: 20px;
     flex-wrap: wrap;
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.8); 
-    border-radius: 10px;
+    background: #1e1e1e;
+    border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.guide:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
 .video-container {
@@ -63,7 +68,7 @@
 
 .guide-content {
     font-size: 1rem;
-    color: #343030;
+    color: #fff;
     line-height: 1.5;
 }
 
