@@ -1,0 +1,105 @@
+.settings-container {
+    position: relative;
+    top: 150px;
+    margin-bottom: 4rem;
+    max-width: 1000px; /* Increased from 1200px for wider container */
+    margin: 0 auto;
+    padding: 3rem; /* Increased padding for more space */
+    color: #e0e0e0; /* Changed to match template text color */
+    z-index: 5;
+    border-radius: 15px; /* Slightly increased for better aesthetics */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: rgba(31, 31, 31, 0.9); /* Dark background with transparency */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25); /* Enhanced shadow */
+    transition: all 0.3s ease;
+}
+
+.settings-group {
+    margin-bottom: 20px; /* Increased from 15px */
+    width: 100%;
+    max-width: 800px; /* Increased from 600px for wider inputs */
+}
+
+.settings-group label {
+    display: block;
+    margin-bottom: 8px; /* Increased from 5px */
+    font-weight: bold;
+    color: #FFD700; /* Gold color for labels */
+    font-size: 1.1rem; /* Slightly larger font */
+}
+
+.settings-group input,
+.settings-group select {
+    width: 100%;
+    padding: 12px; /* Increased from 8px */
+    border: 1px solid #333;
+    border-radius: 6px; /* Increased from 4px */
+    background-color: #1f1f1f;
+    color: #e0e0e0;
+    transition: border-color 0.3s ease;
+    font-size: 1rem; /* Explicit font size */
+}
+
+.settings-group input:focus,
+.settings-group select:focus {
+    border-color: #FFD700;
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 215, 0, 0.3); /* Added glow effect */
+}
+
+.settings-section {
+    width: 100%;
+    margin-bottom: 3rem; /* Increased from 2rem */
+    padding: 1.5rem; /* Increased from 1rem */
+    background-color: rgba(23, 23, 23, 0.8);
+    border-radius: 10px; /* Increased from 8px */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added subtle shadow */
+}
+
+.settings-section h2 {
+    color: #FFD700;
+    margin-bottom: 1.8rem; /* Increased from 1.5rem */
+    font-size: 1.8rem; /* Larger heading */
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem; /* Increased from 0.5rem */
+    margin: 0.8rem 0; /* Increased from 0.5rem */
+}
+
+.checkbox-group label {
+    color: #e0e0e0;
+    font-weight: normal;
+    font-size: 1.05rem; /* Slightly larger font */
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 18px; /* Explicit size for checkboxes */
+    height: 18px;
+}
+
+.save-btn {
+    width: 100%;
+    max-width: 400px; /* Increased from 300px */
+    padding: 15px; /* Increased from 12px */
+    background: linear-gradient(145deg, #FFD700 0%, #d4af37 100%);
+    color: #1f1f1f;
+    border: none;
+    border-radius: 6px; /* Increased from 4px */
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1rem; /* Larger text */
+    transition: all 0.3s ease;
+    margin-top: 1rem; /* Added margin top */
+}
+
+.save-btn:hover {
+    transform: translateY(-3px); /* Increased from -2px */
+    box-shadow: 0 6px 12px rgba(255, 215, 0, 0.3); /* Enhanced glow */
+    background: linear-gradient(145deg, #FFD700 0%, #e5c158 100%); /* Slightly brighter on hover */
+}
