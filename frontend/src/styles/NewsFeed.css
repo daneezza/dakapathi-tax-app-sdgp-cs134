@@ -5,15 +5,12 @@
     position: relative;
     z-index: 10;
     margin-top: 20px;
-    /* Adjust this based on your navbar height */
     margin-left: 100px;
-    /* Adjust based on your sidebar width */
     padding: 20px;
 }
 
 .heading {
     text-align: center;
-    /* margin-bottom: 40px; */
     font-size: 3rem;
     font-weight: 700;
     color: #ffffff;
@@ -61,14 +58,12 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    /* Full screen height while loading */
 }
 
 .spinner {
     width: 50px;
     height: 50px;
     border: 5px solid rgba(255, 215, 0, 0.3);
-    /* Gold-ish gradient effect */
     border-top: 5px solid #ffd700;
     border-radius: 50%;
     animation: spin 1s linear infinite;
