@@ -21,8 +21,10 @@
     margin-bottom: 20px; /* Increased from 15px */
     width: 100%;
     max-width: 800px; /* Increased from 600px for wider inputs */
+    position: relative;
 }
 
+  
 .settings-group label {
     display: block;
     margin-bottom: 8px; /* Increased from 5px */

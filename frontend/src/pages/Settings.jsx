@@ -180,6 +180,27 @@ function Settings() {
                     </div>
                 </div>
 
+                {/* Language Section */}
+                <div className="settings-section">
+                    <h2>Language</h2>
+                    <div className="settings-group">
+                        <label htmlFor="language">Preferred Language</label>
+                        <select
+                            id="language"
+                            name="language"
+                            value={settings.language || 'en'}
+                            onChange={(e) => setSettings({
+                                ...settings,
+                                language: e.target.value
+                            })}
+                        >
+                            <option value="en">English</option>
+                            <option value="es">සිංහල</option>
+                            <option value="fr">தமிழ்</option>
+
+                        </select>
+                    </div>
+                </div>
 
                 {/* Security Section */}
                 <div className="settings-section">
