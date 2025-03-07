@@ -1,0 +1,89 @@
+import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
+import "../styles.css";
+
+const Chatbot: React.FC = () => {
+    const [isOpen, setIsOpen] = useState(false);
+    const [messages, setMessages] = useState<{ sender: string; text: string }[]>([]);
+    const [input, setInput] = useState("");
+    const chatboxRef = useRef<HTMLDivElement>(null);
+
+    const toggleChat = () => setIsOpen((prev) => !prev);
+
+    const isTaxRelated = (message: string) => {
+        const taxKeywords = ["tax", "vat", "income tax", "customs", "levy", "duty", "revenue", "sl tax", "sri lanka tax"];
+        return taxKeywords.some(keyword => message.toLowerCase().includes(keyword));
+    };
+
+    const sendMessage = async () => {
+        if (!input.trim()) return;
+
+        const userMessage = { sender: "user", text: input };
+        setMessages((prev) => [...prev, userMessage]);
+        setInput("");
+
+        if (!isTaxRelated(input)) {
+            setTimeout(() => {
+                setMessages((prev) => [...prev, { sender: "bot", text: "Please ask only about Sri Lankan tax." }]);
+            }, 300);
+            return;
+        }
+
+        try {
+            const response = await axios.post("http://localhost:3000/chat", { message: input });
+            const botReply = { sender: "bot", text: response.data.reply || "I didn't understand that." };
+            setTimeout(() => {
+                setMessages((prev) => [...prev, botReply]);
+            }, 300);
+        } catch (error) {
+            setTimeout(() => {
+                setMessages((prev) => [...prev, { sender: "bot", text: "Error: Could not get response." }]);
+            }, 300);
+        }
+    };
+
+    useEffect(() => {
+        chatboxRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, [messages]);
+
+    return (
+        <div>
+            <button className="chatbot-icon" onClick={toggleChat}>
+                <img src="/chatbot-icon.png" alt="Chatbot Icon" />
+            </button>
+
+            {isOpen && (
+                <div className="chatbot-container">
+                    <div className="chatbot-header">
+                        <span>AI tax assistant 🖤</span>
+                        <button onClick={toggleChat}>✖</button>
+                    </div>
+
+                    <div className="chat-container">
+                        {messages.map((message, index) => (
+                            <div key={index} className={message.sender === "user" ? "user-message" : "bot-message"}>
+                                {message.text}
+                            </div>
+                        ))}
+                        <div ref={chatboxRef} />
+                    </div>
+
+                    <div className="chatbot-input">
+                        <input
+                            type="text"
+                            value={input}
+                            onChange={(e) => setInput(e.target.value)}
+                            onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+                            placeholder="Enter message..."
+                        />
+                        <button onClick={sendMessage}>➤</button>
+                    </div>
+
+                    <div className="chatbot-footer">Powered by Gemini✦</div>
+                </div>
+            )}
+        </div>
+    );
+};
+
+export default Chatbot;
