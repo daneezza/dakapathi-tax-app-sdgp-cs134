@@ -1,0 +1,189 @@
+  /* Auth Header Styles */
+  .auth-logo {
+    width: 130px;
+    height: 100px;
+    margin-bottom: 20px;
+  }
+
+  .auth-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .auth-header h2 {
+    color: #2c3e50;
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+  
+  .auth-header p {
+    color: #7f8c8d;
+    font-size: 16px;
+  }
+
+  .auth-toggle-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    background: rgba(240, 240, 240, 0.2);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    padding: 4px;
+    border-radius: 30px;
+    width: 240px;
+    margin: 0 auto 20px;
+  }
+  
+  .auth-toggle-button.active {
+    background: #085632;
+    color: white;
+  }
+
+  /* Auth Form Styles */
+  .auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .form-group {
+    display: flex;
+    margin-bottom: 1rem;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .form-group label {
+    color: #000000;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  .form-group input {
+    padding: 12px 16px;
+    border: 1px solid rgba(224, 224, 224, 0.3);
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    color: #000000;
+  }
+  
+  .form-group input:focus {
+    outline: none;
+    border-color: #1F8219;
+    box-shadow: 0 0 0 2px rgba(31, 130, 25, 0.1);
+  }
+
+  .form-group input.error {
+    border-color: #dc3545;
+  }
+
+  .error-message {
+    color: #dc3545;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    display: block;
+  }
+
+  .forgot-password-button {
+    background: none;
+    border: none;
+    color: #000000;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: underline;
+    text-align: right;
+    display: block;
+    margin: -10px 0 10px auto;
+  }
+
+  /* For the date input styling */
+  input[type="date"] {
+    cursor: pointer;
+    color-scheme: light;
+  }
+
+  /* OTP Verification Styles */
+  .otp-container {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .otp-input {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    font-size: 20px;
+    border-radius: 8px;
+    border: 1px solid rgba(224, 224, 224, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Login Page Specific Styles */
+  .auth-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url('../assets/images/background.webp') center/cover no-repeat;
+    padding: 20px;
+  }
+
+  .auth-box {
+    background: rgba(255, 255, 255, 0.2);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    padding: 40px;
+    width: 100%;
+    max-width: 480px;
+    transition: all 0.3s ease;
+  }
+
+  .auth-button {
+    background: rgba(8, 86, 50, 0.9);
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+  }
+  
+  .auth-button:hover {
+    background: rgba(4, 66, 39, 0.95);
+    transform: translateY(-1px);
+  }
+
+  .google-auth-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.2);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(224, 224, 224, 0.3);
+    color: #333;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .google-auth-button:hover {
+    background: rgba(248, 249, 250, 0.3);
+    border-color: rgba(209, 209, 209, 0.5);
+  }

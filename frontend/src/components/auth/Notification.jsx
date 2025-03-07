@@ -1,0 +1,36 @@
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+
+
+const Notification = ({ message, variant, onClose, duration = 3000 }) => {
+    const [isHiding, setIsHiding] = useState(false);
+  
+    useEffect(() => {
+      // Start the hide animation shortly before the duration ends
+      const hideTimer = setTimeout(() => {
+        setIsHiding(true);
+        // Wait for the slide-out animation to complete (500ms) then call onClose
+        const closeTimer = setTimeout(() => {
+          onClose();
+        }, 500);
+        return () => clearTimeout(closeTimer);
+      }, duration - 500);
+  
+      return () => clearTimeout(hideTimer);
+    }, [duration, onClose]);
+  
+    return (
+      <div className={`notification ${variant} ${isHiding ? 'hide' : ''}`}>
+        {message}
+      </div>
+    );
+  };
+  
+  Notification.propTypes = {
+    message: PropTypes.string.isRequired,
+    variant: PropTypes.oneOf(['success', 'error', 'info']).isRequired,
+    onClose: PropTypes.func.isRequired,
+    duration: PropTypes.number,
+  };
+  
+  export default Notification;
