@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getGeminiResponse = void 0;
 const axios_1 = __importDefault(require("axios"));
 const dotenvConfig_1 = require("../config/dotenvConfig");
-const GEMINI_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${dotenvConfig_1.API_KEY}`;
+const GEMINI_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${dotenvConfig_1.API_KEY}`;
 const getGeminiResponse = (message) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b, _c, _d, _e, _f, _g;
     try {

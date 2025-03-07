@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_KEY } from "../config/dotenvConfig";
 
-const GEMINI_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${API_KEY}`;
+const GEMINI_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
 export const getGeminiResponse = async (message: string): Promise<string> => {
     try {
