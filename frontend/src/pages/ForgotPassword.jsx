@@ -6,7 +6,7 @@ import { getErrorMessage } from '../utils/validations.jsx';
 
 
 
-const ForgotPassword = ({ onBack }) => {
+const ForgotPassword = ({ onBack, setIsLogin  }) => {
 const [email, setEmail] = useState('');
 const [showResetForm, setShowResetForm] = useState(false);
 const [notification, setNotification] = useState({ message: '', variant: 'info' });
@@ -32,8 +32,14 @@ const handleSubmit = async (e) => {
     } 
 };
 
+const handleResetComplete = () => {
+        setShowResetForm(false);
+        setIsLogin(true); // Switch back to login
+        onBack();
+    };
+
 if (showResetForm) {
-    return <ResetPassword email={email} />;
+    return <ResetPassword email={email} onResetComplete={handleResetComplete} />;
 }
 
 return (

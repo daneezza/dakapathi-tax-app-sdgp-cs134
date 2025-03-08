@@ -76,10 +76,12 @@ const Login = () => {
         otp={otp}
         handleOTPChange={handleOTPChange}
         handleOTPSubmit={handleOTPSubmit}
+        setShowOTP={setShowOTP}
+        setIsLogin={setIsLogin}
       />
     );
   } else if (showForgotPassword) {
-    content = <ForgotPassword onBack={() => setShowForgotPassword(false)} />;
+    content = <ForgotPassword onBack={() => setShowForgotPassword(false)} setIsLogin={setIsLogin} />;
   } else {
     content = (
       <div className="auth-container">

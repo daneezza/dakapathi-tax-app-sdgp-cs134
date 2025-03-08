@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import Notification from '../components/auth/Notification.jsx';
 import { getErrorMessage } from '../utils/validations.jsx';
 
 
-const ResetPassword = ({ email }) => {
+const ResetPassword = ({ email, onResetComplete  }) => {
 const [otp, setOtp] = useState('');
 const [newPassword, setNewPassword] = useState('');
 const [confirmPassword, setConfirmPassword] = useState('');
@@ -46,7 +47,7 @@ try {
 
     setNotification({ message: response.data.message, variant: 'success' });
     setTimeout(() => {
-        window.location.href = '/login'; // Redirect to login after successful reset
+        onResetComplete(); // Redirect to login after successful reset
     }, 1500);
 } catch (error) {
     console.error('Error resetting password:', error);

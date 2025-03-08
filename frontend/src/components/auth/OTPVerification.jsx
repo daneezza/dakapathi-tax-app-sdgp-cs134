@@ -3,11 +3,14 @@ import { getErrorMessage } from '../../utils/validations.jsx';
 import { useState } from 'react';
 import axios from 'axios';
 import Notification from '../auth/Notification.jsx'; // Adjust path if needed
+import { useNavigate } from 'react-router-dom';
 
 
-const OTPVerification = ({ otp, handleOTPChange, handleOTPSubmit }) => {
+
+const OTPVerification = ({ otp, handleOTPChange, handleOTPSubmit, setShowOTP, setIsLogin   }) => {
   const [errors, setErrors] = useState({});
   const [notification, setNotification] = useState({ message: '', variant: 'info' });
+  const navigate = useNavigate();
 
   OTPVerification.propTypes = {
     otp: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -45,7 +48,9 @@ const OTPVerification = ({ otp, handleOTPChange, handleOTPSubmit }) => {
     setNotification({ message: 'Signup successful!', variant: 'success' });
     localStorage.removeItem('signupData'); // Clear data
     setTimeout(() => {
-        window.location.href = '/login'; // Redirect to login
+        setShowOTP(false);
+        setIsLogin(true); 
+        navigate('/'); // Redirect to login
     }, 1500); 
   } catch (error) {
     console.error('Error verifying OTP or signing up:', error);

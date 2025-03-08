@@ -276,14 +276,12 @@ const SignupForm = ({ handleSubmit, handleGoogleAuth }) => {
         <span>OR</span>
       </div>
 
-      <button type="button" className="google-auth-button" onClick={handleGoogleAuth}>
-        <img 
-          src={icon1} 
-          alt="Google Icon" 
-          style={{width: '20px', height: '20px', marginRight: '8px'}}
+      <GoogleOAuthProvider clientId="679581367699-66o5c2qal7hebctt339eiatt1gqhmk26.apps.googleusercontent.com">
+        <GoogleLogin
+          onSuccess={(credentialResponse) => handleGoogleAuth(credentialResponse)}
+          onFailure={(error) => console.error('Google login failed:', error)}
         />
-        Continue with Google
-      </button>
+      </GoogleOAuthProvider>
     </form>
   );
 };
