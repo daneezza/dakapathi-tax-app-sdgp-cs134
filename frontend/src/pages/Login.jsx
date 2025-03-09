@@ -5,6 +5,7 @@ import OTPVerification from '../components/auth/OTPVerification';
 import axios from 'axios';
 import ForgotPassword from './ForgotPassword';
 import Notification from '../components/auth/Notification.jsx';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -14,12 +15,18 @@ const Login = () => {
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [notification, setNotification] = useState({ message: '', variant: 'info' });
 
+  const navigate = useNavigate();
+
   const handleGoogleAuth = async (credentialResponse) => {
     try {
       const { credential } = credentialResponse;
       const response = await axios.post('http://localhost:3000/api/auth/google-signin', { token: credential });
       setNotification({ message: response.data.message, variant: 'success' });
       console.log('Google Sign-In successful:', response.data);
+
+       // Navigate to dashboard after successful login
+       navigate('/dashboard');
+
     } catch (error) {
       console.error('Google Sign-In failed:', error);
       setNotification({ message: 'Google Sign-In failed. Please try again.', variant: 'error' });
@@ -41,6 +48,8 @@ const Login = () => {
       console.log('Login successful:', response.data);
       setNotification({ message: 'Login Succesful', variant: 'success' });
       setErrorMessage('');
+
+      navigate('/dashboard');
     } catch (error) {
       console.error('Login failed:', error);
       setNotification({ message: 'Login Failed', variant: 'error' });

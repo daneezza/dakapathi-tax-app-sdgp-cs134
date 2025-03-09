@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import icon1 from '../../assets/icons/google.png';
 import { getErrorMessage } from '../../utils/validations.jsx';
 import PropTypes from 'prop-types';
 import axios from 'axios';
