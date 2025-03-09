@@ -26,7 +26,7 @@ const teamMembers = [
   {
     name: 'Nethasa Manawadu',
     role: 'Co-Founder',
-    image: ''
+    image: 'src/assets/members/developer05.jpg'
   }
 ];
 

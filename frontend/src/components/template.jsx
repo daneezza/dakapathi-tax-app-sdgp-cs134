@@ -60,7 +60,7 @@ function Navbar({ links, toggleSidebar }) {
           <li key={index}>
             <Link to={link.href}>
               {link.href === "#notifications" && <img src={notificationIcon} alt="Notifications" className="nav-icon" />}
-              {link.href === "#profile" && (
+              {link.href === "/profile" && (
                 <div className="profile-container">
                   <button onClick={toggleProfileDropdown} className="profile-button">
                     <img src={profileIcon} alt="Profile" className="nav-icon" />
@@ -74,7 +74,7 @@ function Navbar({ links, toggleSidebar }) {
                           <span className="nic-no">NIC: 123456789</span>
                         </div>
                       </div>
-                      <a href="#settings">Settings</a>
+                      <Link to="/Settings">Settings</Link>
                       <a href="#logout">Logout</a>
                     </div>
                   )}
@@ -139,11 +139,11 @@ function Template({
     { href: "#pricing", text: "Pricing" },
     { href: "#faq", text: "FAQ" },
     { href: "#notifications", text: "" },
-    { href: "#profile", text: "" }
+    { href: "/profile", text: "" }
   ],
   sidebarItems = [
     { href: "/dashboard", text: "Dashboard", icon: dashboardIcon },
-    { href: "#taxcalculator", text: "Tax Calculator", icon: calculatorIcon },
+    { href: "/taxcalculator", text: "Tax Calculator", icon: calculatorIcon },
     { href: "#newsfeed", text: "News Feed", icon: newsIcon },
     { href: "#learninghub", text: "Learning Hub", icon: learningIcon },
     { href: "#qa-section", text: "Q & A Section", icon: qaIcon }

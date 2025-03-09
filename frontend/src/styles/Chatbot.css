@@ -28,8 +28,8 @@
 }
 
 .chatbot-icon img {
-    width: 200%;
-    height: 200%;
+    width: 100px;
+    height: 100px;
     object-fit: contain; /* Keeps transparency */
 }
 
