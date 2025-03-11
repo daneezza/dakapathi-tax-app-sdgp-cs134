@@ -1,30 +1,9 @@
-// qna.tsx
 import React, { useState, useEffect } from 'react';
 import QuestionForm from './QuestionForm';
 import QuestionList from './QuestionList';
-import '../App.css';
-import Template from '../components/template';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-interface Answer {
-  id: number;
-  content: string;
-  questionId: number;
-  likes: number;
-}
-
-interface Question {
-  id: number;
-  title: string;
-  content?: string;
-  likes: number;
-  shares: number;
-  isBookmarked: boolean;
-  answers: Answer[];
-}
-
-const QnA: React.FC = () => {
-  const [questions, setQuestions] = useState<Question[]>([]);
+const QnA = () => {
+  const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -33,7 +12,7 @@ const QnA: React.FC = () => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const data: Question[] = await response.json();
+        const data = await response.json();
         setQuestions(data);
       } catch (error) {
         setQuestions([
@@ -61,7 +40,7 @@ const QnA: React.FC = () => {
     fetchQuestions();
   }, []);
 
-  const handleSubmitQuestion = async (question: { title: string }) => {
+  const handleSubmitQuestion = async (question) => {
     try {
       const response = await fetch('/api/questions', {
         method: 'POST',
@@ -75,7 +54,7 @@ const QnA: React.FC = () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const createdQuestion: Question = await response.json();
+      const createdQuestion = await response.json();
       const newQuestion = {
         ...createdQuestion,
         likes: 0,
@@ -98,7 +77,7 @@ const QnA: React.FC = () => {
     }
   };
 
-  const handleSubmitAnswer = async (questionId: number, answerContent: string) => {
+  const handleSubmitAnswer = async (questionId, answerContent) => {
     try {
       const response = await fetch(`/api/questions/${questionId}/answers`, {
         method: 'POST',
@@ -112,7 +91,7 @@ const QnA: React.FC = () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const createdAnswer: Answer = await response.json();
+      const createdAnswer = await response.json();
       setQuestions((prevQuestions) =>
         prevQuestions.map((q) =>
           q.id === questionId ? { ...q, answers: [...q.answers, createdAnswer] } : q
@@ -134,13 +113,13 @@ const QnA: React.FC = () => {
     }
   };
 
-  const handleLikeQuestion = (questionId: number) => {
+  const handleLikeQuestion = (questionId) => {
     setQuestions((prevQuestions) =>
       prevQuestions.map((q) => (q.id === questionId ? { ...q, likes: q.likes + 1 } : q))
     );
   };
 
-  const handleLikeAnswer = (questionId: number, answerId: number) => {
+  const handleLikeAnswer = (questionId, answerId) => {
     setQuestions((prevQuestions) =>
       prevQuestions.map((q) =>
         q.id === questionId
@@ -155,13 +134,13 @@ const QnA: React.FC = () => {
     );
   };
 
-  const handleShareQuestion = (questionId: number) => {
+  const handleShareQuestion = (questionId) => {
     setQuestions((prevQuestions) =>
       prevQuestions.map((q) => (q.id === questionId ? { ...q, shares: q.shares + 1 } : q))
     );
   };
 
-  const handleBookmarkQuestion = (questionId: number) => {
+  const handleBookmarkQuestion = (questionId) => {
     setQuestions((prevQuestions) =>
       prevQuestions.map((q) =>
         q.id === questionId ? { ...q, isBookmarked: !q.isBookmarked } : q
@@ -170,23 +149,19 @@ const QnA: React.FC = () => {
   };
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Template>
-          <div className="content-wrapper">
-            <QuestionForm onSubmit={handleSubmitQuestion} />
-            <QuestionList
-              questions={questions}
-              onLike={handleLikeQuestion}
-              onLikeAnswer={handleLikeAnswer}
-              onShare={handleShareQuestion}
-              onBookmark={handleBookmarkQuestion}
-              onSubmitAnswer={handleSubmitAnswer}
-            />
-          </div>
-        </Template>} />
-      </Routes>
-    </Router>
+    
+      <div className="content-wrapper">
+        <QuestionForm onSubmit={handleSubmitQuestion} />
+        <QuestionList
+          questions={questions}
+          onLike={handleLikeQuestion}
+          onLikeAnswer={handleLikeAnswer}
+          onShare={handleShareQuestion}
+          onBookmark={handleBookmarkQuestion}
+          onSubmitAnswer={handleSubmitAnswer}
+        />
+      </div>
+    
   );
 };
 
