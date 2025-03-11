@@ -2,23 +2,25 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    
 }
 
+
 html, body, #root, .app-container {
+    
     height: 100%;
     width: 100%;
-    overflow-x: hidden;
     background-color: #ffffff;
     background-image: url("/bg.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     color: #000000;
+    overflow: visible;
 }
 
 .app-container {
-    display: flex;
-    flex-direction: column;
+    
     font-family: Arial, sans-serif;
 }
 
@@ -96,7 +98,9 @@ html, body, #root, .app-container {
 }
 
 .menu-button {
-    margin-left: -25px;
+    margin-left: -35px;
+    border: none;
+    outline: none;
 }
 
 .menu-button:focus {
@@ -104,8 +108,9 @@ html, body, #root, .app-container {
 }
 
 .menu-button img {
-    width: 25px;
-    height: 25px;
+    width: 15px;
+    height: 15px;
+    margin-right: 0px;
 
 }
 
@@ -202,8 +207,13 @@ html, body, #root, .app-container {
 
 .content-wrapper {
     display: flex;
-    margin-top: 80px; /* Adjust based on navbar height */
-    min-height: calc(100vh - 80px);
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: center; /* Stack elements vertically */
+    align-items: center; /* Center horizontally */
+    margin-top: 140px; /* Adjust based on navbar height */
+    min-height: calc(100vh - 80px); /* Keep this for min height */
+    width: 100%; /* Ensure full width for centering */
+    padding: 20px; /* Add some padding around content */
 }
 
 .profile-container {

@@ -146,7 +146,7 @@ function Template({
     { href: "/taxcalculator", text: "Tax Calculator", icon: calculatorIcon },
     { href: "#newsfeed", text: "News Feed", icon: newsIcon },
     { href: "#learninghub", text: "Learning Hub", icon: learningIcon },
-    { href: "#qa-section", text: "Q & A Section", icon: qaIcon }
+    { href: "/qna", text: "Q & A Section", icon: qaIcon }
   ]
 }) {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true)

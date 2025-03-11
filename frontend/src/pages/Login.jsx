@@ -24,9 +24,11 @@ const Login = () => {
       setNotification({ message: response.data.message, variant: 'success' });
       console.log('Google Sign-In successful:', response.data);
 
-       // Navigate to dashboard after successful login
-       navigate('/dashboard');
-
+      
+      // Navigate to dashboard after successful login 
+      setTimeout(() => {
+        navigate('/dashboard'); // Redirect to dashboard after successful reset
+      }, 1500);
     } catch (error) {
       console.error('Google Sign-In failed:', error);
       setNotification({ message: 'Google Sign-In failed. Please try again.', variant: 'error' });
@@ -49,7 +51,9 @@ const Login = () => {
       setNotification({ message: 'Login Succesful', variant: 'success' });
       setErrorMessage('');
 
-      navigate('/dashboard');
+      setTimeout(() => {
+        navigate('/dashboard'); // Redirect to dashboard after successful reset
+      }, 1500);
     } catch (error) {
       console.error('Login failed:', error);
       setNotification({ message: 'Login Failed', variant: 'error' });
