@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import "../styles.css";
+import "../styles/Chatbot.css";
 
 const Chatbot: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
