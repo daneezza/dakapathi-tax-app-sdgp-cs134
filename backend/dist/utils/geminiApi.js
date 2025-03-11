@@ -19,8 +19,10 @@ const GEMINI_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-1
 const getGeminiResponse = (message) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b, _c, _d, _e, _f, _g;
     try {
+        // Force Gemini to respond with Sri Lankan tax details only
+        const modifiedMessage = `Provide a **short and concise** response (maximum 3 sentences) about Sri Lankan tax laws only. If the user asks about taxes, assume it's about Sri Lanka.\n\nUser: ${message}`;
         const response = yield axios_1.default.post(GEMINI_URL, {
-            contents: [{ role: "user", parts: [{ text: message }] }],
+            contents: [{ role: "user", parts: [{ text: modifiedMessage }] }]
         });
         return ((_f = (_e = (_d = (_c = (_b = (_a = response.data) === null || _a === void 0 ? void 0 : _a.candidates) === null || _b === void 0 ? void 0 : _b[0]) === null || _c === void 0 ? void 0 : _c.content) === null || _d === void 0 ? void 0 : _d.parts) === null || _e === void 0 ? void 0 : _e[0]) === null || _f === void 0 ? void 0 : _f.text) ||
             "Sorry, I couldn't generate a response.";
