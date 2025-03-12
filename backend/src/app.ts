@@ -9,6 +9,7 @@ import questionRoutes from './routes/questionRoutes';
 import { getUserGuides, getUserGuideById } from './controllers/authController';
 import path from 'path';
 import newsRouter from './routes/news';
+import taxRoutes from "./routes/tax.routes";
 
 
 
@@ -27,6 +28,9 @@ app.use('/api/otp', otpRoutes);
 app.use('/api/password', forgotPasswordRoutes);
 app.use('/api/questions', questionRoutes);
 app.use('/api/news', newsRouter);
+
+app.use(express.json());
+app.use("/api/tax", taxRoutes);
 
 // routers for user guide
 app.get('/api/guides', getUserGuides);

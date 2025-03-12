@@ -143,7 +143,7 @@ function Template({
   ],
   sidebarItems = [
     { href: "/dashboard", text: "Dashboard", icon: dashboardIcon },
-    { href: "/taxcalculator", text: "Tax Calculator", icon: calculatorIcon },
+    { href: "/tax-cal", text: "Tax Calculator", icon: calculatorIcon },
     { href: "/news-feed", text: "News Feed", icon: newsIcon },
     { href: "/learning-hub", text: "Learning Hub", icon: learningIcon },
     { href: "/qna", text: "Q & A Section", icon: qaIcon }
