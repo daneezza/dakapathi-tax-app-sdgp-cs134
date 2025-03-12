@@ -11,10 +11,11 @@ html, body, #root, .app-container {
     height: 100%;
     width: 100%;
     background-color: #ffffff;
-    background-image: url("/public/bg.jpg");
+    background-image: url("/bg.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    background-attachment: fixed;
     color: #000000;
     overflow: visible;
 }
@@ -42,7 +43,7 @@ html, body, #root, .app-container {
     margin-left: -400px;
     width: 85px;
     height: 60px;
-    
+
 }
 
 .nav-links {
