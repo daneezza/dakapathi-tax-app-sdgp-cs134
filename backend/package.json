@@ -2,11 +2,11 @@
   "name": "tax-calculator-backend",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {
-    "dev": "nodemon src/app.ts",
-    "build": "tsc",
-    "start": "node dist/app.js"
-  },
+"scripts": {
+  "dev": "nodemon src/app.ts",
+  "build": "tsc",
+  "start": "nodemon src/app.ts"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
