@@ -11,6 +11,7 @@ import path from 'path';
 import newsRouter from './routes/news';
 
 
+
 dotenv.config();
 
 const app = express();
@@ -26,6 +27,7 @@ app.use('/api/otp', otpRoutes);
 app.use('/api/password', forgotPasswordRoutes);
 app.use('/api/questions', questionRoutes);
 app.use('/api/news', newsRouter);
+
 // routers for user guide
 app.get('/api/guides', getUserGuides);
 app.get('/api/guides/:id', getUserGuideById);

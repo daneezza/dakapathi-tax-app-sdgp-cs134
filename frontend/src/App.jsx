@@ -18,6 +18,7 @@ import './styles/UserGuides.css';
 import './styles/NewsFeed.css';
 import './styles/NewsDetail.css';
 
+
 function App() {
   return(
     <Router>
@@ -30,6 +31,7 @@ function App() {
         <Route path="/user-guide" element={<Template><UserGuides /></Template>} />
         <Route path="/news-feed" element={<Template><NewsFeed /></Template>} />
         <Route path="/news/:id" element={<Template><NewsDetail /></Template>} />
+
       </Routes>
     </Router>
   );
