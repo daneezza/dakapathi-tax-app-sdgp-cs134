@@ -5,7 +5,7 @@ const LearningHub: React.FC = () => {
     const navigate = useNavigate();
 
     const pages = [
-        { icon: '📘', title: 'User Guide', description: 'Learn how to navigate the app', path: '/page1' },
+        { icon: '📘', title: 'User Guide', description: 'Learn how to navigate the app', path: '/user-guide' },
         { icon: '🧠', title: 'Gamified Learning', description: 'Master tax concepts through interactive learning', path: '/page2' },
         { icon: '🏆', title: 'Tax Guide', description: 'Build practical tax skills with real-world examples', path: '/page3' },
     ];

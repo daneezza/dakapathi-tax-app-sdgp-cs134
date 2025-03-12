@@ -6,12 +6,13 @@ import AboutUs from './pages/AboutUs';
 import Dashboard from './pages/Dashboard';
 import QnA from './pages/qna';
 import LearningHub from './pages/LearningHub';
+import UserGuides from './components/UserGuides';
 
 import OTPVerification from './components/auth/OTPVerification';
 import './styles/login.css';
 import './styles/Notification.css';
 import './styles/LearningHub.css'; 
-
+import './styles/UserGuides.css';
 
 function App() {
   return(
@@ -22,6 +23,8 @@ function App() {
         <Route path="/about" element={<Template><AboutUs /></Template>} />
         <Route path="/qna" element={<Template><QnA /></Template>}/>
         <Route path="/learning-hub" element={<Template><LearningHub /></Template>} />
+        <Route path="/user-guide" element={<Template><UserGuides /></Template>} />
+
       </Routes>
     </Router>
   );
