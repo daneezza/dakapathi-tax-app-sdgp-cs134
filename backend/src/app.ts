@@ -6,6 +6,8 @@ import otpRoutes from './routes/otpRoutes';
 import forgotPasswordRoutes from './routes/forgotPasswordRoutes';
 import cors from 'cors';
 import questionRoutes from './routes/questionRoutes';
+import { getUserGuides, getUserGuideById } from './controllers/authController';
+import path from 'path';
 
 
 dotenv.config();
@@ -15,12 +17,16 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use('/videos', express.static(path.join(__dirname, '../public/videos')));
 
 
 app.use('/api/auth', authRoutes);
 app.use('/api/otp', otpRoutes);
 app.use('/api/password', forgotPasswordRoutes);
 app.use('/api/questions', questionRoutes);
+// routers for user guide
+app.get('/api/guides', getUserGuides);
+app.get('/api/guides/:id', getUserGuideById);
 
 
 app.listen(PORT, () => {
