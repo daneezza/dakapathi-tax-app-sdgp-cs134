@@ -1,3 +1,5 @@
+import React from 'react';
+
 import FAQList from "../components/FAQList";
 import "../styles/faq.css";
 

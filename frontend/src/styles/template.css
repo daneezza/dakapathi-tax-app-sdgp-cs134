@@ -15,7 +15,9 @@ html, body, #root, .app-container {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    background-attachment: fixed;
     color: #000000;
+    overflow: visible;
 }
 
 .app-container {
