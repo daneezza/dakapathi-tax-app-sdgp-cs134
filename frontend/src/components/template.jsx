@@ -137,7 +137,7 @@ function Template({
   navLinks = [
     { href: "/about", text: "About Us" },
     { href: "#pricing", text: "Pricing" },
-    { href: "#faq", text: "FAQ" },
+    { href: "/faq", text: "FAQ" },
     { href: "#notifications", text: "" },
     { href: "/profile", text: "" }
   ],

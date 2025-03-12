@@ -9,6 +9,7 @@ import LearningHub from './pages/LearningHub';
 import UserGuides from './components/UserGuides';
 import NewsFeed from './components/NewsFeed';
 import NewsDetail from './components/NewsDetail';
+import FAQs from "./Pages/FAQs";
 
 
 import './styles/login.css';
@@ -31,6 +32,8 @@ function App() {
         <Route path="/user-guide" element={<Template><UserGuides /></Template>} />
         <Route path="/news-feed" element={<Template><NewsFeed /></Template>} />
         <Route path="/news/:id" element={<Template><NewsDetail /></Template>} />
+        <Route path="/faq" element={<Template><FAQs /></Template>} />
+
 
       </Routes>
     </Router>
