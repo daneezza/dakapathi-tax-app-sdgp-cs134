@@ -8,6 +8,8 @@ import cors from 'cors';
 import questionRoutes from './routes/questionRoutes';
 import { getUserGuides, getUserGuideById } from './controllers/authController';
 import path from 'path';
+import newsRouter from './routes/news';
+
 
 
 dotenv.config();
@@ -24,6 +26,8 @@ app.use('/api/auth', authRoutes);
 app.use('/api/otp', otpRoutes);
 app.use('/api/password', forgotPasswordRoutes);
 app.use('/api/questions', questionRoutes);
+app.use('/api/news', newsRouter);
+
 // routers for user guide
 app.get('/api/guides', getUserGuides);
 app.get('/api/guides/:id', getUserGuideById);
