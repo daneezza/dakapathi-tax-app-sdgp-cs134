@@ -65,7 +65,7 @@ const TaxCalculator = () => {
       
         <div className="calculator-container" ref={calculatorContainerRef}>
           <div className="input-section">
-            <label htmlFor="tax-type">Select Tax Type :</label>
+            <label htmlFor="tax-type" className="taxcal-label">Select Tax Type :</label>
             <select id="tax-type" value={taxType} onChange={handleTaxTypeChange}>
               <option value="Income Tax">Income Tax</option>
               <option value="Corporate Tax (Standard)">Corporate Tax (Standard)</option>
@@ -74,7 +74,7 @@ const TaxCalculator = () => {
               <option value="Vehicle Import Duty">Vehicle Import Duty</option>
             </select>
 
-            <label htmlFor="amount">Enter Amount (Rs.) :</label>
+            <label htmlFor="amount" className="taxcal-label">Enter Amount (Rs.) :</label>
             <input
               id="amount"
               type="number"

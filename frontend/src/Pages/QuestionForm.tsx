@@ -37,7 +37,7 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ onSubmit }) => {
                 />
                 <div className="button-container">
                     <button className="reset-button" onClick={handleReset}>Reset</button>
-                    <button className="submit-button" onClick={handleSubmit}>Submit</button>
+                    <button className="sub-button" onClick={handleSubmit}>Submit</button>
                 </div>
             </div>
         </div>

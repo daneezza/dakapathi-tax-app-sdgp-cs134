@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Quiz from './Quiz';
+import Quiz from './gameQuiz';
 import '../styles/game.css';
 
 interface Question {

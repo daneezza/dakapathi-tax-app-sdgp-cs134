@@ -15,7 +15,7 @@ const faqData = [
 const FAQList: React.FC = () => {
   return (
     <div className="faq-wrapper">
-      <h1>Tax Hacks: Everything You Should Know</h1>
+      <h1 className="faq-topic">Tax Hacks: Everything You Should Know</h1>
       <div className="faq-list">
         {faqData.map((faq, index) => (
           <FAQItem key={index} {...faq} />

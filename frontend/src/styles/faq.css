@@ -10,7 +10,7 @@
 }
 
 /* Heading styles */
-h1 {
+.faq-topic {
   padding: 10px;
   margin-bottom: 20px;
   background: linear-gradient(90deg, #FFD700, #E6B400);

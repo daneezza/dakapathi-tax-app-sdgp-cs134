@@ -60,14 +60,20 @@
     border: 1px solid #ccc;
     background-color: #FFD700;
     cursor: pointer;
-    color: white;
+    color: rgb(0, 0, 0);
 }
 
-.submit-button {
+.reset-button:hover, .sub-button:hover{
+    background: linear-gradient(145deg, #b69c06, #FFC300);
+    color: #000000; /* Change text color on hover */
+    transform: translateY(-3px); /* Enhanced hover effect */
+}
+
+.sub-button {
     padding: 8px 25px;
     border-radius: 20px;
-    border: none;
+    border: 1px solid #ccc;
     background-color: #FFD700;
-    color: white;
     cursor: pointer;
+    color: rgb(0, 0, 0);
 }

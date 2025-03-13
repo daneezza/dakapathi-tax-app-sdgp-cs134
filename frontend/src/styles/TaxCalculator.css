@@ -10,7 +10,7 @@ body {
   height: 100vh;
 } */
 .cal-topic {
-  color: #000000;
+  color: #ffffff;
   margin-top: 20px;
   margin-bottom: 15px;
   font-size: 30px;
@@ -88,7 +88,7 @@ body {
   width: 100%;
 }
 
-label {
+.taxcal-label {
   font-weight: bold;
   font-size: 1.4rem;  /* Increased label font size */
   text-align: center;
