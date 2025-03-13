@@ -16,14 +16,16 @@
 
 
   /* Global Styles */
-  .divider {
+  .divider,.login-divider {
     position: relative;
     text-align: center;
     margin: 20px 0;
   }
   
   .divider::before,
-  .divider::after {
+  .divider::after,
+  .login-divider::before,
+  .login-divider::after {
     content: "";
     position: absolute;
     top: 50%;
@@ -32,15 +34,15 @@
     background: rgba(224, 224, 224, 0.5);
   }
   
-  .divider::before {
+  .divider::before,.login-divider::before {
     left: 0;
   }
   
-  .divider::after {
+  .divider::after, .login-divider::after {
     right: 0;
   }
   
-  .divider span {
+  .divider span,  .login-divider span {
     -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
     padding: 0 15px;

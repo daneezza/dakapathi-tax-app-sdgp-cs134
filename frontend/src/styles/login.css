@@ -3,6 +3,7 @@
     width: 130px;
     height: 100px;
     margin-bottom: 20px;
+    margin-top: -30px;
   }
 
   .auth-header {
@@ -88,29 +89,36 @@
     display: block;
   }
 
+    .forgot-password-container {
+      position: relative;
+      margin-top: -10px;
+    }
+
   .forgot-password-button {
     background: none;
     border: none;
     color: rgb(6, 71, 41);
     font-size: 14px;
     cursor: pointer;
-    
     text-align: right;
     display: block;
-    margin: -10px 0 10px auto;
+    margin:  -25px 0 5px auto;
   }
+
   .forgot-password-button:hover {
-    background: none;
-    border: none;
-    color: rgb(6, 71, 41);
-    font-size: 14px;
+    color: rgb(4, 47, 27);
     cursor: pointer;
     text-decoration: underline;
-    text-decoration: underline;
-    text-align: right;
-    display: block;
-    margin: -10px 0 10px auto;
   }
+  .login-divider {
+    text-align: center;
+    position: relative;
+    margin-top: -20px;
+  }
+
+    .google-auth-wrapper {
+      margin-top: -20px;
+    }
 
   /* For the date input styling */
   input[type="date"] {

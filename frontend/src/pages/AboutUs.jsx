@@ -9,24 +9,24 @@ const teamMembers = [
     image: 'src/assets/members/developer01.jpg'
   },
   {
-    name: 'Inam Irshad',
-    role: 'Co-Founder',
-    image: 'src/assets/members/developer02.jpg'
-  },
-  {
-    name: 'Stephan Theekshana',
-    role: 'Co-Founder',
-    image: 'src/assets/members/developer03.jpg'
-  },
-  {
     name: 'Methuni Mallikaratchchy',
     role: 'Co-Founder',
     image: 'src/assets/members/developer04.jpg'
   },
   {
+    name: 'Inam Irshad',
+    role: 'Co-Founder',
+    image: 'src/assets/members/developer02.jpg'
+  },
+  {
     name: 'Nethasa Manawadu',
     role: 'Co-Founder',
     image: 'src/assets/members/developer05.jpg'
+  },
+  {
+    name: 'Stephan Theekshana',
+    role: 'Co-Founder',
+    image: 'src/assets/members/developer03.jpg'
   }
 ];
 
