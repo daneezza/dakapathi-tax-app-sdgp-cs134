@@ -73,11 +73,6 @@ const OTPVerification = ({ otp, handleOTPChange, handleOTPSubmit, setShowOTP, se
   } catch (error) {
     console.error('Error verifying OTP or signing up:', error);
     setNotification({ message: 'OTP verification failed. Please try again.', variant: 'error' });
-    setTimeout(() => {
-        setShowOTP(false);
-        setIsLogin(true); 
-        navigate('/'); // Redirect to login
-    }, 1500); 
   }
   };
 
