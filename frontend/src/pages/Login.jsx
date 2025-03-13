@@ -66,7 +66,13 @@ const Login = () => {
   };
 
   const handleOTPChange = (index, value) => {
-    if (value.length <= 1) {
+    if (value.length === 6) {
+      // User pasted the entire OTP
+      const otpArray = value.split('').slice(0, 6);
+      setOTP(otpArray);
+    }
+    else if (value.length <= 1) {
+      // Normal single-character input
       const newOTP = [...otp];
       newOTP[index] = value;
       setOTP(newOTP);
@@ -76,6 +82,9 @@ const Login = () => {
         if (nextInput) nextInput.focus();
       }
     }
+  };
+  const clearOTP = () => {
+  setOTP(['', '', '', '', '', '']); // Reset all OTP fields to empty strings
   };
 
   const handleForgotPassword = () => {
@@ -91,6 +100,7 @@ const Login = () => {
         handleOTPSubmit={handleOTPSubmit}
         setShowOTP={setShowOTP}
         setIsLogin={setIsLogin}
+        clearOTP={clearOTP}
       />
     );
   } else if (showForgotPassword) {

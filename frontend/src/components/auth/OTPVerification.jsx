@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-const OTPVerification = ({ otp, handleOTPChange, handleOTPSubmit, setShowOTP, setIsLogin   }) => {
+const OTPVerification = ({ otp, handleOTPChange, handleOTPSubmit, setShowOTP, setIsLogin, clearOTP   }) => {
   const [errors, setErrors] = useState({});
   const [notification, setNotification] = useState({ message: '', variant: 'info' });
   const navigate = useNavigate();
@@ -60,9 +60,11 @@ const OTPVerification = ({ otp, handleOTPChange, handleOTPSubmit, setShowOTP, se
           setIsLogin(true); 
           navigate('/'); // Redirect to login
       }, 1500); 
+      clearOTP();
     }
     catch(error){
       setNotification({ message: 'An account with this email already exists. Try logging in instead.', variant: 'error' });
+      clearOTP();
       setTimeout(() => {
           setShowOTP(false);
           setIsLogin(true); 
@@ -71,6 +73,7 @@ const OTPVerification = ({ otp, handleOTPChange, handleOTPSubmit, setShowOTP, se
     }
     
   } catch (error) {
+    clearOTP();
     console.error('Error verifying OTP or signing up:', error);
     setNotification({ message: 'OTP verification failed. Please try again.', variant: 'error' });
   }
@@ -100,6 +103,11 @@ const OTPVerification = ({ otp, handleOTPChange, handleOTPSubmit, setShowOTP, se
                   type="text"
                   value={digit}
                   onChange={(e) => handleOTPChange(index, e.target.value)}
+                  onPaste={(e) => {
+                    e.preventDefault();
+                    const pasted = e.clipboardData.getData('text');
+                    handleOTPChange(index, pasted);
+                  }}
                   style={{
                     width: '40px',
                     height: '40px',
