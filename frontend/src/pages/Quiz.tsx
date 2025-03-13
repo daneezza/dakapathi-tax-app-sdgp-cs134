@@ -8,7 +8,7 @@ interface Question {
   options: { option: string; text: string }[];
 }
 
-interface Result { // Define Result interface here
+interface Result {
     questionId: number;
     success: boolean;
     isCorrect?: boolean;
@@ -23,8 +23,9 @@ interface QuizProps {
   answers: Record<number, string>;
   handleOptionChange: (option: string) => void;
   handleNextQuestion: () => void;
+  handlePreviousQuestion: () => void; // New prop for previous question navigation
   isLastQuestion: boolean;
-  submittedAnswer: Result | null; // Add this prop HERE
+  submittedAnswer: Result | null;
   handleSubmitAnswer: () => Promise<void>;
   currentQuestionId: number | null;
 }
@@ -34,7 +35,7 @@ const Quiz: React.FC<QuizProps> = ({
   currentQuestionIndex,
   answers,
   handleOptionChange,
-  submittedAnswer, // Receive the prop here
+  submittedAnswer,
   handleSubmitAnswer,
   currentQuestionId,
 }) => {
@@ -69,11 +70,14 @@ const Quiz: React.FC<QuizProps> = ({
         </div>
       ))}
       <div className='submit-button-container'>
-        <button className='submit-button' onClick={handleSubmitAnswer} disabled={submittedAnswer !== null || (currentQuestionId === null || !answers[currentQuestionId])}>
+        <button 
+          className='submit-button' 
+          onClick={handleSubmitAnswer} 
+          disabled={submittedAnswer !== null || (currentQuestionId === null || !answers[currentQuestionId])}
+        >
           Submit
         </button>
       </div>
-      
     </div>
   );
 };

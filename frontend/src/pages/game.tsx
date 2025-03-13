@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Quiz from './Quiz';
-import Template from '../components/template';
-import correctGif from '../assets/corrrect.gif';
-import incorrectGif from '../assets/incorrect.gif';
+import '../styles/game.css';
 
 interface Question {
   id: number;
@@ -37,6 +35,9 @@ const Game: React.FC = () => {
   const [selectedLevel, setSelectedLevel] = useState<string | null>(null);
   const [showCorrectGif, setShowCorrectGif] = useState(false);
   const [showIncorrectGif, setShowIncorrectGif] = useState(false);
+
+  const correctGif = '/gif/correct.gif';
+  const incorrectGif = '/gif/incorrect.gif';
   
   const fetchQuizQuestions = async (level: string) => {
     setIsLoading(true);
@@ -131,6 +132,26 @@ const Game: React.FC = () => {
     }
   };
 
+  // New function to handle going back to the previous question
+  const handlePreviousQuestion = () => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(currentQuestionIndex - 1);
+      setSubmittedAnswer(null);
+      setCurrentQuestionId(questions[currentQuestionIndex - 1]?.id || null);
+    }
+  };
+
+  // New function to handle returning to level selection
+  const handleBackToLevels = () => {
+    if (window.confirm("Are you sure you want to exit this quiz? Your progress will be lost.")) {
+      setIsQuizStarted(false);
+      setAnswers({});
+      setSubmittedAnswers({});
+      setScore(0);
+      setCurrentQuestionIndex(0);
+    }
+  };
+
   const handleRestartQuiz = () => {
     setAnswers({});
     setCurrentQuestionIndex(0);
@@ -154,7 +175,6 @@ const Game: React.FC = () => {
   }, [questions, currentQuestionIndex]);
 
   return (
-    <Template>
       <div className="quiz-container">
         <h1 className='quiz-head'>Quiz</h1>
 
@@ -195,6 +215,18 @@ const Game: React.FC = () => {
         ) : currentQuestion ? (
           <div className="quiz-card">
             {error && <p style={{ color: 'red' }}>{error}</p>}
+            
+            {/* Back to Levels Button */}
+            <div className="back-button-container">
+              <button 
+                className="back-to-levels-button" 
+                onClick={handleBackToLevels}
+                title="Back to level selection"
+              >
+                 Back to Levels
+              </button>
+            </div>
+            
             <Quiz
               questions={questions}
               currentQuestionIndex={currentQuestionIndex}
@@ -203,17 +235,28 @@ const Game: React.FC = () => {
               handleSubmitAnswer={handleSubmitAnswer}
               currentQuestionId={currentQuestionId}
               handleNextQuestion={handleNextQuestion}
+              handlePreviousQuestion={handlePreviousQuestion} /* Pass the new handler */
               isLastQuestion={currentQuestionIndex === questions.length - 1}
               submittedAnswer={submittedAnswer}
             />
             
-            <div className='next-button-container'>
+            <div className='navigation-buttons-container'>
+              {/* Previous Question Button */}
+              <button
+                className='previous-button'
+                onClick={handlePreviousQuestion}
+                disabled={currentQuestionIndex === 0 || isLoading}
+              >
+                Previous Question
+              </button>
+              
+              {/* Next Question Button */}
               <button
                 className='next-button'
                 onClick={handleNextQuestion}
                 disabled={isLoading || !submittedAnswers[currentQuestion.id]}
               >
-                {currentQuestionIndex === questions.length - 1 ? "Submit Quiz" : "Next"}
+                {currentQuestionIndex === questions.length - 1 ? "Submit Quiz" : "Next Question"}
               </button>
             </div>
 
@@ -237,7 +280,7 @@ const Game: React.FC = () => {
           </div>
         ) : null}
       </div>
-    </Template>
+    
   );
 };
 
