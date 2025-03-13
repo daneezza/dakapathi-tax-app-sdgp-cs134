@@ -11,6 +11,7 @@ import path from 'path';
 import newsRouter from './routes/news';
 import quizRoutes from './routes/quizRoutes'; 
 
+import taxRoutes from "./routes/tax.routes";
 
 
 
@@ -31,6 +32,9 @@ app.use('/api/questions', questionRoutes);
 app.use('/api/news', newsRouter);
 app.use('/api/quiz', quizRoutes);
 
+
+app.use(express.json());
+app.use("/api/tax", taxRoutes);
 
 // routers for user guide
 app.get('/api/guides', getUserGuides);

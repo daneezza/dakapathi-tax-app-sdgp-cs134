@@ -12,7 +12,7 @@ const NewsDetail: React.FC = () => {
 
   return (
     <div className="news-detail">
-      <button className="back-button" onClick={() => navigate(-1)}>
+      <button className="news-back-button" onClick={() => navigate(-1)}>
         Back to News Feed
       </button>
       <h1 className="news-title">{article.title}</h1>

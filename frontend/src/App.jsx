@@ -10,6 +10,9 @@ import UserGuides from './components/UserGuides';
 import NewsFeed from './components/NewsFeed';
 import NewsDetail from './components/NewsDetail';
 import Game from './Pages/game';
+import FAQs from "./Pages/FAQs";
+import TaxCalculator from "./components/TaxCalculator";
+
 
 
 import './styles/login.css';
@@ -18,6 +21,7 @@ import './styles/LearningHub.css';
 import './styles/UserGuides.css';
 import './styles/NewsFeed.css';
 import './styles/NewsDetail.css';
+import "./styles/TaxCalculator.css";
 
 
 function App() {
@@ -33,6 +37,10 @@ function App() {
         <Route path="/news-feed" element={<Template><NewsFeed /></Template>} />
         <Route path="/news/:id" element={<Template><NewsDetail /></Template>} />
         <Route path="/gamefied" element={<Template><Game /></Template>}/>
+        <Route path="/faq" element={<Template><FAQs /></Template>} />
+        <Route path="/tax-cal" element={<Template><TaxCalculator /></Template>} />
+
+
 
       </Routes>
     </Router>

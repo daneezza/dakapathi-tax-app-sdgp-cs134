@@ -137,13 +137,13 @@ function Template({
   navLinks = [
     { href: "/about", text: "About Us" },
     { href: "#pricing", text: "Pricing" },
-    { href: "#faq", text: "FAQ" },
+    { href: "/faq", text: "FAQ" },
     { href: "#notifications", text: "" },
     { href: "/profile", text: "" }
   ],
   sidebarItems = [
     { href: "/dashboard", text: "Dashboard", icon: dashboardIcon },
-    { href: "/taxcalculator", text: "Tax Calculator", icon: calculatorIcon },
+    { href: "/tax-cal", text: "Tax Calculator", icon: calculatorIcon },
     { href: "/news-feed", text: "News Feed", icon: newsIcon },
     { href: "/learning-hub", text: "Learning Hub", icon: learningIcon },
     { href: "/qna", text: "Q & A Section", icon: qaIcon }
