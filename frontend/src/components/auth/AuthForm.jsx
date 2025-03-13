@@ -167,11 +167,9 @@ const SignupForm = ({ handleSubmit, handleGoogleAuth }) => {
   
         // Send OTP request
         await axios.post('http://localhost:3000/api/otp/send-otp', { email: formData.email });
-  
-        alert('OTP sent to your email!');
+        
       } catch (error) {
         console.error('Error sending OTP:', error);
-        alert('Failed to send OTP. Please try again.');
       }
     }
   };

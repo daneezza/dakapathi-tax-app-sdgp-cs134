@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { getErrorMessage } from '../../utils/validations.jsx';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Notification from '../auth/Notification.jsx'; // Adjust path if needed
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +11,13 @@ const OTPVerification = ({ otp, handleOTPChange, handleOTPSubmit, setShowOTP, se
   const [errors, setErrors] = useState({});
   const [notification, setNotification] = useState({ message: '', variant: 'info' });
   const navigate = useNavigate();
+
+
+  useEffect(() => {
+    // Show a notification when the page loads
+    setNotification({ message: 'Please check your email for the OTP code.', variant: 'info' });
+  }, []);
+
 
   OTPVerification.propTypes = {
     otp: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -43,18 +50,34 @@ const OTPVerification = ({ otp, handleOTPChange, handleOTPSubmit, setShowOTP, se
       password: storedData.password,          // Ensure password is included
       type: 'User'                            // Add default type
     };
-    await axios.post('http://localhost:3000/api/auth/signup', finalSignupData);
+    try{
+      await axios.post('http://localhost:3000/api/auth/signup', finalSignupData);
 
-    setNotification({ message: 'Signup successful!', variant: 'success' });
-    localStorage.removeItem('signupData'); // Clear data
+      setNotification({ message: 'Signup successful!', variant: 'success' });
+      localStorage.removeItem('signupData'); // Clear data
+      setTimeout(() => {
+          setShowOTP(false);
+          setIsLogin(true); 
+          navigate('/'); // Redirect to login
+      }, 1500); 
+    }
+    catch(error){
+      setNotification({ message: 'An account with this email already exists. Try logging in instead.', variant: 'error' });
+      setTimeout(() => {
+          setShowOTP(false);
+          setIsLogin(true); 
+          navigate('/'); // Redirect to login
+      }, 2000); 
+    }
+    
+  } catch (error) {
+    console.error('Error verifying OTP or signing up:', error);
+    setNotification({ message: 'OTP verification failed. Please try again.', variant: 'error' });
     setTimeout(() => {
         setShowOTP(false);
         setIsLogin(true); 
         navigate('/'); // Redirect to login
     }, 1500); 
-  } catch (error) {
-    console.error('Error verifying OTP or signing up:', error);
-    setNotification({ message: 'OTP verification failed. Please try again.', variant: 'error' });
   }
   };
 
