@@ -103,6 +103,8 @@ Navbar.propTypes = {
   toggleSidebar: PropTypes.func.isRequired
 }
 
+const learningHubPages = ['/learning-hub', '/user-guide', '/gamefied', '/tax-guide'];
+
 function Sidebar({ isCollapsed, menuItems }) {
   return (
     <div className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
@@ -112,7 +114,13 @@ function Sidebar({ isCollapsed, menuItems }) {
             <div key={index}>
               <Link 
               to={item.href}
-              className={location.pathname === item.href ? 'selected' : ''}
+              className={
+                        item.href === '/learning-hub' && learningHubPages.includes(location.pathname)
+                          ? 'selected'
+                          : location.pathname === item.href
+                            ? 'selected'
+                            : ''
+                      }             
               >
                 <div className="icon-container">
                   <img src={item.icon} alt={item.text} className="icon" />
