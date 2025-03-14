@@ -59,7 +59,10 @@ function Navbar({ links, toggleSidebar }) {
       <ul className="nav-links">
         {links.map((link, index) => (
           <li key={index}>
-            <Link to={link.href}>
+            <Link 
+            to={link.href}
+            className={location.pathname === link.href ? 'selected' : ''}
+            >
               {link.href === "#notifications" && <img src={notificationIcon} alt="Notifications" className="nav-icon" />}
               {link.href === "/profile" && (
                 <div className="profile-container">
