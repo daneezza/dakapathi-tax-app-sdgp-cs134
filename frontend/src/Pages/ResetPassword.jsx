@@ -51,7 +51,11 @@ try {
     }, 1500);
 } catch (error) {
     console.error('Error resetting password:', error);
-    setNotification({ message: 'Failed to reset password. Please try again.', variant: 'error' });
+    if (error.response && error.response.status === 400 && error.response.data.message === 'Invalid or expired OTP') {
+        setNotification({ message: 'The OTP you entered is incorrect or Expired. Please check your email and try again.', variant: 'error' });
+    } else {
+        setNotification({ message: 'Failed to reset password. Please try again later.', variant: 'error' });
+    }
 }
 };
 
