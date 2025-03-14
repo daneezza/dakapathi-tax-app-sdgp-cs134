@@ -27,8 +27,11 @@ const handleSubmit = async (e) => {
             setShowResetForm(true);
         }, 1500);
     } catch (error) {
-        console.error('Error sending reset link:', error);
-        setNotification({ message: 'Failed to send reset link. Please try again.', variant: 'error' });
+        if (error.response && error.response.status === 404) {
+            setNotification({ message: 'No account found with this email address. Please try again or sign up.', variant: 'error' });
+        } else {
+            setNotification({ message: 'Something went wrong. Please try again later.', variant: 'error' });
+        }
     } 
 };
 
