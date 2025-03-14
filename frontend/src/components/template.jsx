@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { useState, useEffect, useRef } from 'react'
 import '../styles/template.css'
 import Chatbot from '../components/Chatbot.tsx'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 //import logo
 import logo from '../assets/logo.png'
@@ -21,6 +21,7 @@ import qaIcon from '../assets/sidebar/qa.png'
 function Navbar({ links, toggleSidebar }) {
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const location = useLocation();
 
   const toggleProfileDropdown = () => {
     setIsProfileDropdownOpen(!isProfileDropdownOpen);
@@ -106,7 +107,10 @@ function Sidebar({ isCollapsed, menuItems }) {
         <div className="sidebar-menu">
           {menuItems.map((item, index) => (
             <div key={index}>
-              <Link to={item.href}>
+              <Link 
+              to={item.href}
+              className={location.pathname === item.href ? 'selected' : ''}
+              >
                 <div className="icon-container">
                   <img src={item.icon} alt={item.text} className="icon" />
                 </div>
