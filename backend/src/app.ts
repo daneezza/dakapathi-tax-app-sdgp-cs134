@@ -36,7 +36,6 @@ app.use('/api/quiz', quizRoutes);
 
 app.use(express.json());
 app.use("/api/tax", taxRoutes);
-
 app.use("/chat", chatRoutes);  // Register the /chat route from chatRoutes
 
 
