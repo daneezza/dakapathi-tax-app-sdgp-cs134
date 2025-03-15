@@ -1,0 +1,63 @@
+.coming-soon-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 50px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 20px;
+    max-width: 900px;
+    margin-top: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.coming-soon-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #FFD700;
+}
+
+.coming-soon-description {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin-bottom: 20px;
+    line-height: 1.6;
+    color: #ffffff;
+}
+
+.phase-launch {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #FFD700;
+    margin: 30px 0;
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+.countdown-timer {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #FFD700;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px 20px;
+    border-radius: 20px;
+    margin: 20px 0;
+    letter-spacing: 2px;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}

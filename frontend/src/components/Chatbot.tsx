@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import "../styles.css";
+import "../styles/Chatbot.css";
 
 const Chatbot: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -43,7 +43,7 @@ const Chatbot: React.FC = () => {
             {isOpen && (
                 <div className="chatbot-container">
                     <div className="chatbot-header">
-                        <span>Tax Assistant ᯓ★</span>
+                        <span className="header-topic">Tax Assistant ᯓ★</span>
                         <button onClick={toggleChat}>✖</button>
                     </div>
 
