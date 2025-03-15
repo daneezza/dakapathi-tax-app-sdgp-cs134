@@ -33,11 +33,9 @@ const Game: React.FC = () => {
   const [currentQuestionId, setCurrentQuestionId] = useState<number | null>(null);
   const [submittedAnswers, setSubmittedAnswers] = useState<Record<number, Result | null>>({});
   const [selectedLevel, setSelectedLevel] = useState<string | null>(null);
-  const [showCorrectGif, setShowCorrectGif] = useState(false);
-  const [showIncorrectGif, setShowIncorrectGif] = useState(false);
-
-  const correctGif = '/gif/correct.gif';
-  const incorrectGif = '/gif/incorrect.gif';
+  
+  
+  const [showBackConfirmation, setShowBackConfirmation] = useState(false);
   
   const fetchQuizQuestions = async (level: string) => {
     setIsLoading(true);
@@ -102,15 +100,6 @@ const Game: React.FC = () => {
   
       if (result.isCorrect) {
         setScore((prevScore) => prevScore + 1);
-        setShowCorrectGif(true);
-        setTimeout(() => {
-          setShowCorrectGif(false);
-        }, 3000);
-      } else {
-        setShowIncorrectGif(true);
-        setTimeout(() => {
-          setShowIncorrectGif(false);
-        }, 3000);
       }
       
     } catch (error) {
@@ -132,7 +121,6 @@ const Game: React.FC = () => {
     }
   };
 
-  // New function to handle going back to the previous question
   const handlePreviousQuestion = () => {
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex(currentQuestionIndex - 1);
@@ -141,15 +129,21 @@ const Game: React.FC = () => {
     }
   };
 
-  // New function to handle returning to level selection
   const handleBackToLevels = () => {
-    if (window.confirm("Are you sure you want to exit this quiz? Your progress will be lost.")) {
-      setIsQuizStarted(false);
-      setAnswers({});
-      setSubmittedAnswers({});
-      setScore(0);
-      setCurrentQuestionIndex(0);
-    }
+    setShowBackConfirmation(true);
+  };
+
+  const confirmBackToLevels = () => {
+    setIsQuizStarted(false);
+    setAnswers({});
+    setSubmittedAnswers({});
+    setScore(0);
+    setCurrentQuestionIndex(0);
+    setShowBackConfirmation(false);
+  };
+
+  const cancelBackToLevels = () => {
+    setShowBackConfirmation(false);
   };
 
   const handleRestartQuiz = () => {
@@ -177,6 +171,20 @@ const Game: React.FC = () => {
   return (
       <div className="quiz-container">
         <h1 className='quiz-head'>Quiz</h1>
+
+        {/* Back to levels confirmation popup */}
+        {showBackConfirmation && (
+          <div className="confirmation-popup">
+            <div className="confirmation-content">
+              <h3>Are you sure you want to exit this quiz?</h3>
+              <p>Your progress will be lost.</p>
+              <div className="confirmation-buttons">
+                <button onClick={confirmBackToLevels} className="confirm-yes">Yes, go back</button>
+                <button onClick={cancelBackToLevels} className="confirm-no">No, continue quiz</button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {!isQuizStarted ? (
           <div className='level-button-container'>
@@ -235,9 +243,10 @@ const Game: React.FC = () => {
               handleSubmitAnswer={handleSubmitAnswer}
               currentQuestionId={currentQuestionId}
               handleNextQuestion={handleNextQuestion}
-              handlePreviousQuestion={handlePreviousQuestion} /* Pass the new handler */
+              handlePreviousQuestion={handlePreviousQuestion}
               isLastQuestion={currentQuestionIndex === questions.length - 1}
               submittedAnswer={submittedAnswer}
+              submittedAnswers={submittedAnswers}
             />
             
             <div className='navigation-buttons-container'>
@@ -261,26 +270,17 @@ const Game: React.FC = () => {
             </div>
 
             {submittedAnswers[currentQuestion.id] && (
-              <div>
-                <p>
-                  {submittedAnswers[currentQuestion.id]?.correctOption === submittedAnswers[currentQuestion.id]?.selectedOption ? (
-                    <span className="correct">
-                      Correct
-                      {showCorrectGif && <img src={correctGif} alt="Correct Answer GIF" className="correct-gif" />}
-                    </span>
-                  ) : (
-                    <span className="incorrect">
-                      {showIncorrectGif && <img src={incorrectGif} alt="Incorrect Answer GIF" className='incorrect-gif'/>}
-                      {submittedAnswers[currentQuestion.id]?.feedback || "Incorrect. Please try again."}
-                    </span>
-                  )}
+              <div className="feedback-container">
+                <p className={submittedAnswers[currentQuestion.id]?.isCorrect ? "correct-feedback" : "incorrect-feedback"}>
+                  {submittedAnswers[currentQuestion.id]?.isCorrect 
+                    ? "Correct!"
+                    : submittedAnswers[currentQuestion.id]?.feedback || "Incorrect. Please try again."}
                 </p>
               </div>
             )}
           </div>
         ) : null}
       </div>
-    
   );
 };
 

@@ -9,7 +9,7 @@ import questionRoutes from './routes/questionRoutes';
 import { getUserGuides, getUserGuideById } from './controllers/authController';
 import path from 'path';
 import newsRouter from './routes/news';
-import quizRoutes from './routes/quizRoutes'; 
+import quizRoutes from './routes/gameQuizRoutes'; 
 
 import taxRoutes from "./routes/tax.routes";
 

@@ -3,10 +3,6 @@ import { quizData } from '../middlewares/quizData'; // Import your quiz data
 
 const router = express.Router();
 
-/**
- * GET /api/quiz/:level
- * Returns quiz questions for the specified level
- */
 router.get('/:level', (req: any, res: any) => {
   const { level } = req.params;
   const questionsForLevel = quizData[level];
@@ -30,10 +26,7 @@ router.get('/:level', (req: any, res: any) => {
   });
 });
 
-/**
- * POST /api/quiz/submitOne
- * Processes a single question submission and returns feedback
- */
+
 router.post('/submitOne', (req: any, res: any) => {
   try {
     const userAnswer = req.body;
