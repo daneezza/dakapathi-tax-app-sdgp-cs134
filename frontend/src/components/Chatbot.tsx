@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-//import axios from "axios";
+import axios from "axios";
 import "../styles/Chatbot.css";
 
 const Chatbot: React.FC = () => {
@@ -17,17 +17,17 @@ const Chatbot: React.FC = () => {
         setMessages((prev) => [...prev, userMessage]);
         setInput("");
 
-       /*try {
+        try {
             const response = await axios.post("http://localhost:3000/chat", { message: input });
-            const botReply = { sender: "bot", text: response.data.reply || "I didn't understand that." };
+            const botReply = response.data.reply || "I didn't understand that.";
             setTimeout(() => {
-                setMessages((prev) => [...prev, botReply]); // Simulate response delay
+                setMessages((prev) => [...prev, { sender: "bot", text: botReply }]);
             }, 300);
         } catch (error) {
             setTimeout(() => {
                 setMessages((prev) => [...prev, { sender: "bot", text: "Error: Could not get response." }]);
             }, 300);
-        }*/
+        }
     };
 
     useEffect(() => {
@@ -43,7 +43,7 @@ const Chatbot: React.FC = () => {
             {isOpen && (
                 <div className="chatbot-container">
                     <div className="chatbot-header">
-                        <span>AI assistant</span>
+                        <span className="header-topic">Tax Assistant ᯓ★</span>
                         <button onClick={toggleChat}>✖</button>
                     </div>
 
@@ -56,14 +56,13 @@ const Chatbot: React.FC = () => {
                         <div ref={chatboxRef} />
                     </div>
 
-                    {/* Input Box and Send Button Together */}
                     <div className="chatbot-input">
                         <input
                             type="text"
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                             onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-                            placeholder="Enter message..."
+                            placeholder=" Got a tax question? Type it here!"
                         />
                         <button onClick={sendMessage}>➤</button>
                     </div>

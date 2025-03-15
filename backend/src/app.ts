@@ -10,8 +10,9 @@ import { getUserGuides, getUserGuideById } from './controllers/authController';
 import path from 'path';
 import newsRouter from './routes/news';
 import quizRoutes from './routes/gameQuizRoutes'; 
-
 import taxRoutes from "./routes/tax.routes";
+import chatRoutes from "./routes/chatRoutes";  // Ensure the correct path for chatRoutes
+
 
 
 
@@ -35,6 +36,8 @@ app.use('/api/quiz', quizRoutes);
 
 app.use(express.json());
 app.use("/api/tax", taxRoutes);
+app.use("/chat", chatRoutes);  // Register the /chat route from chatRoutes
+
 
 // routers for user guide
 app.get('/api/guides', getUserGuides);
