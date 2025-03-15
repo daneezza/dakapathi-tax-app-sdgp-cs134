@@ -88,3 +88,19 @@ body {
   color: linen;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
+
+.quiz-title {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: rgb(0, 0, 0);
+}
+
+.quiz-subtitle {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 1.25rem;
+  font-weight: medium;
+  margin-bottom: 1rem;
+  color: rgb(0, 0, 0);
+}
