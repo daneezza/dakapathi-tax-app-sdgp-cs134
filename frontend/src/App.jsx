@@ -12,6 +12,7 @@ import NewsDetail from './components/NewsDetail';
 import Game from './Pages/game';
 import FAQs from "./Pages/FAQs";
 import TaxCalculator from "./components/TaxCalculator";
+import Pricing from "./Pages/Pricing";
 
 
 
@@ -39,6 +40,7 @@ function App() {
         <Route path="/gamefied" element={<Template><Game /></Template>}/>
         <Route path="/faq" element={<Template><FAQs /></Template>} />
         <Route path="/tax-cal" element={<Template><TaxCalculator /></Template>} />
+        <Route path="/pricing" element={<Template><Pricing /></Template>} />
 
 
 
