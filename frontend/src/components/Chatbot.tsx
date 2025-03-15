@@ -10,27 +10,18 @@ const Chatbot: React.FC = () => {
 
     const toggleChat = () => setIsOpen((prev) => !prev);
 
-    const isTaxRelated = (message: string) => {
-        const taxKeywords = [
-            "tax", "vat", "income tax", "customs", "levy", "duty", "revenue",
-            "sl tax", "sri lanka tax", "tax rate", "corporate tax", "pay tax",
-            "withholding tax", "GST", "NBT", "economic service charge", "stamp duty"
-        ];
-        return taxKeywords.some(keyword => message.toLowerCase().includes(keyword));
-    };
-    
     const sendMessage = async () => {
         if (!input.trim()) return;
-    
+
         const userMessage = { sender: "user", text: input };
         setMessages((prev) => [...prev, userMessage]);
         setInput("");
-    
+
         try {
             const response = await axios.post("http://localhost:3000/chat", { message: input });
-            const botReply = { sender: "bot", text: response.data.reply || "I didn't understand that." };
+            const botReply = response.data.reply || "I didn't understand that.";
             setTimeout(() => {
-                setMessages((prev) => [...prev, botReply]);
+                setMessages((prev) => [...prev, { sender: "bot", text: botReply }]);
             }, 300);
         } catch (error) {
             setTimeout(() => {
@@ -38,7 +29,6 @@ const Chatbot: React.FC = () => {
             }, 300);
         }
     };
-    
 
     useEffect(() => {
         chatboxRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -52,12 +42,10 @@ const Chatbot: React.FC = () => {
 
             {isOpen && (
                 <div className="chatbot-container">
-                    
                     <div className="chatbot-header">
                         <span>Tax Assistant ᯓ★</span>
                         <button onClick={toggleChat}>✖</button>
                     </div>
-                
 
                     <div className="chat-container">
                         {messages.map((message, index) => (
@@ -74,7 +62,7 @@ const Chatbot: React.FC = () => {
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                             onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-                            placeholder=" Hi! how can I help you?..."
+                            placeholder=" Got a tax question? Type it here!"
                         />
                         <button onClick={sendMessage}>➤</button>
                     </div>
