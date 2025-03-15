@@ -3,7 +3,7 @@
     top: 450px;
     padding: 2rem;
     max-width: 800px;
-    color: #000000; /* Changed to match Dashboard.css */
+    color: #ffffff;
     z-index: 5;
     margin: 0 auto;
     /*border: 2px solid #ffd500; /* Changed to match Dashboard.css */
@@ -11,7 +11,7 @@
     width: 1000px;
     align-items: center;
     text-align: center;
-    background: #efefefbd; /* Changed to match Dashboard.css */
+    background: #000000bd; /* Changed to match Dashboard.css */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     transition: all 0.3s ease;
     
@@ -30,11 +30,17 @@
 
 .question-content {
     margin-bottom: 15px;
+    color: rgb(0, 0, 0);
+    margin-top: 10px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .question-content p {
     font-size: 16px;
-    color: #ffffff;
+    color: #000000;
 }
 
 .interaction-bar {
