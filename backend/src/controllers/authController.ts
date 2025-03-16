@@ -4,6 +4,7 @@ import { hashPassword, comparePassword } from '../utils/passwordUtil';
 import { sendOTPEmail } from '../utils/emailService';
 import jwt from 'jsonwebtoken';
 import { OAuth2Client } from 'google-auth-library';
+import User from '../models/User';
 
 // Mocked user storage (in-memory)
 interface User {
@@ -36,7 +37,7 @@ export const signup = async (req: Request, res: Response): Promise<void> => {
   }
 
   // Check for duplicate email
-  const existingUser = users.find((u) => u.email === email);
+  const existingUser = await User.findOne({ email });
   if (existingUser) {
     res.status(400).json({ message: 'Email already exists. Please use a different email.' });
     return;
@@ -45,9 +46,8 @@ export const signup = async (req: Request, res: Response): Promise<void> => {
 
   // Hash the password
   const hashedPassword = await hashPassword(password);
-
-  // Store user (mocked for now)
-  users.push({ fullname, nic, address, birthdate, email, password: hashedPassword, type });
+  const newUser = new User({ fullname, nic, address, birthdate, email, password: hashedPassword, type });
+  await newUser.save();
 
   res.status(201).json({ message: 'User registered successfully.', fullname, email, type });
 };
@@ -68,7 +68,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
   }
 
   // Find user by email
-  const user = users.find((u) => u.email === email);
+  const user = await User.findOne({ email });
   if (!user) {
     res.status(401).json({ message: 'Invalid email or password.' });
     return;
