@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     type: { type: String, enum: ['Admin', 'User'], required: true },
+    profilePic: { type: String, default: '' },
     quizEasyScore: { type: Number, default: 0 },
     quizMediumScore: { type: Number, default: 0 },
     quizHardScore: { type: Number, default: 0 }

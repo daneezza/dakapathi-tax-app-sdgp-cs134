@@ -49,7 +49,7 @@ export const signup = async (req: Request, res: Response): Promise<void> => {
   const newUser = new User({ fullname, nic, address, birthdate, email, password: hashedPassword, type });
   await newUser.save();
 
-  res.status(201).json({ message: 'User registered successfully.', fullname, email, type });
+  res.status(201).json({ message: 'User registered successfully.', fullname, email, type,profilePic: '', });
 };
 
 // Login Controller
