@@ -58,11 +58,11 @@ function Dashboard() {
             )
         },
         qAndA: {
-            title: "Q & A",
+            title: "Q&A",
             image: "src/assets/images/qna.png",
             content: (
                 <>
-                    <h3>Q & A</h3>
+                    <h3>Q&A</h3>
                     <p>Browse through common tax-related questions and get expert answers to your queries.</p>
                 </>
             )
@@ -112,18 +112,18 @@ function Dashboard() {
 
     return (
         <div className="dashboard">
-            <h1 className="dashboard-title">! Welcome to Dakapathi !</h1>
-            <p className="dashboard-aim"><i>"Bringing tax awareness and transparency to build a more informed and responsible society."</i></p>
+            <h1 className="dashboard-title">Welcome to <img className="dakapathi-logo" src="src/assets/images/dakapathi.png" alt="SL flag"/></h1>
+            <p className="dashboard-aim"><i>"In ancient Sri Lanka <img className="sri-lanka-flag" src="src/assets/images/sri-lanka-flag.png" alt="SL flag"/>, Dakapathi wasn’t just a tax, it was the king’s way of fueling the nation, a system that kept the kingdom strong. Today, that spirit lives on. Bringing tax awareness and transparency to build a more informed and responsible society, we turn complexity into clarity, making every citizen a force for progress."</i></p>
             
             <div className="quick-actions">
-                <h2 className="section-title">Quick Actions</h2>
+                <h2 className="section-title">Legacy Elements</h2>
+                <p className="feature-description">Taxation has shaped history. Explore the features that make it simpler today.</p>
                 <div className="quick-actions-container">
                     <FlippableCard id="taxCalculator" card={cardContent.taxCalculator} />
                     <FlippableCard id="aiChatbot" card={cardContent.aiChatbot} />
                     <FlippableCard id="taxGuide" card={cardContent.taxGuide} />
                     <FlippableCard id="gameLearn" card={cardContent.gameLearn} />
-                </div>
-                <div className="quick-actions-container">
+    
                     <FlippableCard id="newsFeed" card={cardContent.newsFeed} />
                     <FlippableCard id="qAndA" card={cardContent.qAndA} />
                     <FlippableCard id="faq" card={cardContent.faq} />
