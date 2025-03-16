@@ -1,0 +1,106 @@
+/* Add to index.css */
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 320px;
+    min-height: 100vh;
+  }
+  
+  .submit-button-container { 
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    min-width: 80px; 
+  }
+  
+  .submit-button{
+    background-color: #000000;
+    color: white;
+    border: none;
+    border-radius: 80px;
+    padding: 15px 80px;
+    cursor: pointer;
+    margin-right: 20px;
+    transition: background-color 0.3s;
+    
+  }
+  .submit-button:hover{
+    background-image: linear-gradient(to right, rgb(150, 136, 27), rgb(176, 159, 35), rgb(212, 194, 51));
+    box-shadow: 10px 10px 12px rgba(237, 233, 4, 0.2);
+    transform: translateY(-2px);
+  }
+  
+  /* Update in App.css */
+  .quiz-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 2rem;
+    margin-top: 120px; /* Account for navbar height */
+  }
+  
+  .quiz-card {
+    background-color: rgb(30, 23, 136);
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.733);
+    border-radius: 1rem;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+  }
+  
+  
+
+
+.level-button:hover{
+  box-shadow: 10px 10px 12px rgba(237, 233, 4, 0.2);
+  transform: translateY(-2px);
+}
+
+.quiz-option {
+    display: inline-block;
+    width: 94%;
+    padding: 0.75rem;
+    text-align: left;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    background-image: linear-gradient(to right, #dcd220, #676666);
+    margin-bottom: 0.1rem;
+    transition: background-color 0.2s;
+    font-weight: bold;
+    font-size: 1rem;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: linen;
+}
+.quiz-option:hover{
+  box-shadow: 10px 10px 12px rgba(109, 108, 75, 0.2);
+  transform: translateY(-2px);
+}
+
+.question-text {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: linen;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.quiz-title {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: rgb(0, 0, 0);
+}
+
+.quiz-subtitle {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 1.25rem;
+  font-weight: medium;
+  margin-bottom: 1rem;
+  color: rgb(0, 0, 0);
+}

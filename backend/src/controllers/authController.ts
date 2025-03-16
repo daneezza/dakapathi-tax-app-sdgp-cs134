@@ -4,6 +4,7 @@ import { hashPassword, comparePassword } from '../utils/passwordUtil';
 import { sendOTPEmail } from '../utils/emailService';
 import jwt from 'jsonwebtoken';
 import { OAuth2Client } from 'google-auth-library';
+import User from '../models/User';
 
 // Mocked user storage (in-memory)
 interface User {
@@ -36,7 +37,7 @@ export const signup = async (req: Request, res: Response): Promise<void> => {
   }
 
   // Check for duplicate email
-  const existingUser = users.find((u) => u.email === email);
+  const existingUser = await User.findOne({ email });
   if (existingUser) {
     res.status(400).json({ message: 'Email already exists. Please use a different email.' });
     return;
@@ -45,9 +46,8 @@ export const signup = async (req: Request, res: Response): Promise<void> => {
 
   // Hash the password
   const hashedPassword = await hashPassword(password);
-
-  // Store user (mocked for now)
-  users.push({ fullname, nic, address, birthdate, email, password: hashedPassword, type });
+  const newUser = new User({ fullname, nic, address, birthdate, email, password: hashedPassword, type });
+  await newUser.save();
 
   res.status(201).json({ message: 'User registered successfully.', fullname, email, type });
 };
@@ -68,7 +68,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
   }
 
   // Find user by email
-  const user = users.find((u) => u.email === email);
+  const user = await User.findOne({ email });
   if (!user) {
     res.status(401).json({ message: 'Invalid email or password.' });
     return;
@@ -192,6 +192,63 @@ export const googleSignIn = async (req: Request, res: Response) => {
     console.error('Error verifying Google token:', error);
     res.status(500).json({ message: 'Failed to authenticate Google user' });
   }
+};
+
+// User Guide data (mocked for now)
+const userGuides = [
+  {
+    id: 1,
+    title: 'How to Create an Account',
+    content: [
+      '1. Navigate to the Signup page.',
+      '2. Enter your Fullname, NIC, Address, and Birthdate.',
+      '3. Provide a valid Email and create a secure Password.',
+      '4. Click the Signup button to complete the registration process.'
+    ],
+    videoPath: 'create-account.mp4' 
+  },
+  {
+    id: 2,
+    title: 'How to Navigate the Dashboard',
+    content: [
+      '1. Log in with your registered email and password.',
+      '2. On the Dashboard, view an overview of your tax status.',
+      '3. Use the menu on the left to explore different sections, including Reports and Tax Calculator.',
+      '4. Click on any section to see detailed information.'
+    ],
+    videoPath: 'navigate-dashboarde.mp4' 
+  },
+  {
+    id: 3,
+    title: 'How to Use the Tax Calculator Feature',
+    content: [
+      '1. Navigate to the Tax Calculator page from the menu.',
+      '2. Enter your income details accurately.',
+      '3. Click the Calculate button to see the tax results.',
+      '4. Review the calculated tax amount displayed on the page.',
+    ],
+    videoPath: 'tax-calculator.mp4' 
+  }
+  
+];
+
+
+// Get all user guides
+export const getUserGuides = (req: Request, res: Response): void => {
+  res.status(200).json(userGuides);
+};
+
+// Get a specific user guide by ID
+export const getUserGuideById = (req: Request, res: Response): void => {
+  const guideId = parseInt(req.params.id, 10);
+  const guide = userGuides.find((g) => g.id === guideId);
+
+  if (!guide) {
+    res.status(404).json({ message: 'Guide not found.' });
+    return;
+  }
+
+  res.status(200).json(guide);
 };
 
 export { users };

@@ -1,0 +1,62 @@
+/* src/pages/GamifiedLearning.css */
+.learning-hub-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 150px 20px 20px;
+    display: flex;
+    /* Pills side by side */
+    justify-content: center;
+    /* Center them horizontally */
+    gap: 90px;
+    /* More space between the pills */
+}
+
+.nav-box {
+    width: 250px;
+    /* Wider pill */
+    height: 550px;
+    /* Taller pill */
+    background: #1e1e1e;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    /* Stack icon, title, description vertically */
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 30px;
+    /* Keep the pill shape */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, border 0.2s ease-in-out;
+    padding: 40px;
+    /* More inner padding */
+    text-align: center;
+    border: 2px solid transparent;
+    /* Invisible border by default */
+}
+
+.nav-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    border: 2px solid gold;
+    /* Teeny-weenie gold border */
+}
+
+.nav-box-icon {
+    font-size: 60px;
+    /* Bigger icon */
+    margin-bottom: 20px;
+}
+
+.nav-box-title {
+    font-size: 28px;
+    /* Bigger title */
+    margin-bottom: 10px;
+}
+
+.nav-box-description {
+    font-size: 18px;
+    /* Bigger description */
+    opacity: 0.8;
+}

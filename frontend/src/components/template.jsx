@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { useState, useEffect, useRef } from 'react'
 import '../styles/template.css'
 import Chatbot from '../components/Chatbot.tsx'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 //import logo
 import logo from '../assets/logo.png'
@@ -21,6 +21,7 @@ import qaIcon from '../assets/sidebar/qa.png'
 function Navbar({ links, toggleSidebar }) {
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const location = useLocation();
 
   const toggleProfileDropdown = () => {
     setIsProfileDropdownOpen(!isProfileDropdownOpen);
@@ -58,7 +59,10 @@ function Navbar({ links, toggleSidebar }) {
       <ul className="nav-links">
         {links.map((link, index) => (
           <li key={index}>
-            <Link to={link.href}>
+            <Link 
+            to={link.href}
+            className={location.pathname === link.href ? 'selected' : ''}
+            >
               {link.href === "#notifications" && <img src={notificationIcon} alt="Notifications" className="nav-icon" />}
               {link.href === "/profile" && (
                 <div className="profile-container">
@@ -99,6 +103,8 @@ Navbar.propTypes = {
   toggleSidebar: PropTypes.func.isRequired
 }
 
+const learningHubPages = ['/learning-hub', '/user-guide', '/gamefied', '/tax-guide'];
+
 function Sidebar({ isCollapsed, menuItems }) {
   return (
     <div className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
@@ -106,7 +112,16 @@ function Sidebar({ isCollapsed, menuItems }) {
         <div className="sidebar-menu">
           {menuItems.map((item, index) => (
             <div key={index}>
-              <Link to={item.href}>
+              <Link 
+              to={item.href}
+              className={
+                        item.href === '/learning-hub' && learningHubPages.includes(location.pathname)
+                          ? 'selected'
+                          : location.pathname === item.href
+                            ? 'selected'
+                            : ''
+                      }             
+              >
                 <div className="icon-container">
                   <img src={item.icon} alt={item.text} className="icon" />
                 </div>
@@ -136,17 +151,17 @@ function Template({
   navTitle = "",
   navLinks = [
     { href: "/about", text: "About Us" },
-    { href: "#pricing", text: "Pricing" },
-    { href: "#faq", text: "FAQ" },
+    { href: "/pricing", text: "Pricing" },
+    { href: "/faq", text: "FAQ" },
     { href: "#notifications", text: "" },
     { href: "/profile", text: "" }
   ],
   sidebarItems = [
     { href: "/dashboard", text: "Dashboard", icon: dashboardIcon },
-    { href: "/taxcalculator", text: "Tax Calculator", icon: calculatorIcon },
-    { href: "#newsfeed", text: "News Feed", icon: newsIcon },
-    { href: "#learninghub", text: "Learning Hub", icon: learningIcon },
-    { href: "#qa-section", text: "Q & A Section", icon: qaIcon }
+    { href: "/tax-cal", text: "Tax Calculator", icon: calculatorIcon },
+    { href: "/news-feed", text: "News Feed", icon: newsIcon },
+    { href: "/learning-hub", text: "Learning Hub", icon: learningIcon },
+    { href: "/qna", text: "Q & A Section", icon: qaIcon }
   ]
 }) {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true)

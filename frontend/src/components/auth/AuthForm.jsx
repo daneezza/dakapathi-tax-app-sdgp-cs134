@@ -83,27 +83,28 @@ const LoginForm = ({ handleSubmit, handleGoogleAuth, handleForgotPassword }) => 
       <button type="submit" className="auth-button">
         Login
       </button>
-
-      <button 
-        type="button" 
-        style={{ textAlign: 'right', marginTop: '10px', marginBottom: '5px' }} 
-        className="forgot-password-button" 
-        onClick={handleForgotPassword}
-      >
-        Forgot Password?
-      </button>
-
-      <div className="divider">
-        <span>OR</span>
+      <div className="forgot-password-container">
+        <button 
+          type="button" 
+          style={{ textAlign: 'right', marginTop: '10px', marginBottom: '5px' }} 
+          className="forgot-password-button" 
+          onClick={handleForgotPassword}
+        >
+          Forgot Password?
+        </button>
       </div>
 
-      <GoogleOAuthProvider clientId="679581367699-66o5c2qal7hebctt339eiatt1gqhmk26.apps.googleusercontent.com">
-        <GoogleLogin
-          onSuccess={(credentialResponse) => handleGoogleAuth(credentialResponse)}
-          onFailure={(error) => console.error('Google login failed:', error)}
-        />
-      </GoogleOAuthProvider>
-
+      <div className="login-divider">
+        <span>OR</span>
+      </div>
+      <div className="google-auth-wrapper">
+        <GoogleOAuthProvider clientId="679581367699-66o5c2qal7hebctt339eiatt1gqhmk26.apps.googleusercontent.com">
+          <GoogleLogin
+            onSuccess={(credentialResponse) => handleGoogleAuth(credentialResponse)}
+            onFailure={(error) => console.error('Google login failed:', error)}
+          />
+        </GoogleOAuthProvider>
+      </div>
     </form>
   );
 };
@@ -166,11 +167,9 @@ const SignupForm = ({ handleSubmit, handleGoogleAuth }) => {
   
         // Send OTP request
         await axios.post('http://localhost:3000/api/otp/send-otp', { email: formData.email });
-  
-        alert('OTP sent to your email!');
+        
       } catch (error) {
         console.error('Error sending OTP:', error);
-        alert('Failed to send OTP. Please try again.');
       }
     }
   };
