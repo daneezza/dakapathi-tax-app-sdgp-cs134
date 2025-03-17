@@ -4,6 +4,7 @@ import { hashPassword, comparePassword } from '../utils/passwordUtil';
 import { sendOTPEmail } from '../utils/emailService';
 import jwt from 'jsonwebtoken';
 import { OAuth2Client } from 'google-auth-library';
+import User from '../models/User';
 
 // Mocked user storage (in-memory)
 interface User {
@@ -36,7 +37,7 @@ export const signup = async (req: Request, res: Response): Promise<void> => {
   }
 
   // Check for duplicate email
-  const existingUser = users.find((u) => u.email === email);
+  const existingUser = await User.findOne({ email });
   if (existingUser) {
     res.status(400).json({ message: 'Email already exists. Please use a different email.' });
     return;
@@ -45,11 +46,10 @@ export const signup = async (req: Request, res: Response): Promise<void> => {
 
   // Hash the password
   const hashedPassword = await hashPassword(password);
+  const newUser = new User({ fullname, nic, address, birthdate, email, password: hashedPassword, type });
+  await newUser.save();
 
-  // Store user (mocked for now)
-  users.push({ fullname, nic, address, birthdate, email, password: hashedPassword, type });
-
-  res.status(201).json({ message: 'User registered successfully.', fullname, email, type });
+  res.status(201).json({ message: 'User registered successfully.', fullname, email, type,profilePic: '', });
 };
 
 // Login Controller
@@ -62,15 +62,18 @@ export const login = async (req: Request, res: Response): Promise<void> => {
     return;
   }
 
-  if (!email || !password) {
-    res.status(400).json({ message: 'Email and password are required.' });
+
+
+  // Find user by email
+  const user = await User.findOne({ email });
+  if (!user) {
+    res.status(401).json({ message: 'Invalid email or password.' });
     return;
   }
 
-  // Find user by email
-  const user = users.find((u) => u.email === email);
-  if (!user) {
-    res.status(401).json({ message: 'Invalid email or password.' });
+    // If the user is a Google Sign-In user (password is empty or null)
+  if (!user.password) {
+    res.status(400).json({ message: 'This account was created using Google Sign-In. Please use Google to log in.' });
     return;
   }
 
@@ -80,6 +83,13 @@ export const login = async (req: Request, res: Response): Promise<void> => {
     res.status(401).json({ message: 'Invalid email or password.' });
     return;
   }
+
+  // Generate JWT token
+  const authToken = jwt.sign(
+    { email: user.email, fullname: user.fullname },
+    process.env.JWT_SECRET || 'secret',
+    { expiresIn: '1h' }
+  );
 
   res.status(200).json({ message: 'Login successful.', fullname: user.fullname, email: user.email });
 };
@@ -161,33 +171,48 @@ export const googleSignIn = async (req: Request, res: Response) => {
     });
 
     const payload = ticket.getPayload();
-
     if (!payload) {
       return res.status(400).json({ message: 'Google authentication failed' });
     }
 
     const { email, name } = payload;
 
-    let user = users.find(u => u.email === email);
+    // Check if user exists in MongoDB
+    let user = await User.findOne({ email });
 
     if (!user) {
-      user = {
+      // Create a new user with default values
+      user = new User({
         fullname: name || 'Google User',
         nic: 'N/A',
         address: 'N/A',
         birthdate: 'N/A',
-        email:email ?? '',
+        email: email ?? '',
         password: '',
         type: 'User',
-      };
-      users.push(user);
+        quizEasyScore: 0,
+        quizMediumScore: 0,
+        quizHardScore: 0,
+        profilePic: null, // Default profile picture is null
+      });
+
+      await user.save();
     }
 
-    const authToken = jwt.sign({ email: user.email, fullname: user.fullname }, process.env.JWT_SECRET || 'secret', {
-      expiresIn: '1h',
+    // Generate JWT token
+    const authToken = jwt.sign(
+      { email: user.email, fullname: user.fullname },
+      process.env.JWT_SECRET || 'secret',
+      { expiresIn: '1h' }
+    );
+
+    res.status(200).json({
+      message: 'Google Sign-In successful',
+      token: authToken,
+      fullname: user.fullname,
+      email: user.email,
     });
 
-    res.status(200).json({ message: 'Google Sign-In successful', token: authToken, fullname: user.fullname, email: user.email });
   } catch (error) {
     console.error('Error verifying Google token:', error);
     res.status(500).json({ message: 'Failed to authenticate Google user' });

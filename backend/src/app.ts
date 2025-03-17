@@ -1,3 +1,4 @@
+import connectDB from './config/db';
 import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
@@ -15,7 +16,7 @@ import chatRoutes from "./routes/chatRoutes";  // Ensure the correct path for ch
 
 
 
-
+connectDB();
 dotenv.config();
 
 const app = express();
