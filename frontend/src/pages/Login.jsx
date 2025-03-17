@@ -30,7 +30,7 @@ const Login = () => {
         navigate('/dashboard'); // Redirect to dashboard after successful reset
       }, 1500);
     } catch (error) {
-      console.error('Google Sign-In failed:', error);
+      console.error('Google Sign-In failed:',error.response?.data || error.message );
       setNotification({ message: 'Google Sign-In failed. Please try again.', variant: 'error' });
     }
   };
@@ -55,8 +55,16 @@ const Login = () => {
         navigate('/dashboard'); // Redirect to dashboard after successful reset
       }, 1500);
     } catch (error) {
-      console.error('Login failed:', error);
-      setNotification({ message: 'Login Failed', variant: 'error' });
+      if (error.response && error.response.status === 400 && error.response.data.message.includes('Google Sign-In')) {
+      setNotification({
+        message: 'This account was created using Google Sign-In. Please use Google to log in.',
+        variant: 'info',
+      });
+      } else {
+        console.error('Login failed:', error);
+        setNotification({ message: 'Login Failed. Please check your credentials.', variant: 'error' });
+      }
+      
     }
   };
 

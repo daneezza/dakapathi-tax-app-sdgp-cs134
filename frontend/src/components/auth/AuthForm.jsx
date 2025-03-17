@@ -75,7 +75,6 @@ const LoginForm = ({ handleSubmit, handleGoogleAuth, handleForgotPassword }) => 
           value={formData.password}
           onChange={handleChange}
           placeholder="Enter your password"
-          required
         />
         {errors.password && <span className="error-message">{errors.password}</span>}
       </div>
