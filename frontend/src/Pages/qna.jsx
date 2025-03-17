@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import QuestionForm from './QuestionForm';
-import QuestionList from './QuestionList';
+import QuestionForm from '../components/QuestionForm';
+import QuestionList from '../components/QuestionList';
 
 const QnA = () => {
   const [questions, setQuestions] = useState([]);
@@ -15,24 +15,7 @@ const QnA = () => {
         const data = await response.json();
         setQuestions(data);
       } catch (error) {
-        setQuestions([
-          {
-            id: 1,
-            title: 'What is the Tax Ratio of 2024 for income tax?',
-            likes: 28,
-            shares: 72,
-            isBookmarked: false,
-            answers: [],
-          },
-          {
-            id: 2,
-            title: 'What is the Tax Ratio of 2022 for income tax?',
-            likes: 28,
-            shares: 72,
-            isBookmarked: false,
-            answers: [],
-          },
-        ]);
+        setQuestions([]);
         console.error("Error fetching questions:", error);
       }
     };

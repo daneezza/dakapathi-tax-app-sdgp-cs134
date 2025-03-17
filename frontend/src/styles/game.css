@@ -24,13 +24,14 @@
 
 
 .quiz-head {
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-family: Arial;
   text-align: center;
   font-size: 4em;
   font-weight: bold;
   margin-top: 20px;
   margin-bottom: 10px;
   color: rgb(255, 255, 255);
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.541);
 }
 
 
@@ -58,22 +59,29 @@
 }
 
 .final-txt h1{
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  background-image: linear-gradient(to right, #3b3b3b, #d1d812, #bebe00,#757575); /* Your gradient */
+  font-family: Arial;
+  background-color: #000000; /* Your gradient */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 4px rgba(146, 141, 9, 0.5);
+
 }
 
 
 .score{
-  background-color: #cdc00a;
-  color: white;
+  background-color: #000000;
+  color: rgb(255, 255, 255);
+  padding: 10px;  
   border: none;
   border-radius: 80px;
-  padding: 10px;
-  cursor: pointer;
-  margin-top: 20px;
   transition: background-color 0.3s;
+  font-family: Arial;
+  border-bottom: 3px solid #ffd500;
+  border-top: 3px solid #ffd500;
+  border-right: 3px solid #ffd500;
+  border-left: 3px solid #ffd500;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.733);
+  margin-top: 20px;
 }
 
 .restart{
@@ -89,8 +97,9 @@
 }
 
 .restart:hover{
-  background-image: linear-gradient(to right, rgb(127, 113, 8), rgb(174, 158, 36), rgb(205, 185, 39));
-  box-shadow: 10px 10px 12px rgba(237, 233, 4, 0.2);
+  background-color: white;
+  color: #000000;
+  box-shadow: 10px 10px 12px rgba(0, 0, 0, 0.2);
   transform: translateY(-2px);
 }
 
@@ -113,8 +122,8 @@
 }
 
 .level-button{
-  background-image: linear-gradient(to right, rgb(141, 134, 0), rgb(169, 169, 0), rgb(184, 169, 0), rgb(214, 211, 0), rgb(219, 222, 0));
-  color: white;
+  background-color: #000000;
+  color: rgb(255, 255, 255);
   padding: 1rem 8rem;   
   border: none;
   border-radius: 0.5rem;
@@ -122,8 +131,11 @@
   transition: background-color 0.3s;
   font-weight: bold;
   font-size: 1.8rem;       /* Increased font size */
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  color: linen;
+  font-family: Arial;
+  border-bottom: 3px solid #ffd500;
+  border-top: 2px solid #ffd500;
+  border-right: 2px solid #ffd500;
+  border-left: 2px solid #ffd500;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.733);
   flex: 1;
   min-width: 120px;
@@ -131,6 +143,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  
 }
 
 .level-button:hover {
@@ -154,7 +167,7 @@
 
 .filled {
   height: 100%;
-  background-color: #4caf50;
+  background-color: #dcdc25;
   transition: width 0.3s ease;
   width: 0%;
 }
@@ -166,12 +179,13 @@
   border-radius: 80px;
   padding: 15px 32px;
   cursor: pointer;
-  
+  font-family: Arial;
   transition: background-color 0.3s;
 }
 .next-button:hover{
-  background-image: linear-gradient(to right, rgb(150, 136, 27), rgb(176, 159, 35), rgb(212, 194, 51));
-  box-shadow: 10px 10px 12px rgba(237, 233, 4, 0.2);
+  background-color: white;
+  color: #000000;
+  box-shadow: 10px 10px 12px rgba(0, 0, 0, 0.2);
   transform: translateY(-2px);
 }
 
@@ -191,7 +205,7 @@
 }
 
 .back-to-levels-button {
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-family: Arial;
   background-color: #000000;
   color: white;
   border: none;
@@ -203,8 +217,9 @@
 }
 
 .back-to-levels-button:hover {
-  background-image: linear-gradient(to right, rgb(127, 113, 8), rgb(174, 158, 36), rgb(205, 185, 39));
-  box-shadow: 10px 10px 12px rgba(237, 233, 4, 0.2);
+  background-color: white;
+  color: #000000;
+  box-shadow: 10px 10px 12px rgba(0, 0, 0, 0.2);
   transform: translateY(-2px);
 }
 
@@ -223,12 +238,13 @@
   cursor: pointer;
   margin-right: 20px;
   transition: background-color 0.3s;
-  
+  font-family: Arial;
 }
 
 .previous-button:hover:not(:disabled) {
-  background-image: linear-gradient(to right, rgb(150, 136, 27), rgb(176, 159, 35), rgb(212, 194, 51));
-  box-shadow: 10px 10px 12px rgba(237, 233, 4, 0.2);
+  background-color: white;
+  color: #000000;
+  box-shadow: 10px 10px 12px rgba(0, 0, 0, 0.2);
   transform: translateY(-2px);
   
 }
