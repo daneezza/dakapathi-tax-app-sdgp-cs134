@@ -1,5 +1,5 @@
-import { Router } from "express";
+// import { Router } from "express";
 
-const notificationsRouter = Router();
+// const notificationsRouter = Router();
 
-notificationsRouter.get("/", getNotifications);
+// notificationsRouter.get("/", getNotifications);
