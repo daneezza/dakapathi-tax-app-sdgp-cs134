@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FaRocket, FaGift } from "react-icons/fa"; // Import icons
+import { FaRocket, FaGift } from "react-icons/fa";
 import "../styles/Pricing.css";
 import React from "react";
 
