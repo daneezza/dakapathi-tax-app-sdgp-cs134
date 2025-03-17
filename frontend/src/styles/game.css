@@ -22,6 +22,57 @@
   transition: all 0.3s ease;
 }
 
+/* Add responsive design adjustments for quiz container */
+@media (max-width: 768px) {
+  .quiz-container {
+      padding: 2rem 3rem 2rem 2rem; /* More padding on right side */
+      margin-right: 20px; /* Additional right margin */
+      left: 20px; /* Reduce left offset to prevent right side cutoff */
+  }
+  
+  /* Adjust confirmation popup positioning */
+  .confirmation-popup {
+      left: 20px; /* Reduced left offset */
+      width: calc(100% - 40px); /* Adjust width to account for margins */
+  }
+  
+  /* Ensure button text doesn't get cut off */
+  .level-button {
+      padding: 1rem 4rem; /* Reduced horizontal padding */
+      font-size: 1.5rem; /* Slightly smaller font */
+  }
+  
+  /* Adjust navigation buttons */
+  .navigation-buttons-container {
+      padding-right: 15px; /* Extra padding on right side */
+  }
+  
+  /* Ensure quiz card content doesn't get cut off */
+  .quiz-card {
+      padding: 1.5rem 2rem 1.5rem 1.5rem; /* More padding on right side */
+      margin-right: 15px; /* Additional right margin */
+  }
+}
+
+/* Even smaller screens (very narrow mobile) */
+@media (max-width: 480px) {
+  .quiz-container {
+      padding: 1.5rem 3.5rem 1.5rem 1.5rem; /* Even more right padding */
+      margin-right: 25px; /* More right margin */
+      left: 10px; /* Further reduce left offset */
+  }
+  
+  .quiz-head {
+      font-size: 2.5em; /* Smaller font for very small screens */
+      padding-right: 15px; /* Extra padding on right side */
+  }
+  
+  /* Further adjustments for smaller screens */
+  .level-button {
+      padding: 0.8rem 3rem; /* Further reduced padding */
+      font-size: 1.2rem; /* Smaller font */
+  }
+}
 
 .quiz-head {
   font-family: Arial;
@@ -104,6 +155,7 @@
 }
 
 
+/* Updated level-button-container for responsive design */
 .level-button-container {
   display: flex;
   justify-content: center;
@@ -113,12 +165,49 @@
   margin-bottom: 5rem;
 }
 
-  @media (max-width: 768px) { 
-      .level-button-container {
-          flex-direction: column;
-          align-items: center; 
-          gap: 2rem;       
-      }
+/* Large screens (default): 3 columns */
+@media (min-width: 1024px) {
+  .level-button-container {
+    flex-direction: row;
+    gap: 4rem;
+  }
+}
+
+/* Medium screens: 2 columns */
+@media (max-width: 1023px) and (min-width: 769px) {
+  .level-button-container {
+    
+    gap: 2.5rem;
+  }
+  
+  .level-button {
+    flex-basis: calc(50% - 2.5rem); /* Two buttons per row */
+    grid-column: 1 / span 2; /* Center the Hard button */
+    width: 50%; /* Make Hard button same width as others */
+    justify-self: center; 
+  }
+}
+
+/* Small screens: 1 column */
+@media (max-width: 768px) { 
+  .level-button-container {
+    flex-direction: column;
+    align-items: center; 
+    gap: 2rem;       
+  }
+  
+  .level-button {
+    width: 80%; /* Make buttons wider on mobile */
+  }
+}
+
+/* Very small screens: adjust button sizing */
+@media (max-width: 480px) {
+  .level-button {
+    width: 90%;
+    padding: 0.8rem 1rem;
+    font-size: 1.5rem;
+  }
 }
 
 .level-button{

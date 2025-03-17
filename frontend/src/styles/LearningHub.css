@@ -15,7 +15,7 @@
 }
 
 /* Background Effect - Large Floating Circles */
-.learning-hub-container::before,
+/* .learning-hub-container::before,
 .learning-hub-container::after {
     content: '';
     position: absolute;
@@ -27,7 +27,7 @@
     border-radius: 50%;
     z-index: -1;
     transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-}
+} */
 
 /* Positioning for larger screens */
 .learning-hub-container::before {
@@ -123,4 +123,20 @@
     opacity: 0.9;
     max-width: 250px;
     color: #ffffff;
+}
+
+
+
+/* Small screens */
+@media (max-width: 768px) {
+    .learning-hub-container{
+        margin-left: 50px;
+    }
+}
+
+/* Extra small screens (mobile) */
+@media (max-width: 600px) {
+    .learning-hub-container{
+        margin-left: 50px;
+    }
 }
