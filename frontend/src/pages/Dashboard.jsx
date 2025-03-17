@@ -5,7 +5,7 @@ function Dashboard() {
     // Track which card is currently flipped
     const [flippedCard, setFlippedCard] = useState(null);
 
-    // Content for each section - shortened to fit without scrolling
+    
     const cardContent = {
         taxCalculator: {
             title: "Tax Calculator",

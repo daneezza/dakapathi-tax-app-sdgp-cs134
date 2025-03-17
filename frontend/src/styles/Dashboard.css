@@ -165,7 +165,7 @@
   /* Glowing effect on images when hovered */
   .flippable-card:hover .card-front img {
       transform: scale(1.05);
-      filter: drop-shadow(0 0 15px rgb(255, 255, 255)); /* Glowing effect */
+      filter: drop-shadow(0 0 15px rgb(214, 211, 11)); /* Glowing effect */
   }
   
   .card-front span {
