@@ -9,9 +9,9 @@ import LearningHub from './pages/LearningHub';
 import UserGuides from './Pages/UserGuides';
 import NewsFeed from './Pages/NewsFeed';
 import NewsDetail from './components/NewsDetail';
-import Game from './Pages/game';
-import FAQs from "./Pages/FAQs";
-import TaxCalculator from "./Pages/TaxCalculator";
+import Game from './pages/game';
+import FAQs from "./pages/FAQs";
+import TaxCalculator from "./pages/TaxCalculator";
 import Pricing from "./Pages/Pricing";
 
 
