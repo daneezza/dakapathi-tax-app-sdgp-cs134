@@ -120,13 +120,13 @@
       margin-top: -20px;
     }
 
-  /* For the date input styling */
+
   input[type="date"] {
     cursor: pointer;
     color-scheme: light;
   }
 
-  /* OTP Verification Styles */
+
   .otp-container {
     display: flex;
     gap: 10px;
@@ -144,7 +144,7 @@
     background: rgba(255, 255, 255, 0.1);
   }
 
-  /* Login Page Specific Styles */
+
   .auth-container {
     min-height: 100vh;
     display: flex;
