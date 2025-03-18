@@ -43,7 +43,7 @@ const Chatbot: React.FC = () => {
             {isOpen && (
                 <div className="chatbot-container">
                     <div className="chatbot-header">
-                        <span className="header-topic">Tax Assistant ᯓ★</span>
+                    <span className="header-topic"> Tax Assistant</span>
                         <button onClick={toggleChat}>✖</button>
                     </div>
 
