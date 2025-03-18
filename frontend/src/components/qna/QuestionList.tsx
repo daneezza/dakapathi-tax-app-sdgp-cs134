@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/QuestionList.css';
+import '../../styles/QuestionList.css';
 
 interface Answer {
   id: number;

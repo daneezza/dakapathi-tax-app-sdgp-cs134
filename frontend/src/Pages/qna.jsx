@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import QuestionForm from '../components/QuestionForm';
-import QuestionList from '../components/QuestionList';
+import QuestionForm from '../components/qna/QuestionForm';
+import QuestionList from '../components/qna/QuestionList';
 
 const QnA = () => {
   const [questions, setQuestions] = useState([]);
