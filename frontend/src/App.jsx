@@ -12,7 +12,7 @@ import NewsDetail from './components/NewsDetail';
 import Game from './pages/game';
 import FAQs from "./pages/FAQs";
 import TaxCalculator from "./pages/TaxCalculator";
-import Pricing from "./Pages/Pricing";
+import Pricing from "./pages/Pricing";
 
 
 
