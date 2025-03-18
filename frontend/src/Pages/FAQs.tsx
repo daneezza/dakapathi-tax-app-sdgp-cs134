@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FAQList from "../components/FAQList";
+import FAQList from "../components/faq/FAQList";
 import "../styles/faq.css";
 
 const FAQs: React.FC = () => {
