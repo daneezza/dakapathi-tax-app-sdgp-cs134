@@ -95,7 +95,7 @@
 
 @media (max-width: 600px) {
   .team-member {
-    flex: 1 1 100%; /* Single column for very small screens */
+    flex: 1 1 100%;
   }
 }
 

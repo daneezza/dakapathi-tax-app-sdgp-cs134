@@ -76,7 +76,7 @@
     margin: 0.5em 0;
 }
 
-/* Horizontal line styling */
+
 .guide-divider {
     border: none;
     border-top: 1px solid #F7EF8A;
@@ -85,7 +85,7 @@
 
 
 
-/* Small screens */
+
 @media (max-width: 768px) {
     .user-guides-page{
         margin-left: 50px;
@@ -95,7 +95,6 @@
     }
 }
 
-/* Extra small screens (mobile) */
 @media (max-width: 600px) {
     .user-guides-page{
         margin-left: 50px;

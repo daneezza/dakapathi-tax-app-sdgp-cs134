@@ -1,6 +1,4 @@
-/* Updated LearningHub.css with Border Animation on Hover */
 
-/* Container and background effect */
 .learning-hub-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -14,22 +12,7 @@
     margin-top: 80px;
 }
 
-/* Background Effect - Large Floating Circles */
-/* .learning-hub-container::before,
-.learning-hub-container::after {
-    content: '';
-    position: absolute;
-    width: 500px;
-    height: 500px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-radius: 50%;
-    z-index: -1;
-    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-} */
 
-/* Positioning for larger screens */
 .learning-hub-container::before {
     top: -150px;
     left: -150px;
@@ -40,19 +23,18 @@
     right: -150px;
 }
 
-/* Hide circles when screen width is small */
+
 @media (max-width: 800px) {
     .learning-hub-container::before,
     .learning-hub-container::after {
         width: 300px;
         height: 300px;
-        opacity: 0; /* Fully hide them on small screens */
+        opacity: 0;
         transform: scale(0.8);
     }
 }
 
-/* Nav box styles */
-/* Container Styling */
+
 .nav-box {
     width: 300px;
     height: 400px;
@@ -73,10 +55,10 @@
     text-align: center;
     overflow: hidden;
     position: relative;
-    border: 0.3px solid white; /* Default border */
+    border: 0.3px solid white;
 }
 
-/* Animated Border Effect */
+
 .nav-box::before {
     content: '';
     position: absolute;
@@ -91,20 +73,20 @@
     transition: clip-path 0.5s linear;
 }
 
-/* Animate the border tracing */
+
 .nav-box:hover::before {
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%);
 }
 
 
 
-/* Hover effect for nav box */
+
 .nav-box:hover {
     transform: translateY(-10px);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
 }
 
-/* Icon, title, and description styles */
+
 .nav-box-icon {
     font-size: 60px;
     margin-bottom: 15px;
@@ -127,14 +109,14 @@
 
 
 
-/* Small screens */
+
 @media (max-width: 768px) {
     .learning-hub-container{
         margin-left: 50px;
     }
 }
 
-/* Extra small screens (mobile) */
+
 @media (max-width: 600px) {
     .learning-hub-container{
         margin-left: 50px;
