@@ -11,7 +11,7 @@ import NewsFeed from './Pages/NewsFeed';
 import NewsDetail from './components/NewsDetail';
 import Game from './Pages/game';
 import FAQs from "./Pages/FAQs";
-import TaxCalculator from "./components/TaxCalculator";
+import TaxCalculator from "./Pages/TaxCalculator";
 import Pricing from "./Pages/Pricing";
 
 
