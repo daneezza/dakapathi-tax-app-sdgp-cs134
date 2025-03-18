@@ -6,7 +6,7 @@ import AboutUs from './pages/AboutUs';
 import Dashboard from './pages/Dashboard';
 import QnA from './pages/qna';
 import LearningHub from './pages/LearningHub';
-import UserGuides from './components/UserGuides';
+import UserGuides from './Pages/UserGuides';
 import NewsFeed from './Pages/NewsFeed';
 import NewsDetail from './components/NewsDetail';
 import Game from './Pages/game';
