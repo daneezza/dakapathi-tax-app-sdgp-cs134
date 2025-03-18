@@ -48,13 +48,16 @@ function Navbar({ links, toggleSidebar }) {
 
   return (
     <nav className="navbar">
-      <li>
-        <button onClick={toggleSidebar} className="menu-button">
-          <img src={menuIcon} alt="Menu" className="nav-icon" />
-        </button>
-      </li>
-      <div className="nav-brand">
-        <img src={logo} alt="Logo" className="logo" />
+      <div className="nav-left">
+        <li>
+          <button onClick={toggleSidebar} className="menu-button">
+            <img src={menuIcon} alt="Menu" className="nav-icon" />
+          </button>
+        </li>
+        <div className="nav-brand">
+          <img src={logo} alt="Logo" className="logo" />
+        </div>
+
       </div>
       <ul className="nav-links">
         {links.map((link, index) => (
