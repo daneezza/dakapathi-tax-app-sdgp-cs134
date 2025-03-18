@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken';
 import { OAuth2Client } from 'google-auth-library';
 import User from '../models/User';
 
-// Mocked user storage (in-memory)
+
 interface User {
   fullname: string;
   nic: string;
@@ -20,23 +20,23 @@ interface User {
 const users: User[] = [];
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
-// Signup Controller
+
 export const signup = async (req: Request, res: Response): Promise<void> => {
   const { fullname, nic, address, birthdate, email, password, type } = req.body;
 
-  // Validate all required fields
+
   if (!fullname || !nic || !address || !birthdate || !email || !password || !type) {
     res.status(400).json({ message: 'All fields are required: fullname, NIC, address, birthdate, email, password, and type.' });
     return;
   }
 
-  // Validate type value
+
   if (type !== 'Admin' && type !== 'User') {
     res.status(400).json({ message: "Type must be either 'Admin' or 'User'." });
     return;
   }
 
-  // Check for duplicate email
+
   const existingUser = await User.findOne({ email });
   if (existingUser) {
     res.status(400).json({ message: 'Email already exists. Please use a different email.' });
@@ -44,7 +44,7 @@ export const signup = async (req: Request, res: Response): Promise<void> => {
   }
 
 
-  // Hash the password
+
   const hashedPassword = await hashPassword(password);
   const newUser = new User({ fullname, nic, address, birthdate, email, password: hashedPassword, type });
   await newUser.save();
@@ -52,11 +52,11 @@ export const signup = async (req: Request, res: Response): Promise<void> => {
   res.status(201).json({ message: 'User registered successfully.', fullname, email, type,profilePic: '', });
 };
 
-// Login Controller
+
 export const login = async (req: Request, res: Response): Promise<void> => {
   const { email, password } = req.body;
 
-  // Validate only email and password for login
+
   if (Object.keys(req.body).length !== 2) {
     res.status(400).json({ message: 'Only email and password are required for login.' });
     return;
@@ -64,27 +64,27 @@ export const login = async (req: Request, res: Response): Promise<void> => {
 
 
 
-  // Find user by email
+
   const user = await User.findOne({ email });
   if (!user) {
     res.status(401).json({ message: 'Invalid email or password.' });
     return;
   }
 
-    // If the user is a Google Sign-In user (password is empty or null)
+
   if (!user.password) {
     res.status(400).json({ message: 'This account was created using Google Sign-In. Please use Google to log in.' });
     return;
   }
 
-  // Compare password
+
   const isValidPassword = await comparePassword(password, user.password);
   if (!isValidPassword) {
     res.status(401).json({ message: 'Invalid email or password.' });
     return;
   }
 
-  // Generate JWT token
+
   const authToken = jwt.sign(
     { email: user.email, fullname: user.fullname },
     process.env.JWT_SECRET || 'secret',
@@ -96,16 +96,15 @@ export const login = async (req: Request, res: Response): Promise<void> => {
 
 
 
-// OTP
 
 
-// Temporary storage for OTPs (Use a database in production)
+
 const otpStore: { [key: string]: { otp: string; expiresAt: number } } = {};
 
-// Generate OTP
+
 const generateOTP = () => Math.floor(100000 + Math.random() * 900000).toString();
 
-// Send OTP to User
+
 export const sendOTP = async (req: Request, res: Response): Promise<void> => {
   try {
     const { email } = req.body;
@@ -115,7 +114,7 @@ export const sendOTP = async (req: Request, res: Response): Promise<void> => {
     }
 
     const otp = generateOTP();
-    const expiresAt = Date.now() + 5 * 60 * 1000; // Expires in 5 minutes
+    const expiresAt = Date.now() + 5 * 60 * 1000;
     otpStore[email] = { otp, expiresAt };
 
     await sendOTPEmail("account creation","Your Dakapathi Account Creation OTP Code",email, otp);
@@ -126,7 +125,7 @@ export const sendOTP = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-// Verify OTP
+
 export const verifyOTP = async (req: Request, res: Response): Promise<void> => {
   try {
     const { email, otp } = req.body;
@@ -160,7 +159,7 @@ export const verifyOTP = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-// Google Sign-In Controller
+
 export const googleSignIn = async (req: Request, res: Response) => {
   const { token } = req.body;
 
@@ -177,11 +176,10 @@ export const googleSignIn = async (req: Request, res: Response) => {
 
     const { email, name } = payload;
 
-    // Check if user exists in MongoDB
+    
     let user = await User.findOne({ email });
 
     if (!user) {
-      // Create a new user with default values
       user = new User({
         fullname: name || 'Google User',
         nic: 'N/A',
@@ -193,13 +191,13 @@ export const googleSignIn = async (req: Request, res: Response) => {
         quizEasyScore: 0,
         quizMediumScore: 0,
         quizHardScore: 0,
-        profilePic: null, // Default profile picture is null
+        profilePic: null, 
       });
 
       await user.save();
     }
 
-    // Generate JWT token
+  
     const authToken = jwt.sign(
       { email: user.email, fullname: user.fullname },
       process.env.JWT_SECRET || 'secret',
@@ -219,7 +217,7 @@ export const googleSignIn = async (req: Request, res: Response) => {
   }
 };
 
-// User Guide data (mocked for now)
+
 const userGuides = [
   {
     id: 1,
@@ -258,12 +256,12 @@ const userGuides = [
 ];
 
 
-// Get all user guides
+
 export const getUserGuides = (req: Request, res: Response): void => {
   res.status(200).json(userGuides);
 };
 
-// Get a specific user guide by ID
+
 export const getUserGuideById = (req: Request, res: Response): void => {
   const guideId = parseInt(req.params.id, 10);
   const guide = userGuides.find((g) => g.id === guideId);

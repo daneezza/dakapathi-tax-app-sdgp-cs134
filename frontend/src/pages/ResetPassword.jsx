@@ -47,7 +47,7 @@ try {
 
     setNotification({ message: response.data.message, variant: 'success' });
     setTimeout(() => {
-        onResetComplete(); // Redirect to login after successful reset
+        onResetComplete(); 
     }, 1500);
 } catch (error) {
     console.error('Error resetting password:', error);

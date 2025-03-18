@@ -161,10 +161,10 @@ const SignupForm = ({ handleSubmit, handleGoogleAuth }) => {
     if (Object.values(newErrors).every(error => !error)) {
       handleSubmit(e, formData);
       try {
-        // Save form data to local storage for later signup
+        
         localStorage.setItem('signupData', JSON.stringify(formData));
   
-        // Send OTP request
+        
         await axios.post('http://localhost:3000/api/otp/send-otp', { email: formData.email });
         
       } catch (error) {

@@ -18,7 +18,7 @@ const NewsFeed: React.FC = () => {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/news'); // Adjust your backend endpoint
+        const response = await axios.get('http://localhost:3000/api/news'); 
         setArticles(response.data);
       } catch (error) {
         console.error('Error fetching news:', error);

@@ -23,7 +23,7 @@ export const requestPasswordReset = async (req: Request, res: Response) => {
       }
 
       const otp = generateOTP();
-      const expiresAt = Date.now() + 10 * 60 * 1000; // 10 mins
+      const expiresAt = Date.now() + 10 * 60 * 1000; 
       resetRequests.push({ email, otp, expiresAt });
 
       await sendOTPEmail("password-reset","Your Dakapathi Password-Reset OTP Code",email,otp);

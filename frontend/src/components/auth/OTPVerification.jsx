@@ -14,7 +14,7 @@ const OTPVerification = ({ otp, handleOTPChange, handleOTPSubmit, setShowOTP, se
 
 
   useEffect(() => {
-    // Show a notification when the page loads
+    
     setNotification({ message: 'Please check your email for the OTP code.', variant: 'info' });
   }, []);
 
@@ -30,35 +30,35 @@ const OTPVerification = ({ otp, handleOTPChange, handleOTPSubmit, setShowOTP, se
     const otpCode = otp.join('');
 
   try {
-    // Verify OTP
+    
     await axios.post('http://localhost:3000/api/otp/verify-otp', {
       email: JSON.parse(localStorage.getItem('signupData')).email,
       otp: otpCode
     });
       setNotification({ message: 'OTP Valid! Signing up User.....', variant: 'success' });
       await new Promise(resolve => setTimeout(resolve, 2000));
-    // If OTP is valid, complete the signup
+  
     const storedData = JSON.parse(localStorage.getItem('signupData'));
 
-    // Construct the final signup data
+    
     const finalSignupData = {
-      fullname: storedData.name,              // Rename `name` to `fullname`
+      fullname: storedData.name,              
       nic: storedData.nic,
       address: storedData.address,
-      birthdate: storedData.birthDate,        // Rename `birthDate` to `birthdate`
+      birthdate: storedData.birthDate,       
       email: storedData.email,
-      password: storedData.password,          // Ensure password is included
-      type: 'User'                            // Add default type
+      password: storedData.password,         
+      type: 'User'                           
     };
     try{
       await axios.post('http://localhost:3000/api/auth/signup', finalSignupData);
 
       setNotification({ message: 'Signup successful!', variant: 'success' });
-      localStorage.removeItem('signupData'); // Clear data
+      localStorage.removeItem('signupData'); 
       setTimeout(() => {
           setShowOTP(false);
           setIsLogin(true); 
-          navigate('/'); // Redirect to login
+          navigate('/');
       }, 1500); 
       clearOTP();
     }
@@ -68,7 +68,7 @@ const OTPVerification = ({ otp, handleOTPChange, handleOTPSubmit, setShowOTP, se
       setTimeout(() => {
           setShowOTP(false);
           setIsLogin(true); 
-          navigate('/'); // Redirect to login
+          navigate('/'); 
       }, 2000); 
     }
     

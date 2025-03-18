@@ -6,10 +6,10 @@ const Notification = ({ message, variant, onClose, duration = 3000 }) => {
     const [isHiding, setIsHiding] = useState(false);
   
     useEffect(() => {
-      // Start the hide animation shortly before the duration ends
+      
       const hideTimer = setTimeout(() => {
         setIsHiding(true);
-        // Wait for the slide-out animation to complete (500ms) then call onClose
+        
         const closeTimer = setTimeout(() => {
           onClose();
         }, 500);

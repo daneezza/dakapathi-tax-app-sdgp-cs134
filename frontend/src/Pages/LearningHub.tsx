@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaBook, FaBrain, FaTrophy } from 'react-icons/fa'; // Import icons
+import { FaBook, FaBrain, FaTrophy } from 'react-icons/fa'; 
 
 const LearningHub: React.FC = () => {
     const navigate = useNavigate();

@@ -25,9 +25,9 @@ const Login = () => {
       console.log('Google Sign-In successful:', response.data);
 
       
-      // Navigate to dashboard after successful login 
+      
       setTimeout(() => {
-        navigate('/dashboard'); // Redirect to dashboard after successful reset
+        navigate('/dashboard'); 
       }, 1500);
     } catch (error) {
       console.error('Google Sign-In failed:',error.response?.data || error.message );
@@ -52,7 +52,7 @@ const Login = () => {
       setErrorMessage('');
 
       setTimeout(() => {
-        navigate('/dashboard'); // Redirect to dashboard after successful reset
+        navigate('/dashboard'); 
       }, 1500);
     } catch (error) {
       if (error.response && error.response.status === 400 && error.response.data.message.includes('Google Sign-In')) {
@@ -75,12 +75,11 @@ const Login = () => {
 
   const handleOTPChange = (index, value) => {
     if (value.length === 6) {
-      // User pasted the entire OTP
+      
       const otpArray = value.split('').slice(0, 6);
       setOTP(otpArray);
     }
     else if (value.length <= 1) {
-      // Normal single-character input
       const newOTP = [...otp];
       newOTP[index] = value;
       setOTP(newOTP);
@@ -92,7 +91,7 @@ const Login = () => {
     }
   };
   const clearOTP = () => {
-  setOTP(['', '', '', '', '', '']); // Reset all OTP fields to empty strings
+  setOTP(['', '', '', '', '', '']);
   };
 
   const handleForgotPassword = () => {

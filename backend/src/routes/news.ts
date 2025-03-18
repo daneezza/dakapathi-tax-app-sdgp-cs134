@@ -3,13 +3,13 @@ import axios from 'axios';
 import News from '../models/News';
 import dotenv from 'dotenv';
 
-dotenv.config(); // Load environment variables
+dotenv.config(); 
 
 const router = express.Router();
 const ONE_HOUR = 60 * 60 * 1000;
 
 type NewsArticle = {
-    news_id: number;
+    id: number;
     title: string;
     text: string;
     summary: string;
@@ -25,20 +25,19 @@ type NewsArticle = {
     sentiment: number;
 };
 
-// Function to fetch and store news in MongoDB
+
 const fetchAndStoreNews = async () => {
     try {
         console.log("Checking if news update is needed...");
         const latestNews = await News.findOne().sort({ stored_at: -1 });
 
-        if (latestNews && latestNews.stored_at instanceof Date && Date.now() - latestNews.stored_at.getTime() < ONE_HOUR) {
+        if (latestNews?.stored_at && Date.now() - new Date(latestNews.stored_at).getTime() < ONE_HOUR) {
             console.log("News is still fresh, no need to update.");
             return;
         }
 
         console.log("Fetching fresh news from World News API...");
         
-        // Ensure API key is available
         const response = await axios.get('https://api.worldnewsapi.com/search-news', {
             params: {
                 text: 'Sri Lanka tax',
@@ -48,8 +47,9 @@ const fetchAndStoreNews = async () => {
                 'x-api-key': '4afdfa4d41a74e7f8ada4579b2ab9308'
             }
         });
+        console.log("data retrived from world news api");
 
-        if (!response.data || !response.data.news) {
+        if (!response.data?.news) {
             console.error('Invalid response from API');
             return;
         }
@@ -58,10 +58,11 @@ const fetchAndStoreNews = async () => {
 
         if (newsArticles.length > 0) {
             await News.deleteMany({});
-            
+            console.log("database cleared");
+
             const newsWithTimestamps = newsArticles.map((article: NewsArticle) => ({
                 ...article,
-                stored_at:new Date()
+                stored_at: new Date()
             }));
 
             await News.insertMany(newsWithTimestamps);
@@ -72,7 +73,7 @@ const fetchAndStoreNews = async () => {
     }
 };
 
-// Route to fetch news from the database
+
 router.get('/', async (req: Request, res: Response) => {
     try {
         let news = await News.find().sort({ publish_date: -1 });
@@ -81,8 +82,10 @@ router.get('/', async (req: Request, res: Response) => {
             console.log("No news in database, fetching fresh data...");
             await fetchAndStoreNews();
             news = await News.find().sort({ publish_date: -1 });
-        }else{
-            console.log("News already in database, returning...");
+        } else {
+            console.log("News already in database, checking if update is needed...");
+            await fetchAndStoreNews();
+            news = await News.find().sort({ publish_date: -1 }); 
         }
 
         res.status(200).json(news);

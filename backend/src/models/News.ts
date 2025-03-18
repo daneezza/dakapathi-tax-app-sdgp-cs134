@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const NewsSchema = new mongoose.Schema({
-    news_id: { type: Number, required: true }, // Changed id to news_id (avoid conflicts)
+    id: { type: Number, required: true },
     title: { type: String, required: true },
     text: { type: String },
     summary: { type: String },
