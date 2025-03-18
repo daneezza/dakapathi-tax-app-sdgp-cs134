@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import Notification from '../components/auth/Notification.jsx';
-import { getErrorMessage } from '../utils/validations.jsx';
+import Notification from '../../components/auth/Notification.jsx';
+import { getErrorMessage } from '../../utils/validations.jsx';
 
 
 const ResetPassword = ({ email, onResetComplete  }) => {

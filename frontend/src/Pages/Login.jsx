@@ -3,7 +3,7 @@ import AuthHeader from '../components/auth/AuthHeader';
 import AuthForm from '../components/auth/AuthForm';
 import OTPVerification from '../components/auth/OTPVerification';
 import axios from 'axios';
-import ForgotPassword from './ForgotPassword';
+import ForgotPassword from '../components/auth/ForgotPassword.jsx';
 import Notification from '../components/auth/Notification.jsx';
 import { useNavigate } from 'react-router-dom';
 

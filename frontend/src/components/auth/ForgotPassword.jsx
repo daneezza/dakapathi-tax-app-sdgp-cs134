@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import ResetPassword from './ResetPassword';
+import ResetPassword from './ResetPassword.jsx';
 import axios from 'axios';
-import Notification from '../components/auth/Notification.jsx';
-import { getErrorMessage } from '../utils/validations.jsx';
+import Notification from '../../components/auth/Notification.jsx';
+import { getErrorMessage } from '../../utils/validations.jsx';
 
 
 

@@ -1,13 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Login from './pages/Login';
+import Login from './Pages/Login';
 import Template from './components/template'; 
 import AboutUs from './pages/AboutUs';
 import Dashboard from './pages/Dashboard';
 import QnA from './pages/qna';
 import LearningHub from './pages/LearningHub';
 import UserGuides from './components/UserGuides';
-import NewsFeed from './components/NewsFeed';
+import NewsFeed from './Pages/NewsFeed';
 import NewsDetail from './components/NewsDetail';
 import Game from './Pages/game';
 import FAQs from "./Pages/FAQs";
