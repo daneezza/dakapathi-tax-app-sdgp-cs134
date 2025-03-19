@@ -1,7 +1,7 @@
-/* Wrap everything in a stylish container */
+/* wrap everything in a better looking container */
 .faq-wrapper {
   max-width: 900px;
-  margin: 160px auto;  /* Centering */
+  margin: 160px auto; 
   padding: 30px;
   background: #000000ab;
   border-radius: 15px;
@@ -9,7 +9,7 @@
   text-align: center;
 }
 
-/* Heading styles */
+
 .faq-topic {
   padding: 10px;
   margin-bottom: 20px;
@@ -21,7 +21,7 @@
   font-weight: bold;
 }
 
-/* Center the entire FAQ container */
+/* center the entire faq container */
 .faq-container {
   display: flex;
   flex-direction: column;
@@ -32,14 +32,14 @@
   color: #000000;
 }
 
-/* Style the FAQ list */
+
 .faq-list {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-/* FAQ Item */
+
 .faq-item {
   background: #f9f9f9;
   border-radius: 12px;
@@ -50,7 +50,7 @@
   position: relative;
 }
 
-/* Create a gradient border effect */
+/* add a gradient border */
 .faq-item::before {
   content: "";
   position: absolute;
@@ -58,15 +58,15 @@
   border-radius: 13px;
   padding: 4px;
   background: linear-gradient(135deg, 
-    #FFD700,  /* Gold */
-    #E6B400,  /* Deep Gold */
-    #DAA520,  /* Goldenrod */
-    #D4AF37,  /* Metallic Gold */
-    #b99931,  /* Aqua Blue */
-    #ae902e,  /* Teal */
-    #705d1e,  /* Ocean Blue */
-    #64541e,  /* Deep Sea Blue */
-    #2c240a   /* Dark Blue */
+    #FFD700,  
+    #E6B400,  
+    #DAA520,  
+    #D4AF37,  
+    #b99931,  
+    #ae902e,  
+    #705d1e,  
+    #64541e,  
+    #2c240a  
   );
   -webkit-mask: 
     linear-gradient(#fff 0 0) content-box, 
@@ -79,7 +79,7 @@
   z-index: -1;
 }
 
-/* Prevent jumping when expanding */
+/* prevent jumping when expanding */
 .faq-answer {
   max-height: 0;
   overflow: hidden;
@@ -87,19 +87,19 @@
   padding: 0 15px;
 }
 
-/* When answer is visible */
+/* when answer is visible */
 .faq-item.open .faq-answer {
-  max-height: 200px; /* Allow full expansion */
-  padding: 10px 15px; /* Add spacing when open */
+  max-height: 200px; /* allow full expansion */
+  padding: 10px 15px; /* add spacing when open */
 }
 
-/* Add hover effect */
+
 .faq-item:hover {
   background: linear-gradient(145deg, #f1f0ecc8, #e6e7d2b4);
   transform: scale(1.02);
 }
 
-/* Center the question text */
+
 .faq-question {
   font-size: 18px;
   font-weight: bold;
@@ -109,14 +109,14 @@
   align-items: center;
 }
 
-/* Center the answer text */
+
 .faq-answer {
   font-size: 16px;
   color: #212121;
   text-align: center;
 }
 
-/* Adjust the arrow icon */
+/* adjust the arrow icon */
 .arrow {
   font-size: 20px;
   transition: transform 0.2s;
