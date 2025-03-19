@@ -7,7 +7,7 @@ import QnA from './pages/qna.jsx';
 import LearningHub from './pages/LearningHub.jsx';
 import UserGuides from './pages/UserGuides.jsx';
 import NewsFeed from './pages/NewsFeed.jsx';
-import NewsDetail from './components/NewsDetail.tsx';
+import NewsDetail from './components/NewsDetail.jsx';
 import Game from './Pages/game.jsx';
 import FAQs from "./Pages/FAQs.jsx";
 import TaxCalculator from "./pages/TaxCalculator.jsx";
