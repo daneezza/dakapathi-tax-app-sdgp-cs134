@@ -3,13 +3,14 @@ import axios from "axios";
 
 const TaxCalculator = () => {
   const [taxType, setTaxType] = useState<string>("Income Tax");
-  const [amount, setAmount] = useState<number>(0);
+  const [amount, setAmount] = useState<number | string>("");
+
   const [taxRate, setTaxRate] = useState<number | null>(null);
   const [taxAmount, setTaxAmount] = useState<number | null>(null);
   const [totalAmount, setTotalAmount] = useState<number | null>(null);
   const [report, setReport] = useState<string>("");
 
-  // Reference for calculator container
+  const [showPopUp, setShowPopUp] = useState<boolean>(false); // State to control the pop-up visibility
   const calculatorContainerRef = useRef<HTMLDivElement>(null);
 
   const handleTaxTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -17,14 +18,20 @@ const TaxCalculator = () => {
   };
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAmount(Number(e.target.value));
+    const value = e.target.value;
+    if (value === "" || !isNaN(Number(value))) {
+      setAmount(value);
+    }
   };
 
   const calculateTax = async () => {
+    if (amount === "") return;
+
+    const amountValue = typeof amount === "string" ? parseFloat(amount) : amount;
     try {
       const response = await axios.post("http://localhost:3000/api/tax/calculate", {
         taxType,
-        amount,
+        amount: amountValue,
       });
 
       setTaxRate(response.data.taxRate);
@@ -32,7 +39,6 @@ const TaxCalculator = () => {
       setTotalAmount(response.data.totalAmount);
       setReport(response.data.report);
 
-      // Make the calculator-container scroll to the result
       setTimeout(() => {
         calculatorContainerRef.current?.scrollTo({ top: calculatorContainerRef.current.scrollHeight, behavior: "smooth" });
       }, 200);
@@ -41,70 +47,101 @@ const TaxCalculator = () => {
     }
   };
 
-  // Function to download report
   const downloadReport = () => {
     if (!report) return;
 
-    const fileContent = `Tax Calculation Report\n\nTax Type: ${taxType}\nAmount: Rs.${amount.toFixed(2)}\nTax Rate: ${(taxRate! * 100).toFixed(2)}%\nTax Amount: Rs.${taxAmount?.toFixed(2)}\nTotal Amount: Rs.${totalAmount?.toFixed(2)}\n\nReport Details:\n${report}`;
-    
+    const fileContent = `
+    Tax Calculation Report:
+
+    The system calculates the tax by applying the selected tax rate to your entered amount. The tax rate for this calculation was ${taxRate! * 100}%. Based on the entered amount of Rs.${parseFloat(amount as string).toFixed(2)}, the tax amount is Rs.${taxAmount?.toFixed(2)}. This tax amount is then added to the original amount to give the total payable, which is Rs.${totalAmount?.toFixed(2)}. 
+
+    If you wish to know the remaining amount after deducting the tax, it is Rs.${(parseFloat(amount as string) - taxAmount!).toFixed(2)}.
+
+    Below is the detailed tax calculation report:
+
+    ${report}
+  `; 
     const blob = new Blob([fileContent], { type: "text/plain" });
     const fileURL = URL.createObjectURL(blob);
 
     const link = document.createElement("a");
     link.href = fileURL;
-    link.download = "Tax_Report.txt";
+    link.download = "Dakapathi_Tax_Report.txt";
     link.click();
 
     URL.revokeObjectURL(fileURL);
+
+    // Show the success pop-up
+    setShowPopUp(true);
+
+    // Hide the pop-up after 3 seconds
+    setTimeout(() => {
+      setShowPopUp(false);
+    }, 3000);
   };
 
   return (
-    <div className="cal-container">
-      <div className="outer-wrapper">
-      <h1 className="cal-topic">Calculate Your Taxes with Ease</h1>
-      
-        <div className="calculator-container" ref={calculatorContainerRef}>
-          <div className="input-section">
-            <label htmlFor="tax-type" className="taxcal-label">Select Tax Type :</label>
-            <select id="tax-type" value={taxType} onChange={handleTaxTypeChange}>
-              <option value="Income Tax">Income Tax</option>
-              <option value="Corporate Tax (Standard)">Corporate Tax (Standard)</option>
-              <option value="Corporate Tax (Export Services)">Corporate Tax (Export Services)</option>
-              <option value="VAT (Standard)">VAT (Standard)</option>
-              <option value="Vehicle Import Duty">Vehicle Import Duty</option>
-            </select>
+    <>
+      {/* Disclaimer Section */}
+      <div className="disclaimer-container">
+        <p>
+          <strong>Disclaimer:</strong> The tax rates and calculations provided here may not always be up-to-date. Please verify with official sources.
+        </p>
+      </div>
 
-            <label htmlFor="amount" className="taxcal-label">Enter Amount (Rs.) :</label>
-            <input
-              id="amount"
-              type="number"
-              value={amount}
-              onChange={handleAmountChange}
-              min="0"
-              placeholder="Enter the amount"
-            />
+      {/* Main Calculator Section */}
+      <div className="cal-container">
+        <div className="outer-wrapper">
+          <h1 className="cal-topic">Unlock Your Tax Potential with DAKAPATHI</h1>
 
-            <button className="calculate-btn" onClick={calculateTax}>
-              Calculate
-            </button>
-          </div>
+          <div className="calculator-container" ref={calculatorContainerRef}>
+            <div className="input-section">
+              <label htmlFor="tax-type" className="taxcal-label">Select Tax Type :</label>
+              <select id="tax-type" value={taxType} onChange={handleTaxTypeChange}>
+                <option value="Income Tax">Income Tax</option>
+                <option value="Corporate Tax (Standard)">Corporate Tax (Standard)</option>
+                <option value="Corporate Tax (Export Services)">Corporate Tax (Export Services)</option>
+                <option value="VAT (Standard)">VAT (Standard)</option>
+                <option value="Vehicle Import Duty">Vehicle Import Duty</option>
+              </select>
 
-          {taxRate !== null && (
-            <div className="result-section">
-              <h2>Dakapathi Tax Results</h2>
-              <p>Tax Rate: {(taxRate * 100).toFixed(2)}%</p>
-              <p>Tax Amount: Rs.{taxAmount?.toFixed(2)}</p>
-              <p>Total Amount: Rs.{totalAmount?.toFixed(2)}</p>
-              <h3>Tax Calculation Report:</h3>
-              <pre>{report}</pre>
-              <button className="download-btn" onClick={downloadReport}>
-                Download Report
+              <label htmlFor="amount" className="taxcal-label">Enter Amount (Rs.) :</label>
+              <input
+                id="amount"
+                type="number"
+                value={amount}
+                onChange={handleAmountChange}
+                min="0"
+                placeholder="Enter your amount to start calculating.."
+              />
+
+              <button className="calculate-btn" onClick={calculateTax}>
+                Calculate
               </button>
             </div>
-          )}
+
+            {taxRate !== null && (
+              <div className="result-section">
+                <p>The system calculates the tax by applying the selected tax rate to your entered amount. The tax amount is then added to the original amount to get the total payable. Below is a detailed breakdown of the calculation.</p>
+
+                <h3>Dakapathi Tax Calculation Report:</h3>
+                <pre>{report}</pre>
+                <button className="download-btn" onClick={downloadReport}>
+                  Download Report
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+
+      {/* Success Pop-up Notification */}
+      {showPopUp && (
+        <div className="popup-notification-tax">
+          <p>You nailed it! Thanks for giving us a shot!</p>
+        </div>
+      )}
+    </>
   );
 };
 
