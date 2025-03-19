@@ -28,7 +28,7 @@ function App() {
   return(
     <Router>
       <Routes>
-        <Route path="/" element={<Template><Settings /></Template>} />
+        <Route path="/" element={<Login />} />
         <Route path="/dashboard" element={<Template><Dashboard /></Template>} />
         <Route path="/about" element={<Template><AboutUs /></Template>} />
         <Route path="/qna" element={<Template><QnA /></Template>}/>
