@@ -6,6 +6,7 @@ interface Answer {
   content: string;
   questionId: number;
   likes: number;
+  userHasLiked: boolean;
 }
 
 interface Question {
@@ -15,6 +16,7 @@ interface Question {
   shares: number;
   isBookmarked: boolean;
   answers: Answer[];
+  userHasLiked: boolean;
 }
 
 interface QuestionListProps {
@@ -24,6 +26,7 @@ interface QuestionListProps {
   onShare: (questionId: number) => void;
   onBookmark: (questionId: number) => void;
   onSubmitAnswer: (questionId: number, content: string) => void;
+  currentUserId: number;
 }
 
 const QuestionList: React.FC<QuestionListProps> = ({
@@ -33,6 +36,7 @@ const QuestionList: React.FC<QuestionListProps> = ({
   onShare,
   onBookmark,
   onSubmitAnswer,
+  currentUserId
 }) => {
   const [newAnswers, setNewAnswers] = useState<{ [key: number]: string }>({});
   const [expandedQuestions, setExpandedQuestions] = useState<{ [key: number]: boolean }>({});
@@ -71,8 +75,11 @@ const QuestionList: React.FC<QuestionListProps> = ({
               <p>{question.title}</p>
             </div>
             <div className="interaction-bar">
-              <div className="like-button" onClick={() => onLike(question.id)}>
-                <i className="heart-icon">❤️</i>
+              <div 
+                className={`like-button ${question.userHasLiked ? 'user-liked' : ''}`} 
+                onClick={() => onLike(question.id)}
+              >
+                <i className="heart-icon">{question.userHasLiked ? '❤️' : '🤍'}</i>
                 <span>{question.likes}</span>
               </div>
               <div className="share-button" onClick={() => onShare(question.id)}>
@@ -98,8 +105,11 @@ const QuestionList: React.FC<QuestionListProps> = ({
                   {sortedAnswers.map(answer => (
                     <div key={answer.id} className="answer-item">
                       <p className="answer-content">{answer.content}</p>
-                      <div className="answer-like-button" onClick={() => onLikeAnswer(question.id, answer.id)}>
-                        <i className="heart-icon">❤️</i>
+                      <div 
+                        className={`answer-like-button ${answer.userHasLiked ? 'user-liked' : ''}`} 
+                        onClick={() => onLikeAnswer(question.id, answer.id)}
+                      >
+                        <i className="heart-icon">{answer.userHasLiked ? '❤️' : '🤍'}</i>
                         <span>{answer.likes}</span>
                       </div>
                     </div>
