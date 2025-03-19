@@ -166,16 +166,7 @@ function Settings() {
                 {/* Security Section */}
                 <div className="settings-section">
                     <h2>Security</h2>
-                    <div className="settings-group checkbox-group">
-                        <input
-                            type="checkbox"
-                            id="twoFactorAuth"
-                            name="twoFactorAuth"
-                            checked={settings.security.twoFactorAuth}
-                            onChange={handleSecurityChange}
-                        />
-                        <label htmlFor="twoFactorAuth">Enable Two-Factor Authentication</label>
-                    </div>
+                    
                     <div className="settings-group">
                         <label htmlFor="oldPassword">Current Password</label>
                         <input
