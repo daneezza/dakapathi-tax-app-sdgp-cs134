@@ -1,7 +1,7 @@
 import FAQList from "../components/faq/FAQList";
 import "../styles/faq.css";
 
-const FAQs = () => {
+function FAQs() {
   return (
     <div className="faq-container">
       <FAQList />
