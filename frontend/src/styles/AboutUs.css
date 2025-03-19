@@ -175,6 +175,7 @@
   font-size: 1rem; /* Comfortable reading size */
   color: #000000; /* A softer gray for paragraph text */
   line-height: 1.6; /* Adequate line height for readability */
+  font-weight: 700;
 }
 
 
