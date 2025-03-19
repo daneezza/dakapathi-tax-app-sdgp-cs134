@@ -1,7 +1,7 @@
 import { createRoot } from 'react-dom/client'
 import './styles/global.css'
 import './index.css'
-import App from './App.tsx'
+import App from './App.jsx'
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
 createRoot(document.getElementById('root')).render(
