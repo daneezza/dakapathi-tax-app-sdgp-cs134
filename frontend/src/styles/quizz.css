@@ -34,7 +34,6 @@ body {
     transform: translateY(-2px);
   }
   
-  /* Update in App.css */
   .quiz-container {
     display: flex;
     flex-direction: column;

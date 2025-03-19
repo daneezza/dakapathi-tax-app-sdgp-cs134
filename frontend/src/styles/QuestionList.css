@@ -1,20 +1,22 @@
+
 .question-list-container {
     position: absolute;
-    top: 450px;
-    padding: 2rem;
+    top: 470px;
+    left: 400px;
+    padding: clamp(1rem, 5vw, 2rem);
+    
     max-width: 800px;
     color: #ffffff;
     z-index: 5;
-    margin: 0 auto;
-    /*border: 2px solid #ffd500; /* Changed to match Dashboard.css */
     border-radius: 12px;
     width: 1000px;
     align-items: center;
     text-align: center;
-    background: #000000bd; /* Changed to match Dashboard.css */
+    background: #000000bd;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     transition: all 0.3s ease;
-    
+    margin-bottom: 8rem; 
+    overflow: hidden;
 }
 
 /* Add this to your existing QuestionList.css file */
