@@ -1,18 +1,18 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Login from './pages/Login';
-import Template from './components/template'; 
-import AboutUs from './pages/AboutUs';
-import Dashboard from './pages/Dashboard';
-import QnA from './pages/qna';
-import LearningHub from './pages/LearningHub';
-import UserGuides from './pages/UserGuides';
-import NewsFeed from './pages/NewsFeed';
-import NewsDetail from './components/NewsDetail';
-import Game from './pages/game';
-import FAQs from "./pages/FAQs";
-import TaxCalculator from "./pages/TaxCalculator";
-import Pricing from "./pages/Pricing";
+import Login from './pages/Login.jsx';
+import Template from './components/template.jsx'; 
+import AboutUs from './pages/AboutUs.jsx';
+import Dashboard from './pages/Dashboard.jsx';
+import QnA from './pages/qna.jsx';
+import LearningHub from './pages/LearningHub.tsx';
+import UserGuides from './pages/UserGuides.jsx';
+import NewsFeed from './pages/NewsFeed.tsx';
+import NewsDetail from './components/NewsDetail.tsx';
+import Game from './pages/game.tsx';
+import FAQs from "./pages/FAQs.tsx";
+import TaxCalculator from "./pages/TaxCalculator.tsx";
+import Pricing from "./pages/Pricing.tsx";
 
 
 
