@@ -27,7 +27,12 @@ jobs:
         run: |
           cd frontend
           npm ci
-
+          - name: Fix import path
+          run: |
+            if grep -q "from \"./pages/TaxCalculator" ./frontend/src/App.jsx; then
+              sed -i 's/from ".\/pages\/TaxCalculator/from ".\/pages\/TaxCalculator/g' ./frontend/src/App.jsx
+            fi
+            
       - name: Build Project
         run: |
           cd frontend
