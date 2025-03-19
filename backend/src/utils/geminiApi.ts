@@ -15,7 +15,7 @@ const isTaxRelated = (message: string): boolean => {
 
 const isAcknowledgment = (message: string): boolean => {
     const acknowledgments = [
-        "ok", "thanks", "thank you", "yes", "no", "great", "cool", "nice", "got it",
+        "ok", "okay", "cool", "thanks", "thank you", "yes", "no", "great", "cool", "nice", "got it",
         "understood", "makes sense", "alright", "sure"
     ];
 
@@ -24,7 +24,7 @@ const isAcknowledgment = (message: string): boolean => {
 
 const isGreeting = (message: string): boolean => {
     const greetings = [
-        "hi", "hello", "hey", "good morning", "good afternoon", "good evening", "what's up",
+        "hi", "hello there", "hi there" , "hello", "hey", "good morning", "good afternoon", "good evening", "what's up",
         "sup", "yo", "hola", "howdy"
     ];
 
