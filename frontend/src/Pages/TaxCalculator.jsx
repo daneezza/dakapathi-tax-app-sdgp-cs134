@@ -111,7 +111,7 @@ const TaxCalculator = () => {
                 value={amount}
                 onChange={handleAmountChange}
                 min="0"
-                placeholder="Enter your amount to start calculating.."
+                placeholder="Drop your digits!"
               />
 
               <button className="calculate-btn" onClick={calculateTax}>
