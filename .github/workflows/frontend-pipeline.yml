@@ -28,6 +28,13 @@ jobs:
           cd frontend
           npm ci
 
+      - name: Fix import paths
+        run: |
+          # Fix case sensitivity issues in imports
+          sed -i 's/import Game from \.\/Pages\/game\.jsx/import Game from \.\/pages\/game\.jsx/g' src/App.jsx
+          sed -i 's/import FAQs from "\.\/Pages\/FAQs\.jsx"/import FAQs from "\.\/pages\/FAQs\.jsx"/g' src/App.jsx
+          sed -i 's/import Pricing from "\.\/Pages\/Pricing\.jsx"/import Pricing from "\.\/pages\/Pricing\.jsx"/g' src/App.jsx
+
       - name: Build Project
         run: |
           cd frontend

@@ -2,22 +2,22 @@ import React, { useState, useRef } from "react";
 import axios from "axios";
 
 const TaxCalculator = () => {
-  const [taxType, setTaxType] = useState<string>("Income Tax");
-  const [amount, setAmount] = useState<number | string>("");
+  const [taxType, setTaxType] = useState("Income Tax");
+  const [amount, setAmount] = useState("");
 
-  const [taxRate, setTaxRate] = useState<number | null>(null);
-  const [taxAmount, setTaxAmount] = useState<number | null>(null);
-  const [totalAmount, setTotalAmount] = useState<number | null>(null);
-  const [report, setReport] = useState<string>("");
+  const [taxRate, setTaxRate] = useState(null);
+  const [taxAmount, setTaxAmount] = useState(null);
+  const [totalAmount, setTotalAmount] = useState(null);
+  const [report, setReport] = useState("");
 
-  const [showPopUp, setShowPopUp] = useState<boolean>(false); // State to control the pop-up visibility
-  const calculatorContainerRef = useRef<HTMLDivElement>(null);
+  const [showPopUp, setShowPopUp] = useState(false);
+  const calculatorContainerRef = useRef(null);
 
-  const handleTaxTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleTaxTypeChange = (e) => {
     setTaxType(e.target.value);
   };
 
-  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAmountChange = (e) => {
     const value = e.target.value;
     if (value === "" || !isNaN(Number(value))) {
       setAmount(value);
@@ -40,7 +40,9 @@ const TaxCalculator = () => {
       setReport(response.data.report);
 
       setTimeout(() => {
-        calculatorContainerRef.current?.scrollTo({ top: calculatorContainerRef.current.scrollHeight, behavior: "smooth" });
+        if (calculatorContainerRef.current) {
+          calculatorContainerRef.current.scrollTo({ top: calculatorContainerRef.current.scrollHeight, behavior: "smooth" });
+        }
       }, 200);
     } catch (error) {
       console.error("Error calculating tax:", error);
@@ -53,9 +55,9 @@ const TaxCalculator = () => {
     const fileContent = `
     Tax Calculation Report:
 
-    The system calculates the tax by applying the selected tax rate to your entered amount. The tax rate for this calculation was ${taxRate! * 100}%. Based on the entered amount of Rs.${parseFloat(amount as string).toFixed(2)}, the tax amount is Rs.${taxAmount?.toFixed(2)}. This tax amount is then added to the original amount to give the total payable, which is Rs.${totalAmount?.toFixed(2)}. 
+    The system calculates the tax by applying the selected tax rate to your entered amount. The tax rate for this calculation was ${taxRate * 100}%. Based on the entered amount of Rs.${parseFloat(amount).toFixed(2)}, the tax amount is Rs.${taxAmount?.toFixed(2)}. This tax amount is then added to the original amount to give the total payable, which is Rs.${totalAmount?.toFixed(2)}. 
 
-    If you wish to know the remaining amount after deducting the tax, it is Rs.${(parseFloat(amount as string) - taxAmount!).toFixed(2)}.
+    If you wish to know the remaining amount after deducting the tax, it is Rs.${(parseFloat(amount) - taxAmount).toFixed(2)}.
 
     Below is the detailed tax calculation report:
 
@@ -71,10 +73,7 @@ const TaxCalculator = () => {
 
     URL.revokeObjectURL(fileURL);
 
-    // Show the success pop-up
     setShowPopUp(true);
-
-    // Hide the pop-up after 3 seconds
     setTimeout(() => {
       setShowPopUp(false);
     }, 3000);
