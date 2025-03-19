@@ -2,11 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "../styles/Chatbot.css";
 
-const Chatbot: React.FC = () => {
+const Chatbot = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [messages, setMessages] = useState<{ sender: string; text: string }[]>([]);
+    const [messages, setMessages] = useState([]);
     const [input, setInput] = useState("");
-    const chatboxRef = useRef<HTMLDivElement>(null);
+    const chatboxRef = useRef(null);
 
     const toggleChat = () => setIsOpen((prev) => !prev);
 
@@ -31,7 +31,9 @@ const Chatbot: React.FC = () => {
     };
 
     useEffect(() => {
-        chatboxRef.current?.scrollIntoView({ behavior: "smooth" });
+        if (chatboxRef.current) {
+            chatboxRef.current.scrollIntoView({ behavior: "smooth" });
+        }
     }, [messages]);
 
     return (
@@ -43,7 +45,7 @@ const Chatbot: React.FC = () => {
             {isOpen && (
                 <div className="chatbot-container">
                     <div className="chatbot-header">
-                    <span className="header-topic"> Tax Assistant</span>
+                        <span className="header-topic">Tax Assistant</span>
                         <button onClick={toggleChat}>✖</button>
                     </div>
 
@@ -62,7 +64,7 @@ const Chatbot: React.FC = () => {
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                             onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-                            placeholder=" Got a tax question? Type it here!"
+                            placeholder="Got a tax question? Type it here!"
                         />
                         <button onClick={sendMessage}>➤</button>
                     </div>
