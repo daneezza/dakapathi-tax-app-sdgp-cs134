@@ -84,7 +84,7 @@ function AboutUs() {
       </div>
 
       <div className='contact-details'>
-        <h2>Contact Dakapathi</h2>
+        <h2>Drop Us a Line at Dakapathi</h2>
         <p><strong>Hotline:</strong> +94 719 745 537</p>
         <p><strong>Gmail:</strong> dakapathi.official@gmail.com</p>
 
