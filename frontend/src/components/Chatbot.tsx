@@ -39,6 +39,7 @@ const Chatbot: React.FC = () => {
             <button className="chatbot-icon" onClick={toggleChat}>
                 <img src="/chatbot-icon.png" alt="Chatbot Icon" />
             </button>
+            
 
             {isOpen && (
                 <div className="chatbot-container">
