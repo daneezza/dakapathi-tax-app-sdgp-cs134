@@ -8,7 +8,7 @@ import LearningHub from './pages/LearningHub.jsx';
 import UserGuides from './pages/UserGuides.jsx';
 import NewsFeed from './pages/NewsFeed.tsx';
 import NewsDetail from './components/NewsDetail.tsx';
-import Game from './pages/game.tsx';
+import Game from './Pages/game.jsx';
 import FAQs from "./Pages/FAQs.jsx";
 import TaxCalculator from "./pages/TaxCalculator.tsx";
 import Pricing from "./pages/Pricing.jsx";
