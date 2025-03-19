@@ -1,4 +1,3 @@
-import React from "react";
 import FAQList from "../components/faq/FAQList";
 import "../styles/faq.css";
 

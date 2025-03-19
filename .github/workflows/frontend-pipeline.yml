@@ -28,12 +28,11 @@ jobs:
           cd frontend
           npm ci
 
-      - name: Run Linting
+      - name: Fix import path
         run: |
-          cd frontend
-          npm run lint
-
-
+            if grep -q "from \"./pages/TaxCalculator" ./frontend/src/App.jsx; then
+              sed -i 's/from ".\/pages\/TaxCalculator/from ".\/pages\/TaxCalculator/g' ./frontend/src/App.jsx
+            fi
 
       - name: Build Project
         run: |

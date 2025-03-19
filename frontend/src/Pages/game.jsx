@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import Quiz from "../components/game/gameQuiz";
 import "../styles/game.css";
