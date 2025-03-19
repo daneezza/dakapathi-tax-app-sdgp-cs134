@@ -10,7 +10,7 @@ import NewsFeed from './pages/NewsFeed.jsx';
 import NewsDetail from './components/NewsDetail.tsx';
 import Game from './Pages/game.jsx';
 import FAQs from "./Pages/FAQs.jsx";
-import TaxCalculator from "./Pages/TaxCalculator.jsx";
+import TaxCalculator from "./pages/TaxCalculator.jsx";
 import Pricing from "./pages/Pricing.jsx";
 
 
