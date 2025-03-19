@@ -8,10 +8,10 @@ import LearningHub from './pages/LearningHub.jsx';
 import UserGuides from './pages/UserGuides.jsx';
 import NewsFeed from './pages/NewsFeed.jsx';
 import NewsDetail from './components/NewsDetail.jsx';
-import Game from './Pages/game.jsx';
-import FAQs from './Pages/FAQs.jsx';
-import Pricing from './pages/Pricing.jsx';
-import Settings from './pages/Settings';
+import Game from './pages/Game.jsx';
+import FAQs from './pages/FAQs.jsx';
+import PricingComingSoon from './pages/Pricing.jsx';
+import Settings from './pages/Settings.jsx';
 import TaxCalculator from './pages/TaxCalculator.jsx'
 
 import './styles/login.css';
@@ -27,22 +27,19 @@ function App() {
   return(
     <Router>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/dashboard" element={<Template><Dashboard /></Template>} />
-        <Route path="/about" element={<Template><AboutUs /></Template>} />
-        <Route path="/qna" element={<Template><QnA /></Template>}/>
-        <Route path="/learning-hub" element={<Template><LearningHub /></Template>} />
-        <Route path="/user-guide" element={<Template><UserGuides /></Template>} />
-        <Route path="/news-feed" element={<Template><NewsFeed /></Template>} />
-        <Route path="/news/:id" element={<Template><NewsDetail /></Template>} />
-        <Route path="/gamefied" element={<Template><Game /></Template>}/>
-        <Route path="/faq" element={<Template><FAQs /></Template>} />
+        <Route path="/" element={<Login/>} />
+        <Route path="/dashboard" element={<Template><Dashboard/></Template>} />
+        <Route path="/about" element={<Template><AboutUs/></Template>} />
+        <Route path="/qna" element={<Template><QnA/></Template>}/>
+        <Route path="/learning-hub" element={<Template><LearningHub/></Template>} />
+        <Route path="/user-guide" element={<Template><UserGuides/></Template>} />
+        <Route path="/news-feed" element={<Template><NewsFeed/></Template>} />
+        <Route path="/news/:id" element={<Template><NewsDetail/></Template>} />
+        <Route path="/gamefied" element={<Template><Game/></Template>}/>
+        <Route path="/faq" element={<Template><FAQs/></Template>} />
         <Route path="/tax-cal" element={<Template>< TaxCalculator/></Template>} />
-        <Route path="/pricing" element={<Template><Pricing /></Template>} />
-        <Route path="/settings" component={<Template><Settings /></Template>} />
-
-
-
+        <Route path="/pricing" element={<Template><PricingComingSoon/></Template>} />
+        <Route path="/settings" component={<Template><Settings/></Template>} />
       </Routes>
     </Router>
   );
