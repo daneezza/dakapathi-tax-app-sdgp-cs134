@@ -306,7 +306,7 @@ box-shadow: 0px 3px 10px rgba(255, 65, 108, 0.4);
 }
 
 
-/* Disclaimer Container */
+/* disclaimer */
 .disclaimer-container {
   background-color: #e2dbc4;
   color: #7e6f3e;
@@ -319,10 +319,10 @@ box-shadow: 0px 3px 10px rgba(255, 65, 108, 0.4);
   max-width: 900px;
   margin: 10px auto;
   margin-top: 170px;
-  animation: fadeOut 10s ease-in-out forwards; /* Apply the fade-out animation */
+  animation: fadeOut 10s ease-in-out forwards; 
 }
 
-/* Animation for fading out the disclaimer */
+/* animation for fading out the disclaimer */
 @keyframes fadeOut {
   0% {
     opacity: 1;
@@ -332,10 +332,9 @@ box-shadow: 0px 3px 10px rgba(255, 65, 108, 0.4);
   }
   100% {
     opacity: 0;
-    visibility: hidden; /* Ensures it is hidden after the fade-out */
+    visibility: hidden; 
   }
 }
-
 
 
 .popup-notification-tax {
