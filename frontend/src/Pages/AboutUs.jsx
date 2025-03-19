@@ -51,8 +51,8 @@ const teamMembers = [
 function AboutUs() {
   return (
     <div className="about-us-container">
-      <h1>Who We Are</h1>
-      <hr className="about-us-line" />
+      <h1>Tax Titans of <img className="dakapathi-logo" src="src/assets/images/dakapathi.png" alt="SL flag"/></h1>
+     
       <p className='about-description'>
         At the intersection of innovation and social responsibility, our team of five visionary developers presents Dakapathi, Sri Lanka’s first versatile tax management web app. 
         <b className="about-description-bold"> Inspired by the ancient Dakapathi system, our platform modernizes tax literacy and compliance with intuitive calculators, real-time regulatory updates, AI assistance, and engaging educational tools. </b>
@@ -60,7 +60,7 @@ function AboutUs() {
       </p>
 
       <div className="team-section">
-        <h2>The Visionaries Who Brought Dakapathi to Life</h2>
+        <h2>Our Journey, Our Strength: Meet the Dakapathi Crew</h2>
         <div className="team-members">
           {teamMembers.map((member, index) => (
             <div key={index} className="team-member">
