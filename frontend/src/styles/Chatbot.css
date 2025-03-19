@@ -230,4 +230,49 @@
     animation: slideDown 0.3s ease-in-out;
 }
 
+/* Typing Indicator (Three Dots Animation) */
+.typing-indicator {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 4px;
+    padding: 10px;
+    border-radius: 25px;
+    max-width: 60%;
+    align-self: flex-start;
+    background-color: #f1f1f1;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.typing-indicator span {
+    width: 6px;
+    height: 6px;
+    background-color: gray;
+    border-radius: 50%;
+    display: inline-block;
+    animation: typingAnimation 1.5s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typingAnimation {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: 1;
+    }
+}
 
