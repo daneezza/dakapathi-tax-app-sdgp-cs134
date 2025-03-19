@@ -100,6 +100,7 @@ function AboutUs() {
             <img src="src/assets/icons/facebook-black.png" alt="TikTok" />
           </a>
         </div>
+        <p>© 2024 Dakapathi. All rights reserved.</p>
       </div>
     </div>
   );
