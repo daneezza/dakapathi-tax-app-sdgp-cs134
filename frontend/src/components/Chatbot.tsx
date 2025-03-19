@@ -6,7 +6,7 @@ const Chatbot: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<{ sender: string; text: string }[]>([]);
     const [input, setInput] = useState("");
-    const [isTyping, setIsTyping] = useState(false); // State for typing indicator
+    const [isTyping, setIsTyping] = useState(false); 
     const chatboxRef = useRef<HTMLDivElement>(null);
 
     const toggleChat = () => setIsOpen((prev) => !prev);
@@ -17,19 +17,19 @@ const Chatbot: React.FC = () => {
         const userMessage = { sender: "user", text: input };
         setMessages((prev) => [...prev, userMessage]);
         setInput("");
-        setIsTyping(true); // Show typing indicator
+        setIsTyping(true); 
 
         try {
             const response = await axios.post("http://localhost:3000/chat", { message: input });
             const botReply = response.data.reply || "I didn't understand that.";
 
             setTimeout(() => {
-                setIsTyping(false); // Hide typing indicator
+                setIsTyping(false); 
                 setMessages((prev) => [...prev, { sender: "bot", text: botReply }]);
-            }, 1000); // Simulate delay
+            }, 1000); // simulate delay
         } catch (error) {
             setTimeout(() => {
-                setIsTyping(false); // Hide typing indicator
+                setIsTyping(false); 
                 setMessages((prev) => [...prev, { sender: "bot", text: "Error: Could not get response." }]);
             }, 1000);
         }
