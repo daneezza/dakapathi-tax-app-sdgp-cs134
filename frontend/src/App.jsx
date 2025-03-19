@@ -10,10 +10,9 @@ import NewsFeed from './pages/NewsFeed.jsx';
 import NewsDetail from './components/NewsDetail.jsx';
 import Game from './Pages/game.jsx';
 import FAQs from './Pages/FAQs.jsx';
-import TaxCalculator from './pages/TaxCalculator';
 import Pricing from './pages/Pricing.jsx';
 import Settings from './pages/Settings';
-
+import TaxCalculator from './pages/TaxCalculator.jsx'
 
 import './styles/login.css';
 import './styles/Notification.css';
@@ -38,7 +37,7 @@ function App() {
         <Route path="/news/:id" element={<Template><NewsDetail /></Template>} />
         <Route path="/gamefied" element={<Template><Game /></Template>}/>
         <Route path="/faq" element={<Template><FAQs /></Template>} />
-        <Route path="/tax-cal" element={<Template><TaxCalculator /></Template>} />
+        <Route path="/tax-cal" element={<Template>< TaxCalculator/></Template>} />
         <Route path="/pricing" element={<Template><Pricing /></Template>} />
         <Route path="/settings" component={<Template><Settings /></Template>} />
 

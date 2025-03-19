@@ -146,6 +146,7 @@
       background: rgba(0, 0, 0, 0.5);
       color: #ffffff;
       padding: 1.5rem;
+      -webkit-backdrop-filter: blur(10px);
       backdrop-filter: blur(10px);
       border-radius: 10px;
       border: 1px solid rgba(212, 212, 212, 0.5);
