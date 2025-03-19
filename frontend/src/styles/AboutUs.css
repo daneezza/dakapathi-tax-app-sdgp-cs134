@@ -1,0 +1,202 @@
+.about-us-container {
+  position: relative;
+  margin-top: 150px; /* Instead of top: 150px; */
+  margin-bottom: 4rem;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2rem;
+  color: #ffffff;
+  z-index: 5;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: #000000d1;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  overflow: hidden; /* Prevents any hidden content */
+}
+
+.about-us-container:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.about-us-container h1 {
+  color: #FFD700;
+}
+
+
+.about-us-line {
+  width: 90%;  /* Adjust width as needed */
+  margin: 20px auto; /* Centers the line with some space above and below */
+  border: 0;
+  border-top: 2px solid #FFD700; 
+}
+
+
+.about-description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #ffffff; /* Changed to match Dashboard.css */
+  margin-bottom: 2rem;
+  width: 90%;
+  margin-top: 20px;
+  text-align: justify; /* Justifies the text */
+}
+
+
+.about-description-bold {
+  font-size: large;
+  font-style: italic;
+  color: #cfd3d5;
+}
+
+.team-section {
+  margin-top: 30px;
+}
+
+.team-section h2 {
+  margin-bottom: 40px;
+  color: #FFD700;
+}
+
+.team-members {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1.5rem;
+  width: 100%;
+}
+
+.team-member {
+  flex: 1 1 calc(33.33% - 2rem); /* Three members in the first row */
+  max-width: 280px;
+  text-align: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.1); /* Semi-transparent white background */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px); /* Adds the glass effect */
+  -webkit-backdrop-filter: blur(10px); /* For Safari */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Adds subtle border to enhance the glass effect */
+  
+}
+
+/* Ensures the last two members are centered in a new row */
+@media (max-width: 900px) {
+  .team-member {
+    flex: 1 1 calc(50% - 2rem); /* Two members in a row on smaller screens */
+  }
+}
+
+@media (max-width: 600px) {
+  .team-member {
+    flex: 1 1 100%;
+  }
+}
+
+
+.member-image {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+}
+
+.team-member h3 {
+  margin: 0.5rem 0;
+  color: #ffffff; /* Changed to match Dashboard.css */
+}
+
+.team-member p {
+  color: #bdb8b8; /* Kept as is for contrast */
+  margin: 0;
+}
+
+/*our social links */
+
+.team-member .social-links {
+  margin-top: 10px;
+}
+
+.team-member .social-links a {
+  margin: 0 10px;
+}
+
+.social-icon {
+  width: 24px; /* Adjust size of the icons */
+  height: 24px; /* Maintain square shape */
+  transition: transform 0.3s ease;
+}
+
+.social-icon:hover {
+  transform: scale(1.1); /* Slight scale effect on hover */
+}
+
+
+
+
+.contact-details {
+  width: 90%; /* Makes the container wider */
+  padding: 40px; /* Spacious padding */
+  border-radius: 16px; /* Soft rounded corners */
+  margin: 50px auto; /* Centered with added margin for spacing */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow for depth */
+  background: linear-gradient(145deg, #b69c06, #FFC300); /* Gradient background */
+  transition: box-shadow 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+}
+
+.contact-details:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Deeper shadow on hover */
+  transform: translateY(-5px); /* Slight lift effect on hover */
+}
+
+.contact-details h2 {
+  color: #000000;
+  margin-bottom: 15px;
+  font-size: 1.8em;
+}
+
+.contact-details p {
+  margin: 10px 0;
+  color: #000000;
+  font-size: 1.1em;
+}
+
+.contact-details a {
+  color: #524b31;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.contact-details a:hover {
+  color: #3b3829;
+  text-decoration: underline;
+}
+
+/* Adding social icons styling */
+.contact-details .social-icons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.contact-details .social-icons a {
+  margin: 0 15px;
+}
+
+.contact-details .social-icons img {
+  width: 30px;
+  height: 30px;
+  transition: transform 0.3s ease;
+}
+
+.contact-details .social-icons img:hover {
+  transform: scale(1.1); /* Slight scale effect on hover */
+}
+

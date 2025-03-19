@@ -1,0 +1,53 @@
+name: Frontend CI/CD
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/frontend-pipeline.yml'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'frontend/**'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: 'frontend/package-lock.json'
+      
+      - name: Debug directory structure
+        run: |
+          echo "Current directory: $(pwd)"
+          echo "Listing frontend/src directory:"
+          ls -la frontend/src
+          echo "Listing frontend/src/pages directory if it exists:"
+          ls -la frontend/src/pages || echo "pages directory not found"
+          echo "Listing frontend/src/Pages directory if it exists:"
+          ls -la frontend/src/Pages || echo "Pages directory not found"
+      
+      - name: Install dependencies
+        working-directory: ./frontend
+        run: npm ci
+      
+      - name: Install PropTypes (explicitly)
+        working-directory: ./frontend
+        run: npm install prop-types --save
+
+      - name: Build Project
+        run: |
+          cd frontend
+          npm run build
+
+      - name: Deploy
+        run: echo "Deploying frontend..."

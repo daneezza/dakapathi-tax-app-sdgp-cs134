@@ -1,0 +1,123 @@
+/* Wrap everything in a stylish container */
+.faq-wrapper {
+  max-width: 800px;
+  margin: 160px auto;  /* Centering */
+  padding: 30px;
+  background: #000000ab;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+/* Heading styles */
+.faq-topic {
+  padding: 10px;
+  margin-bottom: 20px;
+  background: linear-gradient(90deg, #FFD700, #E6B400);
+  color: black;
+  border-radius: 8px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+/* Center the entire FAQ container */
+.faq-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 12px;
+  color: #000000;
+}
+
+/* Style the FAQ list */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* FAQ Item */
+.faq-item {
+  background: #f9f9f9;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+}
+
+/* Create a gradient border effect */
+.faq-item::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 13px;
+  padding: 4px;
+  background: linear-gradient(135deg, 
+    #FFD700,  /* Gold */
+    #E6B400,  /* Deep Gold */
+    #DAA520,  /* Goldenrod */
+    #D4AF37,  /* Metallic Gold */
+    #b99931,  /* Aqua Blue */
+    #ae902e,  /* Teal */
+    #705d1e,  /* Ocean Blue */
+    #64541e,  /* Deep Sea Blue */
+    #2c240a   /* Dark Blue */
+  );
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: destination-out;
+  z-index: -1;
+}
+
+/* Prevent jumping when expanding */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+  padding: 0 15px;
+}
+
+/* When answer is visible */
+.faq-item.open .faq-answer {
+  max-height: 200px; /* Allow full expansion */
+  padding: 10px 15px; /* Add spacing when open */
+}
+
+/* Add hover effect */
+.faq-item:hover {
+  background: linear-gradient(145deg, #f1f0ecc8, #e6e7d2b4);
+  transform: scale(1.02);
+}
+
+/* Center the question text */
+.faq-question {
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Center the answer text */
+.faq-answer {
+  font-size: 16px;
+  color: #212121;
+  text-align: center;
+}
+
+/* Adjust the arrow icon */
+.arrow {
+  font-size: 20px;
+  transition: transform 0.2s;
+}

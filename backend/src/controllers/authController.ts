@@ -1,0 +1,277 @@
+// src/controllers/authController.ts
+import { Request, Response } from 'express';
+import { hashPassword, comparePassword } from '../utils/passwordUtil';
+import { sendOTPEmail } from '../utils/emailService';
+import jwt from 'jsonwebtoken';
+import { OAuth2Client } from 'google-auth-library';
+import User from '../models/User';
+
+
+interface User {
+  fullname: string;
+  nic: string;
+  address: string;
+  birthdate: string;
+  email: string;
+  password: string;
+  type: string;
+}
+
+const users: User[] = [];
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
+
+export const signup = async (req: Request, res: Response): Promise<void> => {
+  const { fullname, nic, address, birthdate, email, password, type } = req.body;
+
+
+  if (!fullname || !nic || !address || !birthdate || !email || !password || !type) {
+    res.status(400).json({ message: 'All fields are required: fullname, NIC, address, birthdate, email, password, and type.' });
+    return;
+  }
+
+
+  if (type !== 'Admin' && type !== 'User') {
+    res.status(400).json({ message: "Type must be either 'Admin' or 'User'." });
+    return;
+  }
+
+
+  const existingUser = await User.findOne({ email });
+  if (existingUser) {
+    res.status(400).json({ message: 'Email already exists. Please use a different email.' });
+    return;
+  }
+
+
+
+  const hashedPassword = await hashPassword(password);
+  const newUser = new User({ fullname, nic, address, birthdate, email, password: hashedPassword, type });
+  await newUser.save();
+
+  res.status(201).json({ message: 'User registered successfully.', fullname, email, type,profilePic: '', });
+};
+
+
+export const login = async (req: Request, res: Response): Promise<void> => {
+  const { email, password } = req.body;
+
+
+  if (Object.keys(req.body).length !== 2) {
+    res.status(400).json({ message: 'Only email and password are required for login.' });
+    return;
+  }
+
+
+
+
+  const user = await User.findOne({ email });
+  if (!user) {
+    res.status(401).json({ message: 'Invalid email or password.' });
+    return;
+  }
+
+
+  if (!user.password) {
+    res.status(400).json({ message: 'This account was created using Google Sign-In. Please use Google to log in.' });
+    return;
+  }
+
+
+  const isValidPassword = await comparePassword(password, user.password);
+  if (!isValidPassword) {
+    res.status(401).json({ message: 'Invalid email or password.' });
+    return;
+  }
+
+
+  const authToken = jwt.sign(
+    { email: user.email, fullname: user.fullname },
+    process.env.JWT_SECRET || 'secret',
+    { expiresIn: '1h' }
+  );
+
+  res.status(200).json({ message: 'Login successful.', fullname: user.fullname, email: user.email });
+};
+
+
+
+
+
+
+const otpStore: { [key: string]: { otp: string; expiresAt: number } } = {};
+
+
+const generateOTP = () => Math.floor(100000 + Math.random() * 900000).toString();
+
+
+export const sendOTP = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { email } = req.body;
+    if (!email) {
+      res.status(400).json({ message: 'Email is required' });
+      return;
+    }
+
+    const otp = generateOTP();
+    const expiresAt = Date.now() + 5 * 60 * 1000;
+    otpStore[email] = { otp, expiresAt };
+
+    await sendOTPEmail("account creation","Your Dakapathi Account Creation OTP Code",email, otp);
+    res.status(200).json({ message: 'Account Creation OTP sent to your mail' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to send OTP' });
+  }
+};
+
+
+export const verifyOTP = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { email, otp } = req.body;
+    if (!email || !otp) {
+      res.status(400).json({ message: 'Email and OTP are required' });
+      return;
+    }
+
+    const storedOTP = otpStore[email];
+    if (!storedOTP) {
+      res.status(400).json({ message: 'No OTP found. Request a new one.' });
+      return;
+    }
+
+    if (Date.now() > storedOTP.expiresAt) {
+      delete otpStore[email];
+      res.status(400).json({ message: 'OTP expired. Request a new one.' });
+      return;
+    }
+
+    if (storedOTP.otp !== otp) {
+      res.status(400).json({ message: 'Invalid OTP. Try again.' });
+      return;
+    }
+
+    delete otpStore[email];
+    res.status(200).json({ message: 'OTP verified successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to verify OTP' });
+  }
+};
+
+
+export const googleSignIn = async (req: Request, res: Response) => {
+  const { token } = req.body;
+
+  try {
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+
+    const payload = ticket.getPayload();
+    if (!payload) {
+      return res.status(400).json({ message: 'Google authentication failed' });
+    }
+
+    const { email, name } = payload;
+
+    
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      user = new User({
+        fullname: name || 'Google User',
+        nic: 'N/A',
+        address: 'N/A',
+        birthdate: 'N/A',
+        email: email ?? '',
+        password: '',
+        type: 'User',
+        quizEasyScore: 0,
+        quizMediumScore: 0,
+        quizHardScore: 0,
+        profilePic: null, 
+      });
+
+      await user.save();
+    }
+
+  
+    const authToken = jwt.sign(
+      { email: user.email, fullname: user.fullname },
+      process.env.JWT_SECRET || 'secret',
+      { expiresIn: '1h' }
+    );
+
+    res.status(200).json({
+      message: 'Google Sign-In successful',
+      token: authToken,
+      fullname: user.fullname,
+      email: user.email,
+    });
+
+  } catch (error) {
+    console.error('Error verifying Google token:', error);
+    res.status(500).json({ message: 'Failed to authenticate Google user' });
+  }
+};
+
+
+const userGuides = [
+  {
+    id: 1,
+    title: 'How to Create an Account',
+    content: [
+      '1. Navigate to the Signup page.',
+      '2. Enter your Fullname, NIC, Address, and Birthdate.',
+      '3. Provide a valid Email and create a secure Password.',
+      '4. Click the Signup button to complete the registration process.'
+    ],
+    videoPath: 'create-account.mp4' 
+  },
+  {
+    id: 2,
+    title: 'How to Navigate the Dashboard',
+    content: [
+      '1. Log in with your registered email and password.',
+      '2. On the Dashboard, view an overview of your tax status.',
+      '3. Use the menu on the left to explore different sections, including Reports and Tax Calculator.',
+      '4. Click on any section to see detailed information.'
+    ],
+    videoPath: 'navigate-dashboarde.mp4' 
+  },
+  {
+    id: 3,
+    title: 'How to Use the Tax Calculator Feature',
+    content: [
+      '1. Navigate to the Tax Calculator page from the menu.',
+      '2. Enter your income details accurately.',
+      '3. Click the Calculate button to see the tax results.',
+      '4. Review the calculated tax amount displayed on the page.',
+    ],
+    videoPath: 'tax-calculator.mp4' 
+  }
+  
+];
+
+
+
+export const getUserGuides = (req: Request, res: Response): void => {
+  res.status(200).json(userGuides);
+};
+
+
+export const getUserGuideById = (req: Request, res: Response): void => {
+  const guideId = parseInt(req.params.id, 10);
+  const guide = userGuides.find((g) => g.id === guideId);
+
+  if (!guide) {
+    res.status(404).json({ message: 'Guide not found.' });
+    return;
+  }
+
+  res.status(200).json(guide);
+};
+
+export { users };
