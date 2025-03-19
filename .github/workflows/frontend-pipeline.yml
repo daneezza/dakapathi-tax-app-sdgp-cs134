@@ -24,6 +24,7 @@ jobs:
 
       - name: Install Dependencies
         run: npm ci
+        working-directory: frontend
 
 
       - name: Build React App
