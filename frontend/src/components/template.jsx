@@ -27,7 +27,7 @@ function Navbar({ links, toggleSidebar }) {
     setIsProfileDropdownOpen(!isProfileDropdownOpen);
   };
 
-  // Add useEffect to handle outside clicks
+  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -35,14 +35,12 @@ function Navbar({ links, toggleSidebar }) {
       }
     };
 
-    // Add event listener when dropdown is open
     if (isProfileDropdownOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     }
 
-    // Cleanup event listener
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isProfileDropdownOpen]);
 
@@ -57,45 +55,47 @@ function Navbar({ links, toggleSidebar }) {
         <div className="nav-brand">
           <img src={logo} alt="Logo" className="logo" />
         </div>
-
       </div>
+
       <ul className="nav-links">
         {links.map((link, index) => (
           <li key={index}>
-            <Link 
-            to={link.href}
-            className={location.pathname === link.href ? 'selected' : ''}
-            >
-              {link.href === "#notifications" && <img src={notificationIcon} alt="Notifications" className="nav-icon" />}
+            {link.href === "#notifications" ? (
+              <img src={notificationIcon} alt="Notifications" className="nav-icon" />
+            ) : link.href === "/profile" ? (
+              // Profile Icon with Dropdown
+              <div className="profile-container" ref={dropdownRef}>
+                <button onClick={toggleProfileDropdown} className="profile-button">
+                  <img src={profileIcon} alt="Profile" className="nav-icon" />
+                </button>
 
-              {link.href === "/profile" && (
-                <div className="profile-container">
-                  <button onClick={toggleProfileDropdown} className="profile-button">
-                    <img src={profileIcon} alt="Profile" className="nav-icon" />
-                  </button>
-                  {isProfileDropdownOpen && (
-                    <div className="dropdown-popup" ref={dropdownRef}>
-                      <div className="profile-info">
-                        <div className="profile-info">
-                          <img src="src/assets/members/developer01.jpg" alt="Profile" /><br></br>
-                          <span className="full-name">John Doe</span><br></br>
-                          <span className="nic-no">NIC: 123456789</span>
-                        </div>
-                      </div>
-                      <Link to="/Settings">Settings</Link>
-                      <a href="#logout">Logout</a>
+                {isProfileDropdownOpen && (
+                  <div className="dropdown-popup">
+                    <div className="profile-info">
+                      <img src="src/assets/members/developer01.jpg" alt="Profile" />
+                      <br />
+                      <span className="full-name">John Doe</span>
+                      <br />
+                      <span className="nic-no">NIC: 123456789</span>
                     </div>
-                  )}
-                </div>
-              )}
-              
-              {link.text}
-            </Link>
+                    <a href="/settings">Settings</a>
+                    <a href="/">Logout</a>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link
+                to={link.href}
+                className={location.pathname === link.href ? "selected" : ""}
+              >
+                {link.text}
+              </Link>
+            )}
           </li>
         ))}
       </ul>
     </nav>
-  )
+  );
 }
 
 Navbar.propTypes = {
