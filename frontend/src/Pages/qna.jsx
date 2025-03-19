@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import QuestionForm from '../components/qna/QuestionForm';
 import QuestionList from '../components/qna/QuestionList';
 
