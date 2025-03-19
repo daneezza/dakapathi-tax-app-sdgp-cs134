@@ -1,18 +1,8 @@
-/* 
-body {
-  margin-top: 180px;
-  font-family: Arial, sans-serif;
-  background-color: #f0f8ff;
-  color: #333;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-} */
+/*TAX CALCULATOR stylings.. here we gooooo */
 .cal-topic {
   color: #e9e9e9;
-  margin-top: 40px;
-  margin-bottom: 15px;
+  margin-top: 10px;
+  margin-bottom: 20px;
   font-size: 30px;
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
@@ -29,22 +19,22 @@ body {
     margin-bottom: 90px;
 }
 
-/* New Container for Wrapping */
+/* new Container for Wrapping | cal content on a single conatiner*/
 .outer-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 700px;
+  max-width: 900px;
   padding: 50px;
   padding-bottom: 100px;
-  background: #000000ab;
+  background: #000000d1;
   border-radius: 15px;
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
  
 }
-/*--------------------------------------*/
+/*----------------calculating container----------------------*/
 
 .calculator-container {
   display: flex;
@@ -60,46 +50,45 @@ body {
   border-style: solid;
   border-color: #FFD700;
   
-  /* Enable internal scrolling */
-  max-height: 600px; /* Adjust as needed */
+  /* enable internal scrolling */
+  max-height: 600px;
   overflow-y: auto; 
 }
 
-/* Hide scrollbar in WebKit browsers */
+/* hide scrollbar in WebKit browsers */
 .calculator-container::-webkit-scrollbar {
   width: 0px;
   background: transparent;
 }
 
-/* Hide scrollbar in Firefox */
+/* hide scrollbar in Firefox */
 .calculator-container {
   scrollbar-width: none;
 }
 
-/* Hide scrollbar in Edge */
+/* hide scrollbar in MS Edge */
 .calculator-container::-webkit-scrollbar-thumb {
   display: none;
 }
 
-
+/*--input filed--*/
 .input-section {
   display: flex;
   flex-direction: column;
-  gap: 15px;  /* Increased space between form elements */
+  gap: 15px; 
   width: 100%;
 }
 
 .taxcal-label {
   font-weight: bold;
-  font-size: 1.4rem;  /* Increased label font size */
+  font-size: 1.4rem;  
   text-align: center;
   color: #ffffff;
   margin-bottom: 5px;
 }
 
-/* Custom Dropdown Styling */
-/* Custom Dropdown Styling */
-/* Custom Styled Dropdown */
+
+/* Dropdown */
 select {
   padding: 12px;
   font-size: 1.0rem;
@@ -113,43 +102,43 @@ select {
   cursor: pointer;
   font-weight: bold;
   transition: all 0.3s ease-in-out;
-  box-shadow: 0px 4px 8px rgba(146, 147, 147, 0.3); /* Subtle glow */
+  box-shadow: 0px 4px 8px rgba(146, 147, 147, 0.3); /* giving a little glow */
   
-  /* Remove default arrow */
+  /* removing the default arrow */
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   
-  /* Custom dropdown arrow */
+  /* customized dropdown arrow */
   background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 140'><polygon fill='%23FFD700' points='70,100 10,40 130,40'/></svg>");
   background-repeat: no-repeat;
   background-position: right 15px center;
   background-size: 12px;
 }
 
-/* Hover & Focus Effect */
+/* hover and focus effect on the selection section*/
 select:hover,
 select:focus {
-  border-color: #ff3300;  /* Darker border on hover */
-  box-shadow: 0px 6px 12px rgba(255, 51, 0, 0.5); /* Stronger glow */
-  transform: scale(1.05); /* Slight scale effect */
+  border-color: #ff3300;  
+  box-shadow: 0px 6px 12px rgba(255, 51, 0, 0.5); /* a stronger glow */
+  transform: scale(1.05); 
 }
 
-/* Dropdown open effect */
+/* dropdown open effect */
 select:focus-visible {
   outline: 3px solid #ff6600;  
   transform: scale(1.05);
 }
 
-/* Support for older browsers */
+/* support for older browsers | remove default dropdown arrow in IE :) */
 select::-ms-expand {
-  display: none; /* Removes default dropdown arrow in IE */
+  display: none; 
 }
 
 
 select::after {
-  content: "▼"; /* Custom dropdown icon */
-  font-size: 1.4rem; /* Slightly bigger arrow */
+  content: "▼"; 
+  font-size: 1.4rem; /* make the arrow looks bigger */
   color: #ff6600;
   position: absolute;
   right: 10px;
@@ -158,42 +147,42 @@ select::after {
   pointer-events: none;
 }
 
-/* Smooth animation when opening */
+/* smooth animation when opening */
 select:focus {
   outline: none;
-  transform: scale(1.05); /* Slight scale effect */
+  transform: scale(1.05); 
 }
 
-/* New Focus Effect for modern feel */
+/* new focus effect for modern feel */
 select:focus-visible {
-  outline: 3px solid #ff6600;  /* Visible outline for accessibility */
-  transform: scale(1.05); /* Slight scale effect */
+  outline: 3px solid #ff6600;  
+  transform: scale(1.05); 
 }
 
 
-
+/*CALCULATE button*/
 button.calculate-btn {
-  background: linear-gradient(135deg, #ffcc00, #ff6600); /* Gradient color */
+  background: linear-gradient(135deg, #ffcc00, #ff6600); 
   color: rgb(0, 0, 0);
-  padding: 18px 35px;  /* Larger padding for a bold look */
+  padding: 18px 35px;  
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 1.5rem;  /* Bigger font for better readability */
+  font-size: 1.5rem;  
   font-weight: bold;
   text-transform: uppercase;
   transition: all 0.3s ease-in-out;
-  box-shadow: 0px 5px 15px rgba(255, 102, 0, 0.5); /* Glowing effect */
+  box-shadow: 0px 5px 15px rgba(255, 102, 0, 0.5); /* glowing effect */
   margin-top: 10px;
 }
 
 button.calculate-btn:hover {
-  background: linear-gradient(135deg, #ff6600, #ff3300); /* Darker gradient */
-  transform: scale(1.1); /* Slight zoom effect */
-  box-shadow: 0px 8px 20px rgba(255, 51, 0, 0.7); /* Stronger glow */
+  background: linear-gradient(135deg, #ff6600, #ff3300); 
+  transform: scale(1.1); /* zoom */
+  box-shadow: 0px 8px 20px rgba(255, 51, 0, 0.7); 
 }
 
-
+/*Dakapathi tax result*/
 .result-section {
   margin-top: 20px;
   padding: 20px;
@@ -211,22 +200,22 @@ button.calculate-btn:hover {
   font-size: small;
   margin-bottom: 20px;
   padding: 15px;
-  background-color: #999;
+  background-color: #ffffff;
   color: #000000;
-  position: relative; /* Required to position the pseudo-element */
+  position: relative; /* required to position the pseudo element */
 }
 
-/* Create the folded corner */
+/* create the folded corner */
 .result-section p::after {
   content: "";
   position: absolute;
-  top: -10px; /* Adjust for the size of the fold */
-  right: -10px; /* Adjust for the size of the fold */
-  width: 20px; /* Size of the folded part */
-  height: 20px; /* Size of the folded part */
+  top: -10px; 
+  right: -10px; 
+  width: 20px; 
+  height: 20px; 
   background-color: black;
-  transform: rotate(45deg); /* Rotate to form the folded effect */
-  z-index: 1; /* Ensure it appears on top */
+  transform: rotate(45deg); /* rotate the square for the folded effect */
+  z-index: 1; /* appears on top */
 }
 
 
@@ -244,36 +233,36 @@ pre {
   
 }
 
-/* Remove input arrows in number fields */
-/* Custom Input Styling */
+
+/* enter amount filed */
 input[type="number"] {
 padding: 12px;
-font-size: 1.0rem; /* Bigger text */
-border: 2px solid #FFD700; /* Standout border */
+font-size: 1.0rem; 
+border: 2px solid #FFD700; 
 border-radius: 8px;
 width: 100%;
 background-color: rgb(0, 0, 0);
 color: #c1c1c1;
 font-weight: bold;
 transition: all 0.3s ease-in-out;
-box-shadow: 0px 4px 8px rgba(146, 147, 147, 0.3); /* Subtle glow */
+box-shadow: 0px 4px 8px rgba(146, 147, 147, 0.3); 
 }
 
-/* Hover & Focus Effect */
+/* hover and focus effect */
 input[type="number"]:hover, input[type="number"]:focus {
-border-color: #0056b3; /* Darker blue on focus */
-box-shadow: 0px 6px 12px rgba(0, 86, 179, 0.5); /* Stronger glow */
-transform: scale(1.05); /* Slight scale effect */
+border-color: #0056b3; 
+box-shadow: 0px 6px 12px rgba(0, 86, 179, 0.5); 
+transform: scale(1.05); 
 outline: none;
 }
 
-/* Placeholder Styling */
+/* placeholder */
 input[type="number"]::placeholder {
 color: #999;
 font-style: italic;
 }
 
-/* Remove default number field arrows */
+/* remove default number field arrows */
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
 -webkit-appearance: none;
@@ -285,9 +274,9 @@ input[type="number"] {
 }
 
 
-/* 🔥 Magic Download Button 🔥 */
+/* DOWNLOAD REPORT button */
 .download-btn {
-background: linear-gradient(135deg, #ff416c, #ff4b2b); /* Cool Gradient */
+background: linear-gradient(135deg, #ff416c, #ff4b2b); 
 color: rgb(0, 0, 0);
 font-size: 1.3rem;
 font-weight: bold;
@@ -300,34 +289,35 @@ box-shadow: 0px 5px 15px rgba(255, 65, 108, 0.5);
 text-transform: uppercase;
 letter-spacing: 1.5px;
 margin-top: 20px;
+margin-bottom: 20px;
 }
 
-/* 🔥 Hover Effect */
+/* hover effect */
 .download-btn:hover {
-background: linear-gradient(135deg, #ff4b2b, #ff416c); /* Swap colors */
-transform: scale(1.1); /* Slightly bigger */
+background: linear-gradient(135deg, #ff4b2b, #ff416c); 
+transform: scale(1.1); 
 box-shadow: 0px 8px 20px rgba(255, 65, 108, 0.8);
 }
 
-/* 🔥 Active (Click) Effect */
+/* active (click) effect */
 .download-btn:active {
-transform: scale(0.95); /* Shrinks when clicked */
+transform: scale(0.95); /* shrinks when clicked */
 box-shadow: 0px 3px 10px rgba(255, 65, 108, 0.4);
 }
 
 
 .disclaimer-container {
-  background-color: #8b231f;
-  color: #e2c5c4;
+  background-color: #e2dbc4;
+  color: #7e6f3e;
   padding: 25px;
-  border-left: 5px solid #e2c5c4;
+  border-left: 5px solid #7e6f3e;
   text-align: center;
   font-weight: 500;
   font-size: 17px;
 
-  width: 60%; /* Adjust the width */
-  max-width: 5000px; /* Set a max-width */
-  margin: 10px auto; /* Centers the div */
+  width: 60%; 
+  max-width: 900px; 
+  margin: 10px auto; 
   margin-top: 170px;
 }
 
@@ -337,10 +327,12 @@ box-shadow: 0px 3px 10px rgba(255, 65, 108, 0.4);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #28a745;
-  color: white;
+  background-color: #2da74a;
+  color: rgb(255, 255, 255);
   padding: 20px;
+  border-radius: 40px;
   font-size: 16px;
+  font-weight: bold;
   z-index: 1000;
   opacity: 0;
   animation: fadeInOut 4s ease-in-out forwards;
@@ -360,9 +352,3 @@ box-shadow: 0px 3px 10px rgba(255, 65, 108, 0.4);
     opacity: 0;
   }
 }
-
-
-
-
-
-

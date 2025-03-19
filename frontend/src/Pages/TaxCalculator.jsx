@@ -81,14 +81,14 @@ const TaxCalculator = () => {
 
   return (
     <>
-      {/* Disclaimer Section */}
+      {/* disclaimer */}
       <div className="disclaimer-container">
         <p>
-          <strong>Disclaimer:</strong> The tax rates and calculations provided here may not always be up-to-date. Please verify with official sources.
+          <strong>Disclaimer:</strong> The tax rates and calculations provided here may not always be up-to-date. <br/>Please verify with official sources.
         </p>
       </div>
 
-      {/* Main Calculator Section */}
+      {/* main calculator section */}
       <div className="cal-container">
         <div className="outer-wrapper">
           <h1 className="cal-topic">Unlock Your Tax Potential with DAKAPATHI</h1>
@@ -126,7 +126,7 @@ const TaxCalculator = () => {
                 <h3>Dakapathi Tax Calculation Report:</h3>
                 <pre>{report}</pre>
                 <button className="download-btn" onClick={downloadReport}>
-                  Download Report
+                  Download The Full Report
                 </button>
               </div>
             )}
@@ -134,7 +134,7 @@ const TaxCalculator = () => {
         </div>
       </div>
 
-      {/* Success Pop-up Notification */}
+      {/* success pop-up :) */}
       {showPopUp && (
         <div className="popup-notification-tax">
           <p>You nailed it! Thanks for giving us a shot!</p>
