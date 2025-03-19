@@ -11,7 +11,7 @@ import NewsDetail from './components/NewsDetail.tsx';
 import Game from './pages/game.tsx';
 import FAQs from "./pages/FAQs.tsx";
 import TaxCalculator from "./pages/TaxCalculator.tsx";
-import Pricing from "./pages/Pricing.tsx";
+import Pricing from "./pages/Pricing.jsx";
 
 
 import './styles/login.css';
