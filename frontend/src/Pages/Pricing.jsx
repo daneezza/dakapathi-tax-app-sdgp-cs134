@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { FaRocket, FaGift } from "react-icons/fa";
 import "../styles/Pricing.css";
 
-const PricingComingSoon = () => {
+function PricingComingSoon() {
     const [timeLeft, setTimeLeft] = useState({
         days: "00",
         hours: "00",
