@@ -12,6 +12,7 @@ import Game from './Pages/game.jsx';
 import FAQs from "./Pages/FAQs.jsx";
 import TaxCalculator from "./pages/TaxCalculator.jsx";
 import Pricing from "./pages/Pricing.jsx";
+import Settings from './pages/Settings';
 
 
 import './styles/login.css';
@@ -27,7 +28,7 @@ function App() {
   return(
     <Router>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<Template><Settings /></Template>} />
         <Route path="/dashboard" element={<Template><Dashboard /></Template>} />
         <Route path="/about" element={<Template><AboutUs /></Template>} />
         <Route path="/qna" element={<Template><QnA /></Template>}/>
@@ -39,6 +40,7 @@ function App() {
         <Route path="/faq" element={<Template><FAQs /></Template>} />
         <Route path="/tax-cal" element={<Template><TaxCalculator /></Template>} />
         <Route path="/pricing" element={<Template><Pricing /></Template>} />
+        <Route path="/settings" component={<Template><Settings /></Template>} />
 
 
 
@@ -47,4 +49,4 @@ function App() {
   );
 }
 
-export default App
+export default App;

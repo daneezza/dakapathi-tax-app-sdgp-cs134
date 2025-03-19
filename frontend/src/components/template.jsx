@@ -67,6 +67,7 @@ function Navbar({ links, toggleSidebar }) {
             className={location.pathname === link.href ? 'selected' : ''}
             >
               {link.href === "#notifications" && <img src={notificationIcon} alt="Notifications" className="nav-icon" />}
+
               {link.href === "/profile" && (
                 <div className="profile-container">
                   <button onClick={toggleProfileDropdown} className="profile-button">
@@ -87,6 +88,7 @@ function Navbar({ links, toggleSidebar }) {
                   )}
                 </div>
               )}
+              
               {link.text}
             </Link>
           </li>
