@@ -17,6 +17,20 @@
     
 }
 
+/* Add this to your existing QuestionList.css file */
+
+.like-button.user-liked,
+.answer-like-button.user-liked {
+  color: #ff4d4d;
+  font-weight: 600;
+}
+
+.like-button:hover,
+.answer-like-button:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
 
 
 .question-item {
