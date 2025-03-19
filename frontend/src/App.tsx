@@ -6,7 +6,7 @@ import AboutUs from './pages/AboutUs.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 import QnA from './pages/qna.jsx';
 import LearningHub from './pages/LearningHub.tsx';
-import UserGuides from './pages/UserGuides.jsx';
+import UserGuides from './pages/UserGuides.js';
 import NewsFeed from './pages/NewsFeed.tsx';
 import NewsDetail from './components/NewsDetail.tsx';
 import Game from './pages/game.tsx';
