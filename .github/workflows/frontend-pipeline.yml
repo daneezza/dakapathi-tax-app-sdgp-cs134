@@ -2,38 +2,47 @@ name: Frontend CI/CD
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main, develop ]
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/frontend-pipeline.yml'
   pull_request:
-    branches:
-      - main
+    branches: [ main, develop ]
+    paths:
+      - 'frontend/**'
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
-
+    
     steps:
-      - name: Checkout Code
+      - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Install Node.js
+      
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: '18'
           cache: 'npm'
-          cache-dependency-path: './frontend/package-lock.json'
-
-      - name: Install Dependencies
+          cache-dependency-path: 'frontend/package-lock.json'
+      
+      - name: Debug directory structure
         run: |
-          cd frontend
-          npm ci
-
-      - name: Fix import paths
-        run: |
-          # Fix case sensitivity issues in imports
-          sed -i 's/import Game from \.\/Pages\/game\.jsx/import Game from \.\/pages\/game\.jsx/g' src/App.jsx
-          sed -i 's/import FAQs from "\.\/Pages\/FAQs\.jsx"/import FAQs from "\.\/pages\/FAQs\.jsx"/g' src/App.jsx
-          sed -i 's/import Pricing from "\.\/Pages\/Pricing\.jsx"/import Pricing from "\.\/pages\/Pricing\.jsx"/g' src/App.jsx
+          echo "Current directory: $(pwd)"
+          echo "Listing frontend/src directory:"
+          ls -la frontend/src
+          echo "Listing frontend/src/pages directory if it exists:"
+          ls -la frontend/src/pages || echo "pages directory not found"
+          echo "Listing frontend/src/Pages directory if it exists:"
+          ls -la frontend/src/Pages || echo "Pages directory not found"
+      
+      - name: Install dependencies
+        working-directory: ./frontend
+        run: npm ci
+      
+      - name: Install PropTypes (explicitly)
+        working-directory: ./frontend
+        run: npm install prop-types --save
 
       - name: Build Project
         run: |
