@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-const NewsDetail: React.FC = () => {
+const NewsDetail = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const article = location.state?.article;
@@ -18,7 +18,9 @@ const NewsDetail: React.FC = () => {
       <h1 className="news-title">{article.title}</h1>
       <img src={article.image} alt={article.title} className="news-image-large" />
       <p className="news-summary">{article.summary}</p>
-      <a href={article.url} target="_blank" rel="noopener noreferrer" className="read-more">Read full article</a>
+      <a href={article.url} target="_blank" rel="noopener noreferrer" className="read-more">
+        Read full article
+      </a>
     </div>
   );
 };
