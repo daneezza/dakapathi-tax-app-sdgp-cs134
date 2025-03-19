@@ -1,39 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-interface Article {
-  id: number;
-  title: string;
-  image: string;
-  summary: string;
-}
-
-const NewsFeed: React.FC = () => {
-  const [articles, setArticles] = useState<Article[]>([]);
+const NewsFeed = () => {
+  const [articles, setArticles] = useState([]);
   const navigate = useNavigate();
-    const [loading, setLoading] = useState(true); 
-
-
+  const [loading, setLoading] = useState(true);
+  
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/news'); 
+        const response = await axios.get('http://localhost:3000/api/news');
         setArticles(response.data);
       } catch (error) {
         console.error('Error fetching news:', error);
-      } finally{
+      } finally {
         setLoading(false);
       }
     };
-
+    
     fetchNews();
   }, []);
-
-  const handleCardClick = (article: Article) => {
+  
+  const handleCardClick = (article) => {
     navigate(`/news/${article.id}`, { state: { article } });
   };
-
+  
   if (loading) {
     return (
       <div className="loader-container">
@@ -41,7 +33,7 @@ const NewsFeed: React.FC = () => {
       </div>
     );
   }
-
+  
   return (
     <div className="news-feed-page">
       <h1 className="heading">News Feed</h1>
