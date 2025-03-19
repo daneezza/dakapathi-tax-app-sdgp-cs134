@@ -155,7 +155,7 @@
   background: linear-gradient(135deg, #ffcc00a9, #ff6600a1); 
   color: #ffffff; /* Dark text color for readability */
   font-family: 'Roboto', sans-serif; /* Clean, modern font */
-  border: 1px solid #000000; /* Thin border for structure */
+  border: 2px solid #10975a; /* Thin border for structure */
   transition: box-shadow 0.3s ease, transform 0.3s ease; /* Smooth transition effects */
 }
 
