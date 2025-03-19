@@ -3,12 +3,12 @@ import Login from './pages/Login.jsx';
 import Template from './components/template.jsx'; 
 import AboutUs from './pages/AboutUs.jsx';
 import Dashboard from './pages/Dashboard.jsx';
-import QnA from './pages/qna.jsx';
+import QnA from './pages/QnA.jsx';
 import LearningHub from './pages/LearningHub.jsx';
 import UserGuides from './pages/UserGuides.jsx';
 import NewsFeed from './pages/NewsFeed.jsx';
 import NewsDetail from './components/NewsDetail.jsx';
-import Game from './pages/game.jsx';
+import Game from './pages/Game.jsx';
 import FAQs from './pages/FAQs.jsx';
 import PricingComingSoon from './pages/Pricing.jsx';
 import Settings from './pages/Settings.jsx';
@@ -39,7 +39,7 @@ function App() {
         <Route path="/faq" element={<Template><FAQs/></Template>} />
         <Route path="/tax-cal" element={<Template>< TaxCalculator/></Template>} />
         <Route path="/pricing" element={<Template><PricingComingSoon/></Template>} />
-        <Route path="/settings" component={<Template><Settings/></Template>} />
+        <Route path="/settings" element={<Template><Settings/></Template>} />
       </Routes>
     </Router>
   );
