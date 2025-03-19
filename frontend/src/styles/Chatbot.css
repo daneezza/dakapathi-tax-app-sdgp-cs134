@@ -59,7 +59,7 @@
 
 .chatbot-container {
     height: 400px; /* Ensure it shows at max height immediately */
-    max-height: 400px; 
+    max-height: 350px; 
     position: fixed;
     bottom: 80px;
     right: 20px;
