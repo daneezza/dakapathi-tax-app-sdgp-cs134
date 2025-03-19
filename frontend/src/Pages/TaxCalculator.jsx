@@ -121,7 +121,7 @@ const TaxCalculator = () => {
 
             {taxRate !== null && (
               <div className="result-section">
-                <p>The system calculates the tax by applying the selected tax rate to your entered amount. The tax amount is then added to the original amount to get the total payable.  
+                <p>The system calculates the tax by applying the selected tax rate to your entered amount. <br/>The tax amount is then added to the original amount to get the total payable.  
                 <br/>For a detailed breakdown, download the full report.</p>
 
                 <h3>Dakapathi Tax Calculation Report:</h3>
