@@ -53,11 +53,11 @@ export const calculateTax = (input: TaxCalculationInput): TaxCalculationResult =
 
   // generate the report (this is connected to the final user's tax report)
   const report = `
-    Tax Type : ${taxType}
-    Amount : Rs.${amount.toFixed(2)}
-    Tax Rate : ${(taxRate * 100).toFixed(2)}%
-    Tax Amount : Rs.${taxAmount.toFixed(2)}
-    Total Amount : Rs.${totalAmount.toFixed(2)}
+    Tax Category - ${taxType}
+    Assessed Amount - Rs.${amount.toFixed(2)}
+    Applicable Tax Rate - ${(taxRate * 100).toFixed(2)}%
+    Tax Due - Rs.${taxAmount.toFixed(2)}
+    Total Payable - Rs.${totalAmount.toFixed(2)}
   `;
 
   return { taxRate, taxAmount, totalAmount, report };
