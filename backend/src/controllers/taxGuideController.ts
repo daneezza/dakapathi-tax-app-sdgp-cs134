@@ -3,12 +3,10 @@ import { Request, Response } from 'express';
 const taxGuides = [
   {
     id: 1,
-    title: 'How to Create an Account',
+    title: 'Sri Lanka’s Tax & Financial System',
     content: [
-      '1. Navigate to the Signup page.',
-      '2. Enter your Fullname, NIC, Address, and Birthdate.',
-      '3. Provide a valid Email and create a secure Password.',
-      '4. Click the Signup button to complete the registration process.'
+      '      Sri Lanka’s official currency, the Sri Lankan Rupee (LKR), forms the basis of financial transactions and symbolizes economic stability.The tax structure includes Personal Income Tax, Corporate Tax, and Value Added Tax (VAT), funding public services and economic growth.',
+      'Unlike the standard calendar year, Sri Lanka’s financial year runs from April 1st to March 31st. This timeline is crucial for tax filing and compliance. Understanding these tax periods and currency nuances is vital for effective financial planning and smooth business operations.',
     ],
     YoutubePath: 'https://youtu.be/dQw4w9WgXcQ?si=T-1NLz8jc6KmGM31' 
   },
