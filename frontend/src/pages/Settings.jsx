@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import '../styles/Settings.css';
 
 function Settings() {
@@ -6,11 +6,10 @@ function Settings() {
     const [profileImage, setProfileImage] = useState(null);
     const [settings, setSettings] = useState({
         personalInfo: {
-            name: 'John Doe',
-            nic: '123456789012',
-            phone: '123-456-7890',
-            address: '123 Main St, City, Country',
-            dob: '02/03/2000'
+            name: '',
+            nic: '',
+            address: '',
+            dob: ''
         },
         security: {
             twoFactorAuth: false,
@@ -21,37 +20,54 @@ function Settings() {
         }
     });
 
+    // Load user data from localStorage
+    useEffect(() => {
+        const userData = localStorage.getItem('user');
+        if (userData) {
+            const parsedUser = JSON.parse(userData);
+            setSettings((prevSettings) => ({
+                ...prevSettings,
+                personalInfo: {
+                    name: parsedUser.fullname || prevSettings.personalInfo.name,
+                    nic: parsedUser.nic || prevSettings.personalInfo.nic,
+                    address: parsedUser.address || prevSettings.personalInfo.address,
+                    dob: parsedUser.birthdate || prevSettings.personalInfo.birthdate
+                }
+            }));
+        }
+    }, []);
+
     const handlePersonalInfoChange = (e) => {
         const { name, value } = e.target;
-        setSettings({
-            ...settings,
+        setSettings((prevSettings) => ({
+            ...prevSettings,
             personalInfo: {
-                ...settings.personalInfo,
+                ...prevSettings.personalInfo,
                 [name]: value
             }
-        });
+        }));
     };
 
     const handleSecurityChange = (e) => {
         const { name, value, type, checked } = e.target;
-        setSettings({
-            ...settings,
+        setSettings((prevSettings) => ({
+            ...prevSettings,
             security: {
-                ...settings.security,
+                ...prevSettings.security,
                 [name]: type === 'checkbox' ? checked : value
             }
-        });
+        }));
     };
 
     const handlePreferencesChange = (e) => {
         const { name, value } = e.target;
-        setSettings({
-            ...settings,
+        setSettings((prevSettings) => ({
+            ...prevSettings,
             preferences: {
-                ...settings.preferences,
+                ...prevSettings.preferences,
                 [name]: value
             }
-        });
+        }));
     };
 
     const handleProfileImageChange = (e) => {
@@ -71,6 +87,7 @@ function Settings() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        localStorage.setItem('user', JSON.stringify(settings.personalInfo)); // Save updated personal info
         alert('Settings saved successfully!');
     };
 
@@ -93,20 +110,13 @@ function Settings() {
                 {/* Profile Picture Section */}
                 <div className="settingsPic-section">
                     <div className="profile-picture-container">
-                        <div 
-                            className="user-avatar" 
-                            onClick={handleAvatarClick}
-                        >
+                        <div className="user-avatar" onClick={handleAvatarClick}>
                             {profileImage ? (
                                 <img src={profileImage} alt="Profile" />
                             ) : (
                                 <div className="avatar-placeholder">
                                     <div className="camera-icon">
-                                        <img 
-                                            src="src/assets/cam.png" 
-                                            alt="Camera" 
-                                            className="camera-icon-img" 
-                                        />
+                                        <img src="src/assets/cam.png" alt="Camera" className="camera-icon-img" />
                                     </div>
                                     <span>Choose photo</span>
                                 </div>
@@ -136,16 +146,6 @@ function Settings() {
                         />
                     </div>
                     <div className="settings-group">
-                        <label htmlFor="phone">Phone</label>
-                        <input
-                            type="tel"
-                            id="phone"
-                            name="phone"
-                            value={settings.personalInfo.phone}
-                            onChange={handlePersonalInfoChange}
-                        />
-                    </div>
-                    <div className="settings-group">
                         <label htmlFor="nic">NIC Number</label>
                         <input
                             type="text"
@@ -156,7 +156,7 @@ function Settings() {
                         />
                     </div>
                     <div className="settings-group">
-                        <label htmlFor="dob">Address</label>
+                        <label htmlFor="address">Address</label>
                         <input
                             type="text"
                             id="address"
@@ -181,7 +181,6 @@ function Settings() {
                 {/* Security Section */}
                 <div className="settings-section">
                     <h2>Security</h2>
-                    
                     <div className="settings-group">
                         <label htmlFor="oldPassword">Current Password</label>
                         <input
@@ -209,7 +208,7 @@ function Settings() {
                     </button>
                 </div>
 
-                {/* Language Preferences Section (Separate) */}
+                {/* Language Preferences Section */}
                 <div className="settings-section">
                     <h2>Language Preferences</h2>
                     <div className="settings-group">
@@ -230,11 +229,7 @@ function Settings() {
                 <div className="settings-section danger-zone">
                     <h2>Account Actions</h2>
                     <p>Once you delete your account, there is no going back. Please be certain.</p>
-                    <button 
-                        type="button" 
-                        className="close-account-btn" 
-                        onClick={handleCloseAccount}
-                    >
+                    <button type="button" className="close-account-btn" onClick={handleCloseAccount}>
                         Close Account
                     </button>
                 </div>
