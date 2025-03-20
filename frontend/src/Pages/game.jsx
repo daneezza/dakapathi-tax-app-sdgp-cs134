@@ -1,153 +1,184 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import Quiz from "../components/game/gameQuiz";
-import "../styles/game.css";
+"use client"
+
+import { useState, useEffect } from "react"
+import axios from "axios"
+import Quiz from "../components/game/gameQuiz"
+import { useUserScores, ScoreDisplay } from "../components/game/score-display" // Update path if needed
+import "../styles/game.css"
 
 const Game = () => {
-  const [questions, setQuestions] = useState([]);
-  const [results, setResults] = useState([]);
-  const [answers, setAnswers] = useState({});
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isQuizStarted, setIsQuizStarted] = useState(false);
-  const [isQuizCompleted, setIsQuizCompleted] = useState(false);
-  const [error, setError] = useState(null);
-  const [submittedAnswer, setSubmittedAnswer] = useState(null);
-  const [score, setScore] = useState(0);
-  const [showScore, setShowScore] = useState(false);
-  const [currentQuestionId, setCurrentQuestionId] = useState(null);
-  const [submittedAnswers, setSubmittedAnswers] = useState({});
-  const [selectedLevel, setSelectedLevel] = useState(null);
-  const [showBackConfirmation, setShowBackConfirmation] = useState(false);
+  const [questions, setQuestions] = useState([])
+  const [answers, setAnswers] = useState({})
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
+  const [isLoading, setIsLoading] = useState(false)
+  const [isQuizStarted, setIsQuizStarted] = useState(false)
+  const [isQuizCompleted, setIsQuizCompleted] = useState(false)
+  const [error, setError] = useState(null)
+  const [submittedAnswer, setSubmittedAnswer] = useState(null)
+  const [score, setScore] = useState(0)
+  const [showScore, setShowScore] = useState(false)
+  const [currentQuestionId, setCurrentQuestionId] = useState(null)
+  const [submittedAnswers, setSubmittedAnswers] = useState({})
+  const [selectedLevel, setSelectedLevel] = useState(null)
+  const [showBackConfirmation, setShowBackConfirmation] = useState(false)
+  const [results, setResults] = useState([])
+
+  // Use our custom hook for user scores
+  const {
+    userId,
+    userName,
+    userScores,
+    saveScore,
+    isLoading: isSavingScore,
+    message: scoreUpdateMessage,
+    getTrophyIcon,
+  } = useUserScores()
 
   const fetchQuizQuestions = async (level) => {
-    setIsLoading(true);
-    setError(null);
+    setIsLoading(true)
+    setError(null)
 
     try {
-      const response = await axios.get(`http://localhost:3000/api/quiz/${level}`);
+      const response = await axios.get(`http://localhost:3000/api/quiz/${level}`)
 
       if (!response.data.success) {
-        throw new Error(response.data.message);
+        throw new Error(response.data.message)
       }
 
-      setQuestions(response.data.questions);
-      setSelectedLevel(level);
-      setIsQuizStarted(true);
-      setCurrentQuestionIndex(0);
-      setAnswers({});
-      setSubmittedAnswers({});
-      setScore(0);
-      setShowScore(false);
+      setQuestions(response.data.questions)
+      setSelectedLevel(level)
+      setIsQuizStarted(true)
+      setCurrentQuestionIndex(0)
+      setAnswers({})
+      setSubmittedAnswers({})
+      setScore(0)
+      setShowScore(false)
     } catch (error) {
-      console.error("Error fetching quiz questions:", error);
-      setError(error.message || "Error fetching questions. Please try again later.");
+      console.error("Error fetching quiz questions:", error)
+      setError(error.message || "Error fetching questions. Please try again later.")
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  };
+  }
 
   const handleOptionChange = (option) => {
-    const currentQuestion = questions[currentQuestionIndex];
+    const currentQuestion = questions[currentQuestionIndex]
     if (currentQuestion) {
       setAnswers((prevAnswers) => ({
         ...prevAnswers,
         [currentQuestion.id]: option,
-      }));
+      }))
     }
-  };
+  }
 
   const handleSubmitAnswer = async () => {
-    const currentQuestion = questions[currentQuestionIndex];
-    if (!currentQuestion || !currentQuestionId || submittedAnswers[currentQuestionId]) return;
+    const currentQuestion = questions[currentQuestionIndex]
+    if (!currentQuestion || !currentQuestionId || submittedAnswers[currentQuestionId]) return
 
     const userAnswer = {
       questionId: currentQuestionId,
       selectedOption: answers[currentQuestionId],
       level: selectedLevel,
-    };
+    }
 
-    setIsLoading(true);
-    setError(null);
+    setIsLoading(true)
+    setError(null)
 
     try {
-      const response = await axios.post("http://localhost:3000/api/quiz/submitOne", userAnswer);
-      const result = response.data.result;
+      const response = await axios.post("http://localhost:3000/api/quiz/submitOne", userAnswer)
+      const result = response.data.result
 
-      setSubmittedAnswer(result);
+      setSubmittedAnswer(result)
       setSubmittedAnswers((prevSubmitted) => ({
         ...prevSubmitted,
         [currentQuestionId]: result,
-      }));
+      }))
 
       if (result.isCorrect) {
-        setScore((prevScore) => prevScore + 1);
+        setScore((prevScore) => prevScore + 1)
       }
     } catch (error) {
-      console.error("Error submitting answer:", error);
-      setError("Error submitting answer. Please try again later.");
+      console.error("Error submitting answer:", error)
+      setError("Error submitting answer. Please try again later.")
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  };
+  }
 
   const handleNextQuestion = () => {
     if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-      setSubmittedAnswer(null);
-      setCurrentQuestionId(questions[currentQuestionIndex + 1]?.id || null);
+      setCurrentQuestionIndex(currentQuestionIndex + 1)
+      setSubmittedAnswer(null)
+      setCurrentQuestionId(questions[currentQuestionIndex + 1]?.id || null)
     } else {
-      setShowScore(true);
-      setIsQuizCompleted(true);
+      setShowScore(true)
+      setIsQuizCompleted(true)
+      // Send score to backend when quiz is completed
+      saveUserScore()
     }
-  };
+  }
+
+  // Function to save user score to the backend using our custom hook
+  const saveUserScore = async () => {
+    if (!selectedLevel) return
+    
+    console.log(`Saving score for level ${selectedLevel}: ${score}`)
+    // Use the saveScore function from our custom hook
+    await saveScore(selectedLevel, score)
+  }
 
   const handlePreviousQuestion = () => {
     if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex(currentQuestionIndex - 1);
-      setSubmittedAnswer(null);
-      setCurrentQuestionId(questions[currentQuestionIndex - 1]?.id || null);
+      setCurrentQuestionIndex(currentQuestionIndex - 1)
+      setSubmittedAnswer(null)
+      setCurrentQuestionId(questions[currentQuestionIndex - 1]?.id || null)
     }
-  };
+  }
 
   const handleBackToLevels = () => {
-    setShowBackConfirmation(true);
-  };
+    setShowBackConfirmation(true)
+  }
 
   const confirmBackToLevels = () => {
-    setIsQuizStarted(false);
-    setAnswers({});
-    setSubmittedAnswers({});
-    setScore(0);
-    setCurrentQuestionIndex(0);
-    setShowBackConfirmation(false);
-  };
+    setIsQuizStarted(false)
+    setAnswers({})
+    setSubmittedAnswers({})
+    setScore(0)
+    setCurrentQuestionIndex(0)
+    setShowBackConfirmation(false)
+  }
 
   const cancelBackToLevels = () => {
-    setShowBackConfirmation(false);
-  };
+    setShowBackConfirmation(false)
+  }
 
   const handleRestartQuiz = () => {
-    setAnswers({});
-    setCurrentQuestionIndex(0);
-    setIsQuizCompleted(false);
-    setResults([]);
-    setIsQuizStarted(false);
-    setError(null);
-    setSubmittedAnswers({});
-    setSubmittedAnswer(null);
-    setScore(0);
-    setShowScore(false);
-    setCurrentQuestionId(questions[0]?.id || null);
-  };
+    setAnswers({})
+    setCurrentQuestionIndex(0)
+    setIsQuizCompleted(false)
+    setResults([])
+    setIsQuizStarted(false)
+    setError(null)
+    setSubmittedAnswers({})
+    setSubmittedAnswer(null)
+    setScore(0)
+    setShowScore(false)
+    setCurrentQuestionId(questions[0]?.id || null)
+  }
 
-  const currentQuestion = questions[currentQuestionIndex];
+  const currentQuestion = questions[currentQuestionIndex]
 
   useEffect(() => {
     if (questions.length > 0) {
-      setCurrentQuestionId(questions[currentQuestionIndex]?.id || null);
+      setCurrentQuestionId(questions[currentQuestionIndex]?.id || null)
     }
-  }, [questions, currentQuestionIndex]);
+  }, [questions, currentQuestionIndex])
+
+  // Add debug logging for scores and userId
+  useEffect(() => {
+    console.log("Current user ID:", userId)
+    console.log("Current scores:", userScores)
+  }, [userId, userScores])
 
   return (
     <div className="quiz-container">
@@ -171,16 +202,21 @@ const Game = () => {
       )}
 
       {!isQuizStarted ? (
-        <div className="level-button-container">
-          <button onClick={() => fetchQuizQuestions("easy")} disabled={isLoading} className="level-button">
-            Easy
-          </button>
-          <button onClick={() => fetchQuizQuestions("medium")} disabled={isLoading} className="level-button">
-            Medium
-          </button>
-          <button onClick={() => fetchQuizQuestions("hard")} disabled={isLoading} className="level-button">
-            Hard
-          </button>
+        <div>
+          {/* Use our ScoreDisplay component */}
+          <ScoreDisplay scores={userScores} getTrophyIcon={getTrophyIcon} title={`${userName}'s High Scores:`} />
+
+          <div className="level-button-container">
+            <button onClick={() => fetchQuizQuestions("easy")} disabled={isLoading} className="level-button">
+              Easy
+            </button>
+            <button onClick={() => fetchQuizQuestions("medium")} disabled={isLoading} className="level-button">
+              Medium
+            </button>
+            <button onClick={() => fetchQuizQuestions("hard")} disabled={isLoading} className="level-button">
+              Hard
+            </button>
+          </div>
         </div>
       ) : isQuizCompleted ? (
         <div className="quiz-card">
@@ -191,8 +227,16 @@ const Game = () => {
             <p className="score">
               Your Score: {score} / {questions.length}
             </p>
+
+            {scoreUpdateMessage && <div className="score-update-message">{scoreUpdateMessage}</div>}
+
+            {isSavingScore && <p>Saving your score...</p>}
+
+            {/* Display updated scores after completion */}
+            <ScoreDisplay scores={userScores} getTrophyIcon={getTrophyIcon} title="Your Updated Scores:" />
+
             <button onClick={handleRestartQuiz} className="restart">
-              Restart Quiz
+              Back to Levels
             </button>
           </div>
         </div>
@@ -221,17 +265,25 @@ const Game = () => {
           />
 
           <div className="navigation-buttons-container">
-            <button className="previous-button" onClick={handlePreviousQuestion} disabled={currentQuestionIndex === 0 || isLoading}>
+            <button
+              className="previous-button"
+              onClick={handlePreviousQuestion}
+              disabled={currentQuestionIndex === 0 || isLoading}
+            >
               Previous Question
             </button>
-            <button className="next-button" onClick={handleNextQuestion} disabled={isLoading || !submittedAnswers[currentQuestion.id]}>
+            <button
+              className="next-button"
+              onClick={handleNextQuestion}
+              disabled={isLoading || !submittedAnswers[currentQuestion.id]}
+            >
               {currentQuestionIndex === questions.length - 1 ? "Submit Quiz" : "Next Question"}
             </button>
           </div>
         </div>
       ) : null}
     </div>
-  );
-};
+  )
+}
 
-export default Game;
+export default Game

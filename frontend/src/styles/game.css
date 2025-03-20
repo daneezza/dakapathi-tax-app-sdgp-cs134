@@ -457,3 +457,87 @@ border: 2px solid #4CAF50;
 50% { box-shadow: 0 0 20px #f44336; }
 100% { box-shadow: 0 0 5px #f44336; }
 }
+
+/* Add these styles to your game.css file */
+
+.user-scores-container {
+  margin-bottom: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.user-scores-container h2 {
+  margin-top: 0;
+  color: #fff;
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+.user-scores-container h3 {
+  color: #fff;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.scores-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.score-card {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.score-card:hover {
+  transform: translateY(-5px);
+}
+
+.score-card h4 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.score-card .score-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.score-card.easy {
+  border-left: 4px solid #4caf50;
+}
+
+.score-card.medium {
+  border-left: 4px solid #ff9800;
+}
+
+.score-card.hard {
+  border-left: 4px solid #f44336;
+}
+
+.score-update-message {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 0.8rem;
+  border-radius: 5px;
+  margin: 1rem 0;
+  color: #fff;
+  text-align: center;
+}
+
+/* Make sure the app looks good on mobile devices */
+@media (max-width: 768px) {
+  .scores-grid {
+    grid-template-columns: 1fr;
+  }
+}
