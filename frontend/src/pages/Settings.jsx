@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import '../styles/Settings.css';
-import { getErrorMessage } from '../utils/validations';
+import { getErrorMessage,isValidAddress } from '../utils/validations';
 
 function Settings() {
     const fileInputRef = useRef(null);
@@ -41,8 +41,23 @@ function Settings() {
     }, []);
 
     const validateField = (name, value) => {
-        const errorMessage = getErrorMessage(name, value);
-        
+        let errorMessage = getErrorMessage(name, value);
+        if (name === "dob") {
+            const today = new Date();
+            const enteredDate = new Date(value);
+            const minDate = new Date();
+            minDate.setFullYear(today.getFullYear() - 18); // Minimum age 13
+
+            if (enteredDate > today) {
+                errorMessage = "Date of birth cannot be in the future.";
+            } else if (enteredDate > minDate) {
+                errorMessage = "You must be at least 18 years old.";
+            }
+        }
+
+        if (name === "address" && !isValidAddress(value)) {
+            errorMessage = "Please enter a valid address (5-100 characters, no special symbols).";
+        }
         setErrors((prevErrors) => ({
             ...prevErrors,
             [name]: errorMessage
@@ -100,36 +115,40 @@ function Settings() {
     };
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+    e.preventDefault();
 
-        // Validate all fields before saving
-        let newErrors = {};
-        Object.keys(settings.personalInfo).forEach((field) => {
-            const error = getErrorMessage(field, settings.personalInfo[field]);
-            if (error) newErrors[field] = error;
-        });
+    let newErrors = {};
+    Object.keys(settings.personalInfo).forEach((field) => {
+        const error = getErrorMessage(field, settings.personalInfo[field]);
+        if (error) newErrors[field] = error;
+    });
 
-        if (Object.keys(newErrors).length > 0) {
-            setErrors(newErrors);
-            alert("Please fix the errors before saving.");
-            return;
-        }
+    // Explicitly validate DOB and Address
+    validateField("dob", settings.personalInfo.dob);
+    validateField("address", settings.personalInfo.address);
 
-        const storedUserData = localStorage.getItem('user');
-        let existingUserData = storedUserData ? JSON.parse(storedUserData) : {};
+    if (errors.dob) newErrors.dob = errors.dob;
+    if (errors.address) newErrors.address = errors.address;
 
-        // Merge existing data with updated personalInfo
-        const updatedUserData = {
-            ...existingUserData,
-            fullname: settings.personalInfo.name,
-            nic: settings.personalInfo.nic,
-            address: settings.personalInfo.address,
-            birthdate: settings.personalInfo.dob
-        };
+    if (Object.keys(newErrors).length > 0) {
+        setErrors(newErrors);
+        return; // Prevent submission
+    }
 
-        localStorage.setItem('user', JSON.stringify(updatedUserData));
-        alert('Settings saved successfully!');
+    const storedUserData = localStorage.getItem('user');
+    let existingUserData = storedUserData ? JSON.parse(storedUserData) : {};
+
+    const updatedUserData = {
+        ...existingUserData,
+        fullname: settings.personalInfo.name,
+        nic: settings.personalInfo.nic,
+        address: settings.personalInfo.address,
+        birthdate: settings.personalInfo.dob
     };
+
+    localStorage.setItem('user', JSON.stringify(updatedUserData));
+    };
+
 
     const handleUpdatePassword = () => {
         if (!settings.security.oldPassword || !settings.security.changePassword) {
