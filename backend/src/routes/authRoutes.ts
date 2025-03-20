@@ -2,6 +2,8 @@ import { Router } from 'express';
 import { signup, login } from '../controllers/authController';
 import { googleSignIn } from '../controllers/authController';
 import { updateUser } from '../controllers/authController';
+import { updateUserPassword } from '../controllers/authController';
+
 
 const router = Router();
 
@@ -14,6 +16,7 @@ router.post('/signup', asyncHandler(signup));
 router.post('/login', asyncHandler(login));
 router.post('/google-signin', asyncHandler(googleSignIn));
 router.post('/updateUser', updateUser);
+router.post('/update-password', updateUserPassword);
 
 
 export default router;

@@ -261,6 +261,46 @@ export const updateUser = async (req: Request, res: Response): Promise<void> => 
 };
 
 
+export const updateUserPassword = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { email, currentPassword, newPassword } = req.body;
+
+        if (!email || !currentPassword || !newPassword) {
+            res.status(400).json({ message: 'Email, current password, and new password are required.' });
+            return;
+        }
+
+        const user = await User.findOne({ email });
+        if (!user) {
+            res.status(404).json({ message: 'User not found.' });
+            return;
+        }
+
+        // Ensure user has a password (not a Google account)
+        if (!user.password) {
+            res.status(400).json({ message: 'This account was created using Google Sign-In. Password cannot be changed this way.' });
+            return;
+        }
+
+        // Verify the current password
+        const isPasswordValid = await comparePassword(currentPassword, user.password);
+        if (!isPasswordValid) {
+            res.status(401).json({ message: 'Current password is incorrect.' });
+            return;
+        }
+
+        // Hash and update the new password
+        user.password = await hashPassword(newPassword);
+        await user.save();
+
+        res.status(200).json({ message: 'Password updated successfully.' });
+    } catch (error) {
+        console.error('Error updating password:', error);
+        res.status(500).json({ message: 'Failed to update password.' });
+    }
+};
+
+
 const userGuides = [
   {
     id: 1,
