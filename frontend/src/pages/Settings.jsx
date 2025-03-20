@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import '../styles/Settings.css';
-import { getErrorMessage,isValidAddress } from '../utils/validations';
+import { getErrorMessage,isValidAddress ,isValidPassword} from '../utils/validations';
 import axios from 'axios';
 
 
@@ -81,6 +81,12 @@ function Settings() {
         if (name === "address" && !isValidAddress(value)) {
             errorMessage = "Please enter a valid address (5-100 characters, no special symbols).";
         }
+
+        // Validate new password
+    if (name === "changePassword" && !isValidPassword(value)) {
+        errorMessage = "Password must be at least 8 characters long, include 1 uppercase, 1 lowercase, 1 number, and 1 special character.";
+        
+    }
         setErrors((prevErrors) => ({
             ...prevErrors,
             [name]: errorMessage
@@ -191,6 +197,7 @@ function Settings() {
         alert("Please fill in both password fields.");
         return;
     }
+    
 
     const storedUserData = localStorage.getItem('user');
     let existingUserData = storedUserData ? JSON.parse(storedUserData) : {};
@@ -360,6 +367,7 @@ function Settings() {
                             onChange={handleSecurityChange}
                             placeholder="Enter new password"
                         />
+                        {errors.changePassword && <p className="error-message">{errors.changePassword}</p>}
                     </div>
                     <button type="button" className="update-password-btn" onClick={handleUpdatePassword}>
                         Update Password
