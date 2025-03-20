@@ -6,13 +6,13 @@ const TaxGuides = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3000/api/guides')
+      .get('http://localhost:3000/api/taxGuides')
       .then((response) => setGuides(response.data))
       .catch((error) => console.error('Error fetching guides:', error));
   }, []);
 
   return (
-    <div className="user-guides-page">
+    <div className="tax-guides-page">
       <h1 className="heading">Tax Guide</h1>
       <div className="guides-container">
         {guides.map((guide, index) => {
@@ -23,13 +23,7 @@ const TaxGuides = () => {
                 {isEven ? (
                   <>
                     <div className="video-container">
-                      <video controls>
-                        <source
-                          src={`http://localhost:3000/videos/${guide.videoPath}`}
-                          type="video/mp4"
-                        />
-                        Your browser does not support the video tag.
-                      </video>
+                      
                     </div>
                     <div className="text-container">
                       <h2 className="guide-title">
@@ -55,18 +49,13 @@ const TaxGuides = () => {
                       </div>
                     </div>
                     <div className="video-container">
-                      <video controls>
-                        <source
-                          src={`http://localhost:3000/videos/${guide.videoPath}`}
-                          type="video/mp4"
-                        />
-                        Your browser does not support the video tag.
-                      </video>
+                     
                     </div>
                   </>
                 )}
               </div>
-              <hr className="guide-divider" />
+              <br></br>
+              <br></br>
             </React.Fragment>
           );
         })}
