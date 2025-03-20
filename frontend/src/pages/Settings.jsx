@@ -19,7 +19,7 @@ function Settings() {
             changePassword: ''
         },
         preferences: {
-            language: 'English' // Default language
+            language: localStorage.getItem('language') || 'English'
         }
     });
 
@@ -38,6 +38,24 @@ function Settings() {
                 }
             }));
         }
+
+        // Dynamically load Google Translate script
+        const script = document.createElement('script');
+        script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+        document.body.appendChild(script);
+
+        script.onload = () => {
+            window.googleTranslateElementInit = () => {
+                new window.google.translate.TranslateElement(
+                    {
+                        pageLanguage: 'en',
+                        includedLanguages: 'ta,si', // Add supported languages
+                        layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE
+                    },
+                    'google_translate_element'
+                );
+            };
+        };
     }, []);
 
     const validateField = (name, value) => {
@@ -97,6 +115,9 @@ function Settings() {
                 [name]: value
             }
         }));
+
+        // Save language preference to localStorage
+        localStorage.setItem('language', value);
     };
 
     const handleProfileImageChange = (e) => {
@@ -283,17 +304,9 @@ function Settings() {
                 {/* Language Preferences Section */}
                 <div className="settings-section">
                     <h2>Language Preferences</h2>
-                    <div className="settings-group">
-                        <select
-                            id="language"
-                            name="language"
-                            value={settings.preferences.language}
-                            onChange={handlePreferencesChange}
-                        >
-                            <option value="English">English</option>
-                            <option value="Tamil">தமிழ் (Tamil)</option>
-                            <option value="Sinhala">සිංහල (Sinhala)</option>
-                        </select>
+                    <div id="google_translate_element"></div>
+                    <div className="language-info-message">
+                        <p>To switch back to the default language, simply click the close icon in the top right Google Translate bar.</p>
                     </div>
                 </div>
 

@@ -203,3 +203,102 @@
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
 }
+
+/* Google Translate Container Styling */
+#google_translate_element {
+    font-family: 'Roboto', sans-serif;
+    background-color: #e0e0e0;
+    border-radius: 12px;
+    padding: 18px 30px;
+    max-width: 320px;
+    margin: 35px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.goog-te-gadget:hover {
+    background-color: #2980b9;
+}
+
+/* Menu Button Styling */
+.goog-te-menu-value {
+    color: #fff;
+    background-color: #3498db;
+    padding: 12px 22px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease;
+    min-width: 200px;
+}
+
+.goog-te-menu-value:hover {
+    background-color: #2980b9;
+}
+
+/* Language Dropdown Menu Styling */
+.goog-te-menu2 {
+    max-height: 300px;
+    overflow-y: auto;
+    background-color: #34495e;
+    border-radius: 10px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    padding: 12px 0;
+    margin-top: 12px;
+}
+
+.goog-te-menu2-item {
+    color: #ecf0f1;
+    padding: 12px 22px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 6px;
+}
+
+
+/* Text overflow and display styling for the menu value */
+.goog-te-menu-value span {
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    color: #fff;
+}
+
+
+/* Language info message box */
+.language-info-message {
+    background-color: #f9f9f9;
+    position: relative;  /* Needed to position the pseudo-element */
+    padding: 15px;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #2c3e50;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.language-info-message::before {
+    content: '';  /* Creates a pseudo-element */
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    background: linear-gradient(45deg, #4285F4, #0F9D58, #F4B400, #DB4437);  /* Google colors gradient */
+    border-radius: 10px;  /* Match the border-radius of the element */
+    z-index: -1;  /* Place the pseudo-element behind the content */
+}
+
+
+.language-info-message p {
+    margin: 0;
+    font-weight: 500;
+}
