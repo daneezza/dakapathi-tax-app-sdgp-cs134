@@ -1,9 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
 import '../styles/Settings.css';
+import { getErrorMessage } from '../utils/validations';
 
 function Settings() {
     const fileInputRef = useRef(null);
     const [profileImage, setProfileImage] = useState(null);
+    const [errors, setErrors] = useState({});
+    
     const [settings, setSettings] = useState({
         personalInfo: {
             name: '',
@@ -12,7 +15,7 @@ function Settings() {
             dob: ''
         },
         security: {
-            twoFactorAuth: false,
+            oldPassword: '',
             changePassword: ''
         },
         preferences: {
@@ -31,14 +34,24 @@ function Settings() {
                     name: parsedUser.fullname || prevSettings.personalInfo.name,
                     nic: parsedUser.nic || prevSettings.personalInfo.nic,
                     address: parsedUser.address || prevSettings.personalInfo.address,
-                    dob: parsedUser.birthdate || prevSettings.personalInfo.birthdate
+                    dob: parsedUser.birthdate || prevSettings.personalInfo.dob
                 }
             }));
         }
     }, []);
 
+    const validateField = (name, value) => {
+        const errorMessage = getErrorMessage(name, value);
+        
+        setErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: errorMessage
+        }));
+    };
+
     const handlePersonalInfoChange = (e) => {
         const { name, value } = e.target;
+        validateField(name, value);
         setSettings((prevSettings) => ({
             ...prevSettings,
             personalInfo: {
@@ -49,12 +62,13 @@ function Settings() {
     };
 
     const handleSecurityChange = (e) => {
-        const { name, value, type, checked } = e.target;
+        const { name, value } = e.target;
+        validateField(name, value);
         setSettings((prevSettings) => ({
             ...prevSettings,
             security: {
                 ...prevSettings.security,
-                [name]: type === 'checkbox' ? checked : value
+                [name]: value
             }
         }));
     };
@@ -87,25 +101,42 @@ function Settings() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        // Validate all fields before saving
+        let newErrors = {};
+        Object.keys(settings.personalInfo).forEach((field) => {
+            const error = getErrorMessage(field, settings.personalInfo[field]);
+            if (error) newErrors[field] = error;
+        });
+
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            alert("Please fix the errors before saving.");
+            return;
+        }
+
         const storedUserData = localStorage.getItem('user');
         let existingUserData = storedUserData ? JSON.parse(storedUserData) : {};
 
         // Merge existing data with updated personalInfo
         const updatedUserData = {
-            ...existingUserData, // Preserve existing details
-            fullname: settings.personalInfo.name, // Ensure fullname is updated correctly
+            ...existingUserData,
+            fullname: settings.personalInfo.name,
             nic: settings.personalInfo.nic,
             address: settings.personalInfo.address,
-            birthdate: settings.personalInfo.dob, // Adjusting to match stored key
+            birthdate: settings.personalInfo.dob
         };
 
-        // Save merged user data back to localStorage
         localStorage.setItem('user', JSON.stringify(updatedUserData));
-
         alert('Settings saved successfully!');
     };
 
     const handleUpdatePassword = () => {
+        if (!settings.security.oldPassword || !settings.security.changePassword) {
+            alert("Please fill in both password fields.");
+            return;
+        }
+
         alert('Password updated successfully!');
     };
 
@@ -158,7 +189,9 @@ function Settings() {
                             value={settings.personalInfo.name}
                             onChange={handlePersonalInfoChange}
                         />
+                        {errors.name && <p className="error-message">{errors.name}</p>}
                     </div>
+
                     <div className="settings-group">
                         <label htmlFor="nic">NIC Number</label>
                         <input
@@ -168,7 +201,9 @@ function Settings() {
                             value={settings.personalInfo.nic}
                             onChange={handlePersonalInfoChange}
                         />
+                        {errors.nic && <p className="error-message">{errors.nic}</p>}
                     </div>
+
                     <div className="settings-group">
                         <label htmlFor="address">Address</label>
                         <input
@@ -178,17 +213,21 @@ function Settings() {
                             value={settings.personalInfo.address}
                             onChange={handlePersonalInfoChange}
                         />
+                        {errors.address && <p className="error-message">{errors.address}</p>}
                     </div>
+
                     <div className="settings-group">
                         <label htmlFor="dob">Date of Birth</label>
                         <input
-                            type="text"
+                            type="date"
                             id="dob"
                             name="dob"
-                            value={settings.personalInfo.dob}
+                            value={settings.personalInfo.dob ? new Date(settings.personalInfo.dob).toISOString().split('T')[0] : ''}
                             onChange={handlePersonalInfoChange}
                         />
+                        {errors.dob && <p className="error-message">{errors.dob}</p>}
                     </div>
+
                     <button type="submit" className="save-btn">Save Settings</button>
                 </div>
 
@@ -201,7 +240,7 @@ function Settings() {
                             type="password"
                             id="oldPassword"
                             name="oldPassword"
-                            value={settings.security.oldPassword || ''}
+                            value={settings.security.oldPassword}
                             onChange={handleSecurityChange}
                             placeholder="Enter current password"
                         />
