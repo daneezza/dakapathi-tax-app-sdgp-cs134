@@ -10,7 +10,8 @@ import questionRoutes from './routes/questionRoutes';
 import { getUserGuides, getUserGuideById } from './controllers/authController';
 import path from 'path';
 import newsRouter from './routes/news';
-import quizRoutes from './routes/gameQuizRoutes'; 
+import quizRoutes from './routes/gameQuizRoutes';
+import { getTaxGuides, getTaxGuideById } from './controllers/taxGuideController'; 
 import taxRoutes from "./routes/tax.routes";
 import chatRoutes from "./routes/chatRoutes";  // Ensure the correct path for chatRoutes
 
@@ -43,6 +44,11 @@ app.use("/chat", chatRoutes);  // Register the /chat route from chatRoutes
 // routers for user guide
 app.get('/api/guides', getUserGuides);
 app.get('/api/guides/:id', getUserGuideById);
+
+// routers for tax Guide
+app.get('/api/taxGuides', getTaxGuides);
+app.get('/api/taxGuides/:id', getTaxGuideById);
+
 
 
 app.listen(PORT, () => {
