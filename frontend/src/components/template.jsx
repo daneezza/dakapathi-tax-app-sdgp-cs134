@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import '../styles/template.css';
 import Chatbot from '../components/Chatbot.tsx';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Notification from '../components/auth/Notification.jsx';
 
 // Import logo and icons
 import logo from '../assets/logo.png';
@@ -15,7 +16,7 @@ import newsIcon from '../assets/sidebar/news.png';
 import learningIcon from '../assets/sidebar/learning.png';
 import qaIcon from '../assets/sidebar/qa.png';
 
-function Navbar({ links, toggleSidebar }) {
+function Navbar({ links, toggleSidebar, notification, setNotification }) {
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const location = useLocation();
@@ -54,11 +55,23 @@ function Navbar({ links, toggleSidebar }) {
 
   const handleLogout = () => {
     localStorage.removeItem('user'); // Clear user data
-    navigate('/'); // Redirect to login page
+    setNotification({ message: 'Logged out successfully', variant: 'info' }); // Show notification
+    setTimeout(() => {
+        navigate('/'); 
+      }, 1500); 
   };
 
   return (
     <nav className="navbar">
+      {/* Display Notification */}
+      {notification.message && (
+        <Notification 
+          message={notification.message}
+          variant={notification.variant}
+          onClose={() => setNotification({ message: '', variant: 'info' })}
+        />
+      )}
+
       <div className="nav-left">
         <li>
           <button onClick={toggleSidebar} className="menu-button">
@@ -119,7 +132,9 @@ Navbar.propTypes = {
       text: PropTypes.string.isRequired
     })
   ).isRequired,
-  toggleSidebar: PropTypes.func.isRequired
+  toggleSidebar: PropTypes.func.isRequired,
+  notification: PropTypes.object.isRequired,
+  setNotification: PropTypes.func.isRequired
 };
 
 const learningHubPages = ['/learning-hub', '/user-guide', '/gamefied', '/tax-guide'];
@@ -184,6 +199,7 @@ function Template({
   ]
 }) {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true);
+  const [notification, setNotification] = useState({ message: '', variant: 'info' });
 
   const toggleSidebar = () => {
     setIsSidebarCollapsed(!isSidebarCollapsed);
@@ -191,7 +207,7 @@ function Template({
 
   return (
     <div className="app-container">
-      <Navbar title={navTitle} links={navLinks} toggleSidebar={toggleSidebar} />
+      <Navbar title={navTitle} links={navLinks} toggleSidebar={toggleSidebar} notification={notification} setNotification={setNotification} />
       <Sidebar isCollapsed={isSidebarCollapsed} menuItems={sidebarItems} />
       <Chatbot />
       <main className="main-content">
