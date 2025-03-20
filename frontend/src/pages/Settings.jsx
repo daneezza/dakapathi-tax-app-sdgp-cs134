@@ -186,14 +186,41 @@ function Settings() {
 };
 
 
-    const handleUpdatePassword = () => {
-        if (!settings.security.oldPassword || !settings.security.changePassword) {
-            alert("Please fill in both password fields.");
-            return;
-        }
+    const handleUpdatePassword = async () => {
+    if (!settings.security.oldPassword || !settings.security.changePassword) {
+        alert("Please fill in both password fields.");
+        return;
+    }
 
-        alert('Password updated successfully!');
-    };
+    const storedUserData = localStorage.getItem('user');
+    let existingUserData = storedUserData ? JSON.parse(storedUserData) : {};
+
+    try {
+        const response = await axios.post(
+            'http://localhost:3000/api/auth/update-password', // Ensure this matches your backend route
+            {
+                email: existingUserData.email,
+                currentPassword: settings.security.oldPassword,
+                newPassword: settings.security.changePassword
+            },
+            { headers: { 'Content-Type': 'application/json' } }
+        );
+
+        alert(response.data.message || "Password updated successfully!");
+        
+        // Clear password fields after successful update
+        setSettings((prevSettings) => ({
+            ...prevSettings,
+            security: {
+                oldPassword: '',
+                changePassword: ''
+            }
+        }));
+    } catch (error) {
+        console.error('Error updating password:', error);
+        alert(error.response?.data?.message || "Failed to update password.");
+    }
+};
 
     const handleDeleteAccount = async () => {
         try {
