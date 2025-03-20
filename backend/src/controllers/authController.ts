@@ -85,12 +85,6 @@ export const login = async (req: Request, res: Response): Promise<void> => {
   }
 
 
-  const authToken = jwt.sign(
-    { email: user.email, fullname: user.fullname },
-    process.env.JWT_SECRET || 'secret',
-    { expiresIn: '1h' }
-  );
-
   res.status(200).json({ message: 'Login successful.', fullname: user.fullname, email: user.email });
 };
 
@@ -197,16 +191,8 @@ export const googleSignIn = async (req: Request, res: Response) => {
       await user.save();
     }
 
-  
-    const authToken = jwt.sign(
-      { email: user.email, fullname: user.fullname },
-      process.env.JWT_SECRET || 'secret',
-      { expiresIn: '1h' }
-    );
-
     res.status(200).json({
       message: 'Google Sign-In successful',
-      token: authToken,
       fullname: user.fullname,
       email: user.email,
     });
