@@ -229,33 +229,38 @@ function Settings() {
     }
 };
 
-    const handleDeleteAccount = async () => {
-        try {
-            setShowConfirmPopup(false);
-            const storedUserData = localStorage.getItem('user');
-            if (!storedUserData) {
-                alert("No user data found.");
-                return;
-            }
-            const userData = JSON.parse(storedUserData);
-            
-            const response = await axios.delete('http://localhost:3000/api/auth/deleteUser', {
-                data: { email: userData.email },
-                headers: { 'Content-Type': 'application/json' }
-            });
-            
-            if (response.status === 200) {
-                localStorage.removeItem('user');
-                alert('Your account has been successfully deleted.');
-                window.location.href = '/'; // Redirect to home or login page
-            } else {
-                throw new Error("Failed to delete account.");
-            }
-        } catch (error) {
-            console.error('Error deleting account:', error);
-            alert(error.response?.data?.message || 'Failed to delete account.');
+const handleDeleteAccount = async () => {
+    try {
+        setShowConfirmPopup(false);
+        const storedUserData = localStorage.getItem('user');
+        
+        if (!storedUserData) {
+            alert("No user data found.");
+            return;
         }
-    };
+
+        const userData = JSON.parse(storedUserData);
+        const userEmail = userData.email;
+
+        // Call the API to delete the user from the database using the stored email
+        const response = await axios.delete('http://localhost:3000/api/auth/delete-account', {
+            data: { email: userEmail },
+            headers: { 'Content-Type': 'application/json' }
+        });
+
+        if (response.status === 200) {
+            // Successfully deleted the user, now remove them from localStorage
+            localStorage.removeItem('user');
+            alert('Your account has been successfully deleted.');
+            window.location.href = '/'; // Redirect to home or login page
+        } else {
+            throw new Error("Failed to delete account.");
+        }
+    } catch (error) {
+        console.error('Error deleting account:', error);
+        alert(error.response?.data?.message || 'Failed to delete account.');
+    }
+};
 
 
     return (

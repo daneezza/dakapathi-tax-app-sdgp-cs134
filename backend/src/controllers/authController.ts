@@ -300,6 +300,34 @@ export const updateUserPassword = async (req: Request, res: Response): Promise<v
     }
 };
 
+export const deleteUser = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      res.status(400).json({ message: 'Email is required.' });
+      return;
+    }
+
+    // Find the user by email
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      res.status(404).json({ message: 'User not found.' });
+      return;
+    }
+
+    // Delete the user
+    await User.deleteOne({ email });
+
+    res.status(200).json({ message: 'User account deleted successfully.' });
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    res.status(500).json({ message: 'Failed to delete user account.' });
+  }
+};
+
+
 
 const userGuides = [
   {
