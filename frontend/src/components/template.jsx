@@ -1,44 +1,41 @@
-import PropTypes from 'prop-types'
-import { useState, useEffect, useRef } from 'react'
-import '../styles/template.css'
-import Chatbot from '../components/Chatbot.tsx'
-import { Link, useLocation } from 'react-router-dom'
+import PropTypes from 'prop-types';
+import { useState, useEffect, useRef } from 'react';
+import '../styles/template.css';
+import Chatbot from '../components/Chatbot.tsx';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-//import logo
-import logo from '../assets/logo.png'
-
-// Import menu icon
-import notificationIcon from '../assets/notification.png'
-import profileIcon from '../assets/profile.png'
-import menuIcon from '../assets/menu-icon.png' 
-import dashboardIcon from '../assets/sidebar/home.png'
-import calculatorIcon from '../assets/sidebar/calculator.png'
-import newsIcon from '../assets/sidebar/news.png'
-import learningIcon from '../assets/sidebar/learning.png'
-import qaIcon from '../assets/sidebar/qa.png'
-
+// Import logo and icons
+import logo from '../assets/logo.png';
+import notificationIcon from '../assets/notification.png';
+import profileIcon from '../assets/profile.png';
+import menuIcon from '../assets/menu-icon.png';
+import dashboardIcon from '../assets/sidebar/home.png';
+import calculatorIcon from '../assets/sidebar/calculator.png';
+import newsIcon from '../assets/sidebar/news.png';
+import learningIcon from '../assets/sidebar/learning.png';
+import qaIcon from '../assets/sidebar/qa.png';
 
 function Navbar({ links, toggleSidebar }) {
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const location = useLocation();
+  const navigate = useNavigate();
   
-  // State to store user data
   const [userData, setUserData] = useState({ fullname: "", nic: "" });
 
   useEffect(() => {
-    // Fetch user data from localStorage
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       setUserData(JSON.parse(storedUser));
+    } else {
+      navigate('/'); // Redirect to login page if no user found in local storage
     }
-  }, []);
+  }, [navigate]);
 
   const toggleProfileDropdown = () => {
     setIsProfileDropdownOpen(!isProfileDropdownOpen);
   };
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -54,6 +51,11 @@ function Navbar({ links, toggleSidebar }) {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isProfileDropdownOpen]);
+
+  const handleLogout = () => {
+    localStorage.removeItem('user'); // Clear user data
+    navigate('/'); // Redirect to login page
+  };
 
   return (
     <nav className="navbar">
@@ -74,7 +76,6 @@ function Navbar({ links, toggleSidebar }) {
             {link.href === "#notifications" ? (
               <img src={notificationIcon} alt="Notifications" className="nav-icon" />
             ) : link.href === "/profile" ? (
-              // Profile Icon with Dropdown
               <div className="profile-container" ref={dropdownRef}>
                 <button onClick={toggleProfileDropdown} className="profile-button">
                   <img src={profileIcon} alt="Profile" className="nav-icon" />
@@ -90,12 +91,7 @@ function Navbar({ links, toggleSidebar }) {
                       <span className="nic-no">NIC: {userData.nic || "Update NIC in Settings"}</span>
                     </div>
                     <a href="/settings">Settings</a>
-                    <a
-                      onClick={() => {
-                        localStorage.removeItem('user'); // Remove user from local storage
-                        window.location.href = '/'; // Redirect to home page
-                      }} 
-                      className="logout-button">
+                    <a onClick={handleLogout} className="logout-button">
                       Logout
                     </a>
                   </div>
@@ -124,7 +120,7 @@ Navbar.propTypes = {
     })
   ).isRequired,
   toggleSidebar: PropTypes.func.isRequired
-}
+};
 
 const learningHubPages = ['/learning-hub', '/user-guide', '/gamefied', '/tax-guide'];
 
@@ -136,14 +132,14 @@ function Sidebar({ isCollapsed, menuItems }) {
           {menuItems.map((item, index) => (
             <div key={index}>
               <Link 
-              to={item.href}
-              className={
-                        item.href === '/learning-hub' && learningHubPages.includes(location.pathname)
-                          ? 'selected'
-                          : location.pathname === item.href
-                            ? 'selected'
-                            : ''
-                      }             
+                to={item.href}
+                className={
+                  item.href === '/learning-hub' && learningHubPages.includes(location.pathname)
+                    ? 'selected'
+                    : location.pathname === item.href
+                      ? 'selected'
+                      : ''
+                }
               >
                 <div className="icon-container">
                   <img src={item.icon} alt={item.text} className="icon" />
@@ -155,7 +151,7 @@ function Sidebar({ isCollapsed, menuItems }) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 Sidebar.propTypes = {
@@ -167,9 +163,9 @@ Sidebar.propTypes = {
       icon: PropTypes.node.isRequired
     })
   ).isRequired
-}
+};
 
-function Template({ 
+function Template({
   children,
   navTitle = "",
   navLinks = [
@@ -187,22 +183,22 @@ function Template({
     { href: "/qna", text: "Q & A Section", icon: qaIcon }
   ]
 }) {
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true)
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true);
 
   const toggleSidebar = () => {
-    setIsSidebarCollapsed(!isSidebarCollapsed)
-  }
+    setIsSidebarCollapsed(!isSidebarCollapsed);
+  };
 
   return (
     <div className="app-container">
       <Navbar title={navTitle} links={navLinks} toggleSidebar={toggleSidebar} />
       <Sidebar isCollapsed={isSidebarCollapsed} menuItems={sidebarItems} />
-      <Chatbot/>
+      <Chatbot />
       <main className="main-content">
-          {children}
-        </main>
+        {children}
+      </main>
     </div>
-  )
+  );
 }
 
 Template.propTypes = {
@@ -221,8 +217,6 @@ Template.propTypes = {
       icon: PropTypes.node.isRequired
     })
   )
-}
+};
 
 export default Template;
-
-
