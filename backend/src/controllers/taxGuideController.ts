@@ -10,7 +10,7 @@ const taxGuides = [
       '3. Provide a valid Email and create a secure Password.',
       '4. Click the Signup button to complete the registration process.'
     ],
-    YoutubePath: 'create-account.mp4' 
+    YoutubePath: 'https://youtu.be/dQw4w9WgXcQ?si=T-1NLz8jc6KmGM31' 
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ const taxGuides = [
       '3. Use the menu on the left to explore different sections, including Reports and Tax Calculator.',
       '4. Click on any section to see detailed information.'
     ],
-    YoutubePath: 'navigate-dashboarde.mp4' 
+    YoutubePath: 'https://youtu.be/Fkk9DI-8el4?si=FLYCiEmee6k4tdJq' 
   }  
 ];
 
