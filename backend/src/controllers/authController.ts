@@ -230,6 +230,37 @@ export const googleSignIn = async (req: Request, res: Response) => {
 };
 
 
+export const updateUser = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { email, fullname, nic, address, birthdate } = req.body;
+
+        if (!email) {
+            res.status(400).json({ message: 'Email is required.' });
+            return;
+        }
+
+        const user = await User.findOne({ email });
+        if (!user) {
+            res.status(404).json({ message: 'User not found.' });
+            return;
+        }
+
+        // Update user details
+        user.fullname = fullname || user.fullname;
+        user.nic = nic || user.nic;
+        user.address = address || user.address;
+        user.birthdate = birthdate || user.birthdate;
+
+        await user.save();
+
+        res.status(200).json({ message: 'User details updated successfully.', user });
+    } catch (error) {
+        console.error('Error updating user:', error);
+        res.status(500).json({ message: 'Failed to update user details.' });
+    }
+};
+
+
 const userGuides = [
   {
     id: 1,
