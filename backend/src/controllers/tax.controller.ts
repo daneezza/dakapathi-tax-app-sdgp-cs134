@@ -9,7 +9,7 @@ export const calculateTaxHandler = (req: Request, res: Response) => {
     res.json(result);
   } catch (error: unknown) {
     if (error instanceof Error) {
-      // Now error.message is safe to access
+      
       res.status(400).json({ error: error.message });
     } else {
       res.status(400).json({ error: "An unknown error occurred." });
