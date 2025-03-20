@@ -79,7 +79,14 @@ function Navbar({ links, toggleSidebar }) {
                       <span className="nic-no">NIC: 123456789</span>
                     </div>
                     <a href="/settings">Settings</a>
-                    <a href="/">Logout</a>
+                    <a
+                      onClick={() => {
+                        localStorage.removeItem('user'); // Remove user from local storage
+                        window.location.href = '/'; // Redirect to home page
+                      }} 
+                      className="logout-button">
+                      Logout
+                    </a>
                   </div>
                 )}
               </div>

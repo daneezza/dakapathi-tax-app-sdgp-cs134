@@ -85,7 +85,22 @@ export const login = async (req: Request, res: Response): Promise<void> => {
   }
 
 
-  res.status(200).json({ message: 'Login successful.', fullname: user.fullname, email: user.email });
+  res.status(200).json({
+        message: 'Login successful.',
+        user: {
+            fullname: user.fullname,
+            nic: user.nic,
+            address: user.address,
+            birthdate: user.birthdate,
+            password: user.password,
+            email: user.email,
+            type: user.type,
+            quizEasyScore: user.quizEasyScore,
+            quizMediumScore: user.quizMediumScore,
+            quizHardScore: user.quizHardScore,
+            profilePic: user.profilePic || null,
+        }
+    });
 };
 
 
@@ -192,10 +207,21 @@ export const googleSignIn = async (req: Request, res: Response) => {
     }
 
     res.status(200).json({
-      message: 'Google Sign-In successful',
-      fullname: user.fullname,
-      email: user.email,
-    });
+            message: 'Google Sign-In successful',
+            user: {
+                fullname: user.fullname,
+                nic: user.nic !== 'N/A' ? user.nic : '',
+                address: user.address !== 'N/A' ? user.address : '',
+                birthdate: user.birthdate !== 'N/A' ? user.birthdate : '',
+                email: user.email,
+                password: '',
+                type: user.type,
+                quizEasyScore: user.quizEasyScore,
+                quizMediumScore: user.quizMediumScore,
+                quizHardScore: user.quizHardScore,
+                profilePic: user.profilePic || null,
+            }
+        });
 
   } catch (error) {
     console.error('Error verifying Google token:', error);

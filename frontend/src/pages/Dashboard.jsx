@@ -1,12 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '../styles/Dashboard.css';
 import PropTypes from 'prop-types';
 
 function Dashboard() {
     // Track which card is currently flipped
     const [flippedCard, setFlippedCard] = useState(null);
-
+    const [userName, setUserName] = useState('');
     
+    useEffect(() => {
+            const userData = localStorage.getItem('user');
+            if (userData) {
+                const parsedUser = JSON.parse(userData);
+                setUserName(parsedUser.fullname || 'User'); // Default to 'User' if fullname is missing
+            }
+    }, []);
+
+
     const cardContent = {
         taxCalculator: {
             title: "Tax Calculator",
@@ -123,7 +132,7 @@ function Dashboard() {
 
     return (
         <div className="dashboard">
-            <h1 className="dashboard-title">Welcome to <img className="dakapathi-logo" src="src/assets/images/dakapathi.png" alt="SL flag"/></h1>
+            <h1 className="dashboard-title">Welcome, {userName} to <img className="dakapathi-logo" src="src/assets/images/dakapathi.png" alt="SL flag"/></h1>
             <p className="dashboard-aim"><i>&quot;In ancient Sri Lanka <img className="sri-lanka-flag" src="src/assets/images/sri-lanka-flag.png" alt="SL flag"/>, Dakapathi wasn’t just a tax, it was the king’s way of fueling the nation, a system that kept the kingdom strong. Today, that spirit lives on. Bringing tax awareness and transparency to build a more informed and responsible society, we turn complexity into clarity, making every citizen a force for progress.&quot;</i></p>
             
             <div className="quick-actions">

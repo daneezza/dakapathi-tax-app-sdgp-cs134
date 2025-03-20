@@ -21,6 +21,9 @@ const Login = () => {
     try {
       const { credential } = credentialResponse;
       const response = await axios.post('http://localhost:3000/api/auth/google-signin', { token: credential });
+      if (response.data.user) {
+            localStorage.setItem('user', JSON.stringify(response.data.user)); 
+      }
       setNotification({ message: response.data.message, variant: 'success' });
       console.log('Google Sign-In successful:', response.data);
 
@@ -46,6 +49,10 @@ const Login = () => {
         email: formData.email,
         password: formData.password,
       });
+
+      if (response.data.user) {
+            localStorage.setItem('user', JSON.stringify(response.data.user));
+        }
 
       console.log('Login successful:', response.data);
       setNotification({ message: 'Login Succesful', variant: 'success' });
