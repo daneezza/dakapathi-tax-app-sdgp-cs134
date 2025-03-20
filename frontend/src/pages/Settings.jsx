@@ -8,6 +8,7 @@ function Settings() {
     const fileInputRef = useRef(null);
     const [profileImage, setProfileImage] = useState(null);
     const [errors, setErrors] = useState({});
+    const [showConfirmPopup, setShowConfirmPopup] = useState(false);
     
     const [settings, setSettings] = useState({
         personalInfo: {
@@ -59,6 +60,8 @@ function Settings() {
             };
         };
     }, []);
+
+    
 
     const validateField = (name, value) => {
         let errorMessage = getErrorMessage(name, value);
@@ -192,11 +195,34 @@ function Settings() {
         alert('Password updated successfully!');
     };
 
-    const handleCloseAccount = () => {
-        if (window.confirm("Are you sure you want to close your account? This action cannot be undone.")) {
-            alert('Your account has been successfully deleted.');
+    const handleDeleteAccount = async () => {
+        try {
+            setShowConfirmPopup(false);
+            const storedUserData = localStorage.getItem('user');
+            if (!storedUserData) {
+                alert("No user data found.");
+                return;
+            }
+            const userData = JSON.parse(storedUserData);
+            
+            const response = await axios.delete('http://localhost:3000/api/auth/deleteUser', {
+                data: { email: userData.email },
+                headers: { 'Content-Type': 'application/json' }
+            });
+            
+            if (response.status === 200) {
+                localStorage.removeItem('user');
+                alert('Your account has been successfully deleted.');
+                window.location.href = '/'; // Redirect to home or login page
+            } else {
+                throw new Error("Failed to delete account.");
+            }
+        } catch (error) {
+            console.error('Error deleting account:', error);
+            alert(error.response?.data?.message || 'Failed to delete account.');
         }
     };
+
 
     return (
         <div className="settings-container">
@@ -326,11 +352,24 @@ function Settings() {
                 <div className="settings-section danger-zone">
                     <h2>Account Actions</h2>
                     <p>Once you delete your account, there is no going back. Please be certain.</p>
-                    <button type="button" className="close-account-btn" onClick={handleCloseAccount}>
+                    <button type="button" className="close-account-btn" onClick={() => setShowConfirmPopup(true)}>
                         Close Account
                     </button>
                 </div>
+                {showConfirmPopup && (
+                    <div className="popup-overlay">
+                        <div className="popup">
+                            <h2>Confirm Account Deletion</h2>
+                            <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+                            <div className="popup-buttons">
+                                <button className="confirm-btn" onClick={() => { handleDeleteAccount(); setShowConfirmPopup(false); }}>Yes, Delete</button>
+                                <button className="cancel-btn" onClick={() => setShowConfirmPopup(false)}>Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </form>
+            
         </div>
     );
 }
