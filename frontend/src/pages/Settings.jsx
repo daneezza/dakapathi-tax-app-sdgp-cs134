@@ -87,7 +87,21 @@ function Settings() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        localStorage.setItem('user', JSON.stringify(settings.personalInfo)); // Save updated personal info
+        const storedUserData = localStorage.getItem('user');
+        let existingUserData = storedUserData ? JSON.parse(storedUserData) : {};
+
+        // Merge existing data with updated personalInfo
+        const updatedUserData = {
+            ...existingUserData, // Preserve existing details
+            fullname: settings.personalInfo.name, // Ensure fullname is updated correctly
+            nic: settings.personalInfo.nic,
+            address: settings.personalInfo.address,
+            birthdate: settings.personalInfo.dob, // Adjusting to match stored key
+        };
+
+        // Save merged user data back to localStorage
+        localStorage.setItem('user', JSON.stringify(updatedUserData));
+
         alert('Settings saved successfully!');
     };
 
