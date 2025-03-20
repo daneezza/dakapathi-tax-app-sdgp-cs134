@@ -22,6 +22,17 @@ function Navbar({ links, toggleSidebar }) {
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const location = useLocation();
+  
+  // State to store user data
+  const [userData, setUserData] = useState({ fullname: "", nic: "" });
+
+  useEffect(() => {
+    // Fetch user data from localStorage
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUserData(JSON.parse(storedUser));
+    }
+  }, []);
 
   const toggleProfileDropdown = () => {
     setIsProfileDropdownOpen(!isProfileDropdownOpen);
@@ -74,9 +85,9 @@ function Navbar({ links, toggleSidebar }) {
                     <div className="profile-info">
                       <img src="src/assets/members/developer01.jpg" alt="Profile" />
                       <br />
-                      <span className="full-name">John Doe</span>
+                      <span className="full-name">{userData.fullname || "Error Displaying Name"}</span>
                       <br />
-                      <span className="nic-no">NIC: 123456789</span>
+                      <span className="nic-no">NIC: {userData.nic || "Update NIC in Settings"}</span>
                     </div>
                     <a href="/settings">Settings</a>
                     <a

@@ -118,21 +118,19 @@ function Settings() {
     e.preventDefault();
 
     let newErrors = {};
+
+    // Validate all personal info fields
     Object.keys(settings.personalInfo).forEach((field) => {
-        const error = getErrorMessage(field, settings.personalInfo[field]);
-        if (error) newErrors[field] = error;
+        validateField(field, settings.personalInfo[field]);
+        if (!settings.personalInfo[field]) {
+            newErrors[field] = `${field.charAt(0).toUpperCase() + field.slice(1)} is required.`;
+        }
     });
 
-    // Explicitly validate DOB and Address
-    validateField("dob", settings.personalInfo.dob);
-    validateField("address", settings.personalInfo.address);
-
-    if (errors.dob) newErrors.dob = errors.dob;
-    if (errors.address) newErrors.address = errors.address;
-
+    // If there are any errors, prevent submission
     if (Object.keys(newErrors).length > 0) {
         setErrors(newErrors);
-        return; // Prevent submission
+        return;
     }
 
     const storedUserData = localStorage.getItem('user');
@@ -147,7 +145,7 @@ function Settings() {
     };
 
     localStorage.setItem('user', JSON.stringify(updatedUserData));
-    };
+};
 
 
     const handleUpdatePassword = () => {
