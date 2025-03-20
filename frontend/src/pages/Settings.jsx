@@ -57,16 +57,16 @@ function Settings() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Here you would typically send the settings to your backend
         alert('Settings saved successfully!');
     };
+
+    const handleUpdatePassword = () => {
+        alert('Password updated successfully!');
+    };
+
     const handleCloseAccount = () => {
         if (window.confirm("Are you sure you want to close your account? This action cannot be undone.")) {
-            // Here you would make an API call to delete the account from the database
-            // Example: axios.delete('/api/users/account')
             alert('Your account has been successfully deleted.');
-            // Redirect to login page or home page after account deletion
-            // window.location.href = '/login';
         }
     };
 
@@ -161,6 +161,7 @@ function Settings() {
                             onChange={handlePersonalInfoChange}
                         />
                     </div>
+                    <button type="submit" className="save-btn">Save Settings</button>
                 </div>
 
                 {/* Security Section */}
@@ -189,7 +190,12 @@ function Settings() {
                             placeholder="Enter new password"
                         />
                     </div>
+                    <button type="button" className="update-password-btn" onClick={handleUpdatePassword}>
+                        Update Password
+                    </button>
                 </div>
+
+                {/* Account Actions Section */}
                 <div className="settings-section danger-zone">
                     <h2>Account Actions</h2>
                     <p>Once you delete your account, there is no going back. Please be certain.</p>
@@ -201,7 +207,6 @@ function Settings() {
                         Close Account
                     </button>
                 </div>
-                <button type="submit" className="save-btn">Save Settings</button>
             </form>
         </div>
     );
