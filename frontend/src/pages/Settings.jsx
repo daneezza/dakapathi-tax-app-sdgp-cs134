@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import '../styles/Settings.css';
 import { getErrorMessage,isValidAddress } from '../utils/validations';
+import axios from 'axios';
+
 
 function Settings() {
     const fileInputRef = useRef(null);
@@ -135,7 +137,7 @@ function Settings() {
         fileInputRef.current.click();
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
     e.preventDefault();
 
     let newErrors = {};
@@ -158,14 +160,26 @@ function Settings() {
     let existingUserData = storedUserData ? JSON.parse(storedUserData) : {};
 
     const updatedUserData = {
-        ...existingUserData,
+        email: existingUserData.email,
         fullname: settings.personalInfo.name,
         nic: settings.personalInfo.nic,
         address: settings.personalInfo.address,
         birthdate: settings.personalInfo.dob
     };
 
-    localStorage.setItem('user', JSON.stringify(updatedUserData));
+    try {
+        const response = await axios.post(
+            'http://localhost:3000/api/auth/updateUser',
+            updatedUserData,
+            { headers: { 'Content-Type': 'application/json' } }
+        );
+
+        localStorage.setItem('user', JSON.stringify(updatedUserData));
+        alert('User details updated successfully!');
+    } catch (error) {
+        console.error('Error updating user:', error);
+        alert(error.response?.data?.message || 'Failed to update user details.');
+    }
 };
 
 
