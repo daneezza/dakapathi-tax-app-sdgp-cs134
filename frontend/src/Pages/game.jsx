@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 import Quiz from "../components/game/gameQuiz"
-import { useUserScores, ScoreDisplay } from "../components/game/score-display" // Update path if needed
+import { useUserScores, ScoreDisplay } from "../components/game/score-display"
 import "../styles/game.css"
 
 const Game = () => {
@@ -25,12 +25,13 @@ const Game = () => {
 
   // Use our custom hook for user scores
   const {
-    userId,
+    userEmail,
     userName,
     userScores,
     saveScore,
     isLoading: isSavingScore,
     message: scoreUpdateMessage,
+    syncWithDatabase,
     getTrophyIcon,
   } = useUserScores()
 
@@ -174,11 +175,16 @@ const Game = () => {
     }
   }, [questions, currentQuestionIndex])
 
-  // Add debug logging for scores and userId
+  // Sync local scores with database when component mounts
   useEffect(() => {
-    console.log("Current user ID:", userId)
-    console.log("Current scores:", userScores)
-  }, [userId, userScores])
+    if (userEmail) {
+      syncWithDatabase(userEmail, {
+        easy: userScores.quizEasyScore,
+        medium: userScores.quizMediumScore,
+        hard: userScores.quizHardScore
+      })
+    }
+  }, [userEmail])
 
   return (
     <div className="quiz-container">
