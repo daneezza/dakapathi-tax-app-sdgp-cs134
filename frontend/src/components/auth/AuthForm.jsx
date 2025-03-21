@@ -19,13 +19,15 @@ const LoginForm = ({ handleSubmit, handleGoogleAuth, handleForgotPassword }) => 
 
   const [errors, setErrors] = useState({});
 
+  // Validate a specific feild and update error state
   const validateField = (name, value) => {
     setErrors(prev => ({
       ...prev,
       [name]: getErrorMessage(name, value, true)
     }));
-  };
+  }; 
 
+  // Handles input changes and run validations 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -35,6 +37,7 @@ const LoginForm = ({ handleSubmit, handleGoogleAuth, handleForgotPassword }) => 
     validateField(name, value);
   };
 
+  // Handles form submission
   const handleFormSubmit = (e) => {
     e.preventDefault();
     
@@ -46,7 +49,8 @@ const LoginForm = ({ handleSubmit, handleGoogleAuth, handleForgotPassword }) => 
     });
 
     setErrors(newErrors);
-
+    
+    // If no errors proceed with form submission
     if (Object.values(newErrors).every(error => !error)) {
       handleSubmit(e, formData);
     }
@@ -125,7 +129,8 @@ const SignupForm = ({ handleSubmit, handleGoogleAuth }) => {
   });
 
   const [errors, setErrors] = useState({});
-
+  
+  // Validates the feilds and error state
   const validateField = (name, value) => {
     setErrors(prev => ({
       ...prev,
@@ -133,6 +138,7 @@ const SignupForm = ({ handleSubmit, handleGoogleAuth }) => {
     }));
   };
 
+  // Handles input changes and validates feild
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -142,6 +148,7 @@ const SignupForm = ({ handleSubmit, handleGoogleAuth }) => {
     validateField(name, value);
   };
 
+  /// Handles form submission
   const handleFormSubmit = async(e) => {
     e.preventDefault();
     
@@ -158,13 +165,14 @@ const SignupForm = ({ handleSubmit, handleGoogleAuth }) => {
 
     setErrors(newErrors);
 
+    // If no errors, proceed with form submission
     if (Object.values(newErrors).every(error => !error)) {
       handleSubmit(e, formData);
       try {
-        
+        // Save the form data to local storage
         localStorage.setItem('signupData', JSON.stringify(formData));
   
-        
+        // Send OTP to the user
         await axios.post('http://localhost:3000/api/otp/send-otp', { email: formData.email });
         
       } catch (error) {
