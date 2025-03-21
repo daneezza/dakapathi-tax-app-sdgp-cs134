@@ -97,7 +97,7 @@ function Navbar({ links, toggleSidebar, notification, setNotification }) {
                 {isProfileDropdownOpen && (
                   <div className="dropdown-popup">
                     <div className="profile-info">
-                      <img src="src/assets/members/developer01.jpg" alt="Profile" />
+                      <img src="src/assets/images/pfp.jpg" alt="Profile" />
                       <br />
                       <span className="full-name">{userData.fullname || "Error Displaying Name"}</span>
                       <br />
