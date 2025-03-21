@@ -391,7 +391,7 @@ const handleDeleteAccount = async () => {
                 {/* Account Actions Section */}
                 <div className="settings-section danger-zone">
                     <h2>Account Actions</h2>
-                    <p>Once you delete your account, there is no going back. Please be certain.</p>
+                    <p>Your account will be permanently deleted. We appreciate your time with us.</p>
                     <button type="button" className="close-account-btn" onClick={() => setShowConfirmPopup(true)}>
                         Close Account
                     </button>
@@ -400,9 +400,9 @@ const handleDeleteAccount = async () => {
                     <div className="popup-overlay">
                         <div className="popup">
                             <h2>Confirm Account Deletion</h2>
-                            <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+                            <p>Leaving already? We'll miss you! Come back anytime.</p>
                             <div className="popup-buttons">
-                                <button className="confirm-btn" onClick={() => { handleDeleteAccount(); setShowConfirmPopup(false); }}>Yes, Delete</button>
+                                <button className="confirm-btn" onClick={() => { handleDeleteAccount(); setShowConfirmPopup(false); }}>Delete Account</button>
                                 <button className="cancel-btn" onClick={() => setShowConfirmPopup(false)}>Cancel</button>
                             </div>
                         </div>
