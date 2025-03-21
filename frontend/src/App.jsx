@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './pages/Login.jsx';
 import Template from './components/template.jsx'; 
 import AboutUs from './pages/AboutUs.jsx';
-import Dashboard from './Pages/Dashboard.jsx';
+import Dashboard from './pages/Dashboard.jsx';
 import QnA from './pages/qna.jsx';
 import LearningHub from './pages/LearningHub.jsx';
 import UserGuides from './pages/UserGuides.jsx';

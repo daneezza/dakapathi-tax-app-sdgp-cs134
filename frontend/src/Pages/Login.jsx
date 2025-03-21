@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import AuthHeader from '../components/auth/AuthHeader';
-import AuthForm from '../components/auth/AuthForm';
-import OTPVerification from '../components/auth/OTPVerification';
+import AuthHeader from '../components/auth/AuthHeader.jsx';
+import AuthForm from '../components/auth/AuthForm.jsx';
+import OTPVerification from '../components/auth/OTPVerification.jsx';
 import axios from 'axios';
 import ForgotPassword from '../components/auth/ForgotPassword.jsx';
 import Notification from '../components/auth/Notification.jsx';
