@@ -10,8 +10,7 @@ import questionRoutes from './routes/questionRoutes';
 import { getUserGuides, getUserGuideById } from './controllers/authController';
 import path from 'path';
 import newsRouter from './routes/news';
-import quizRoutes from './routes/gameQuizRoutes';
-import { getTaxGuides, getTaxGuideById } from './controllers/taxGuideController';  
+import quizRoutes from './routes/gameQuizRoutes'; 
 import taxRoutes from "./routes/tax.routes";
 import chatRoutes from "./routes/chatRoutes";  
 
@@ -42,8 +41,6 @@ app.use("/api/tax", taxRoutes);
 app.use("/chat", chatRoutes);  
 app.get('/api/guides', getUserGuides);
 app.get('/api/guides/:id', getUserGuideById);
-app.get('/api/taxGuides', getTaxGuides);
-app.get('/api/taxGuides/:id', getTaxGuideById);
 
 // Start the server and isted on the specified port
 app.listen(PORT, () => {
