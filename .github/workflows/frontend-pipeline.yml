@@ -26,19 +26,6 @@ jobs:
       - name: Clean npm cache
         run: npm cache clean --force  
 
-      - name: Fix Case Sensitivity Issues
-        run: |
-          # Ensure folder names and file references match case
-          git ls-files | while read -r file; do
-            # Check if the file name has mismatched case with the folder name
-            correct_case=$(echo "$file" | tr '[:upper:]' '[:lower:]')
-            if [ "$file" != "$correct_case" ]; then
-              echo "Found case sensitivity issue: $file"
-              echo "Renaming $file to $correct_case"
-              git mv "$file" "$correct_case"  # Rename to correct case
-            fi
-          done
-          git commit -am "Fix case sensitivity issues" || echo "No case changes made"
       
       - name: Install Dependencies
         run: npm ci
