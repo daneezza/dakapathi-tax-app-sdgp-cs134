@@ -10,10 +10,10 @@ const QnA = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [userId, setUserId] = useState(() => {
-    // Get userId from localStorage or create a new one
+    // generate or create a user id
     const savedUserId = localStorage.getItem('userId');
     if (savedUserId) return savedUserId;
-    
+    //random unique user id
     const newUserId = 'user-' + Math.random().toString(36).substr(2, 9);
     localStorage.setItem('userId', newUserId);
     return newUserId;
@@ -22,7 +22,7 @@ const QnA = () => {
   useEffect(() => {
     fetchQuestions();
   }, []);
-
+  //fetch question from API
   const fetchQuestions = async () => {
     try {
       setLoading(true);
@@ -35,27 +35,28 @@ const QnA = () => {
       console.error('Error fetching questions:', err);
     }
   };
-
+  //handles submitting a new question
   const handleQuestionSubmit = async (questionText) => {
     try {
       const response = await axios.post('http://localhost:3000/api/questions', {
         text: questionText,
         userId: userId,
       });
+      //add a new question to the list
       setQuestions([response.data, ...questions]);
     } catch (err) {
       setError('Failed to submit question');
       console.error('Error submitting question:', err);
     }
   };
-
+  //handles liking a question
   const handleQuestionLike = async (questionId) => {
     try {
       const response = await axios.post(`http://localhost:3000/api/questions/${questionId}/like`, {
         userId,
       });
       
-      // Update questions state with the updated question
+      // update the liked question in the state
       setQuestions(
         questions.map((q) => (q._id === questionId ? response.data : q))
       );
@@ -65,6 +66,7 @@ const QnA = () => {
     }
   };
 
+  //handle submitting an answer to a question
   const handleAnswerSubmit = async (questionId, answerText) => {
     try {
       const response = await axios.post(`http://localhost:3000/api/questions/${questionId}/answers`, {
@@ -81,7 +83,7 @@ const QnA = () => {
       console.error('Error submitting answer:', err);
     }
   };
-
+  //handles liking an answer
   const handleAnswerLike = async (questionId, answerId) => {
     try {
       const response = await axios.post(
@@ -89,7 +91,7 @@ const QnA = () => {
         { userId }
       );
       
-      // Update questions state with the updated answer
+      // Update corresponding question with the liked answer
       setQuestions(
         questions.map((q) => (q._id === questionId ? response.data : q))
       );
@@ -103,11 +105,13 @@ const QnA = () => {
     <div className="appq">
       
       <div className="appq-main">
+        {/* Form to submit a new question */}
         <QuestionForm onSubmit={handleQuestionSubmit} />
         {error && <div className="error-message">{error}</div>}
         {loading ? (
           <div className="loading">Loading questions...</div>
         ) : (
+          // Render the list of questions
           <QuestionList
             questions={questions}
             userId={userId}
