@@ -13,7 +13,7 @@ import FAQs from './pages/FAQs.jsx';
 import PricingComingSoon from './pages/Pricing.jsx';
 import Settings from './pages/Settings.jsx';
 import TaxCalculator from './pages/TaxCalculator.jsx'
-import TaxGuide from './Pages/TaxGuide.jsx';
+import TaxGuide from './pages/TaxGuide.jsx';
 
 import './styles/login.css';
 import './styles/Notification.css';
