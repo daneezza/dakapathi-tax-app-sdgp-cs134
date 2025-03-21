@@ -14,6 +14,7 @@ interface User {
   email: string;
   password: string;
   type: string;
+  profilePic: string | null; // Add profilePic field to the User interface
 }
 
 
@@ -412,3 +413,56 @@ export const getUserGuideById = (req: Request, res: Response): void => {
 
   res.status(200).json(guide);
 };
+
+
+// New function to update profile image
+export const updateProfileImage = async (req: Request, res: Response): Promise<void> => {
+  try {
+      const { email, profilePic } = req.body; // Base64 image and email
+
+      if (!email || !profilePic) {
+          res.status(400).json({ message: 'Email and profile image are required.' });
+          return;
+      }
+
+      const user = await User.findOne({ email });
+      if (!user) {
+          res.status(404).json({ message: 'User not found.' });
+          return;
+      }
+
+      // Update user's profile image
+      user.profilePic = profilePic; // Store the base64 image in the database
+      await user.save();
+
+      res.status(200).json({ message: 'Profile image updated successfully.' });
+  } catch (error) {
+      console.error('Error updating profile image:', error);
+      res.status(500).json({ message: 'Failed to update profile image.' });
+  }
+};
+
+// Fetch Profile Image by Email
+export const getProfileImage = async (req: Request, res: Response) => {
+  try {
+      const { email } = req.query;
+
+      if (!email) {
+          return res.status(400).json({ error: 'Email is required' });
+      }
+
+      // Find the user by email
+      const user = await User.findOne({ email });
+
+      if (!user) {
+          return res.status(404).json({ error: 'User not found' });
+      }
+
+      // Send the profile image back
+      res.status(200).json({ profileImage: user.profilePic });
+  } catch (error) {
+      console.error('Error fetching profile image:', error);
+      res.status(500).json({ error: 'Internal server error' });
+  }
+};
+

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import { useState, useEffect, useRef } from 'react';
 import '../styles/template.css';
@@ -22,16 +23,36 @@ function Navbar({ links, toggleSidebar, notification, setNotification }) {
   const location = useLocation();
   const navigate = useNavigate();
   
-  const [userData, setUserData] = useState({ fullname: "", nic: "" });
+  const [userData, setUserData] = useState({ fullname: "", nic: "", profilePic: null });
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
-      setUserData(JSON.parse(storedUser));
+      const user = JSON.parse(storedUser);
+      setUserData(user);
+      fetchProfileImage(user.email);
     } else {
       navigate('/'); // Redirect to login page if no user found in local storage
     }
   }, [navigate]);
+
+
+  const fetchProfileImage = async (email) => {
+    try {
+      console.log('Fetching profile image for:', email); // Debugging log
+      const response = await axios.get(`http://localhost:3000/api/auth/getProfileImage?email=${email}`);
+
+      if (response.status === 200 && response.data.profileImage) {
+        console.log('Profile image fetched successfully');
+        setUserData((prev) => ({ ...prev, profilePic: response.data.profileImage }));
+      } else {
+        console.error('Error fetching profile image:', response.data);
+      }
+    } catch (error) {
+      console.error('Error fetching profile image:', error);
+    }
+  };
+
 
   const toggleProfileDropdown = () => {
     setIsProfileDropdownOpen(!isProfileDropdownOpen);
@@ -91,13 +112,13 @@ function Navbar({ links, toggleSidebar, notification, setNotification }) {
             ) : link.href === "/profile" ? (
               <div className="profile-container" ref={dropdownRef}>
                 <button onClick={toggleProfileDropdown} className="profile-button">
-                  <img src={profileIcon} alt="Profile" className="nav-icon" />
+                  <img src={userData.profilePic || profileIcon}  alt="Profile" className="nav-icon" />
                 </button>
 
                 {isProfileDropdownOpen && (
                   <div className="dropdown-popup">
                     <div className="profile-info">
-                      <img src="src/assets/images/pfp.jpg" alt="Profile" />
+                      <img src={userData.profilePic || profileIcon} alt="Profile" />
                       <br />
                       <span className="full-name">{userData.fullname || "Error Displaying Name"}</span>
                       <br />

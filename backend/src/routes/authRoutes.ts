@@ -1,5 +1,7 @@
 import { Router } from 'express';
 import { signup, login, googleSignIn, updateUser, updateUserPassword, deleteUser,checkPasswordStatus } from '../controllers/authController';
+import { updateProfileImage } from '../controllers/authController';
+import { getProfileImage } from '../controllers/authController';
 
 const router = Router();
 
@@ -13,6 +15,15 @@ router.post('/google-signin', asyncHandler(googleSignIn));
 router.post('/updateUser', updateUser);
 router.post('/update-password', updateUserPassword);
 router.get('/check-password-status', checkPasswordStatus);
+
+
+// Add the route for account deletion
 router.delete('/delete-account', asyncHandler(deleteUser));
+
+// Route to update the profile image
+router.post('/updateProfileImage', updateProfileImage);
+
+// Route to fetch the profile image
+router.get('/getProfileImage', asyncHandler(getProfileImage));
 
 export default router;

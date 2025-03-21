@@ -64,6 +64,9 @@ function Settings() {
                 );
             };
         };
+
+        fetchProfileImage();
+
     }, []);
 
     const checkPasswordStatus = async (email) => {
@@ -132,17 +135,102 @@ function Settings() {
     };
 
 
-    const handleProfileImageChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                setProfileImage(e.target.result);
-            };
-            reader.readAsDataURL(file);
-        }
-    };
+    //---------------------------------------------------------------------------------------------
+const handleProfileImageChange = async (e) => {
+    const file = e.target.files ? e.target.files[0] : null; // Check if e.target.files exists
+    if (file) {
+        const reader = new FileReader();
 
+        reader.onload = async (e) => {
+            const base64String = e.target.result;
+
+            // Log the base64 string to ensure it's being read correctly
+            console.log('Base64 image string:', base64String);
+
+            // Save the profile image before updating the state
+            await saveProfileImage(base64String);
+            setProfileImage(base64String); // Update the UI with the new profile image
+        };
+
+        // Read the file as a base64 string
+        reader.readAsDataURL(file);
+    } else {
+        console.error('No file selected.');
+    }
+};
+
+
+
+const saveProfileImage = async (base64Image) => {
+    try {
+        // Retrieve email from localStorage
+        const storedUserData = localStorage.getItem('user');
+        let existingUserData = storedUserData ? JSON.parse(storedUserData) : null;
+        
+        if (!existingUserData || !existingUserData.email) {
+            console.error("User email not found.");
+            return;
+        }
+
+        const email = existingUserData.email;  // Retrieve the email from the stored user data
+
+        // Define the updatedUserData object
+        const updatedUserData = {
+            email: email,  // Use the email from localStorage
+            profilePic: base64Image, // Include the base64 image
+        };
+
+        console.log('Saving profile image for:', email);  // Log the email for debugging
+
+        // Send the profile image to the backend
+        const response = await axios.post(
+            'http://localhost:3000/api/auth/updateProfileImage',
+            updatedUserData,
+            { headers: { 'Content-Type': 'application/json' } }
+        );
+
+        if (response.status === 200) {
+            console.log('Profile image saved successfully');
+        } else {
+            console.error('Error saving profile image:', response.data);
+        }
+    } catch (error) {
+        console.error('Error saving profile image:', error);
+    }
+};
+//-------------------fetch the pfp-------------------------------------------
+
+const fetchProfileImage = async () => {
+    try {
+        // Retrieve user data from localStorage
+        const storedUserData = localStorage.getItem('user');
+        let existingUserData = storedUserData ? JSON.parse(storedUserData) : null;
+
+        if (!existingUserData || !existingUserData.email) {
+            console.error("User email not found.");
+            return;
+        }
+
+        const email = existingUserData.email; // Retrieve the email from the stored user data
+
+        console.log('Fetching profile image for:', email); // Log the email for debugging
+
+        // Fetch the profile image from the backend
+        const response = await axios.get(`http://localhost:3000/api/auth/getProfileImage?email=${email}`);
+
+        if (response.status === 200 && response.data.profileImage) {
+            console.log('Profile image fetched successfully');
+            setProfileImage(response.data.profileImage); // Update UI with fetched image
+        } else {
+            console.error('Error fetching profile image:', response.data);
+        }
+    } catch (error) {
+        console.error('Error fetching profile image:', error);
+    }
+};
+
+
+//------------------------------------------------------------------
     const handleAvatarClick = () => {
         fileInputRef.current.click();
     };
@@ -300,31 +388,42 @@ const handleDeleteAccount = async () => {
             <p>Manage your account settings and preferences</p>
             
             <form onSubmit={handleSubmit}>
-                {/* Profile Picture Section */}
-                <div className="settingsPic-section">
-                    <div className="profile-picture-container">
-                        <div className="user-avatar" onClick={handleAvatarClick}>
-                            {profileImage ? (
-                                <img src={profileImage} alt="Profile" />
-                            ) : (
-                                <div className="avatar-placeholder">
-                                    <div className="camera-icon">
-                                        <img src="src/assets/cam.png" alt="Camera" className="camera-icon-img" />
-                                    </div>
-                                    <span>Choose photo</span>
-                                </div>
-                            )}
-                        </div>
-                        <input
-                            type="file"
-                            ref={fileInputRef}
-                            style={{ display: 'none' }}
-                            accept="image/*"
-                            onChange={handleProfileImageChange}
-                        />
+                 {/* Profile Picture Section */}
+<div className="settingsPic-section">
+    <div className="profile-picture-container">
+        <div className="user-avatar" onClick={handleAvatarClick}>
+            {profileImage ? (
+                <img src={profileImage} alt="Profile" />
+            ) : (
+                <div className="avatar-placeholder">
+                    <div className="camera-icon">
+                        <img src="src/assets/cam.png" alt="Camera" className="camera-icon-img" />
                     </div>
+                    <span>Choose photo</span>
                 </div>
+            )}
+        </div>
+        <input
+            type="file"
+            ref={fileInputRef}
+            style={{ display: 'none' }}  // File input is hidden
+            accept="image/*"
+            onChange={handleProfileImageChange}  // Trigger when file changes
+        />
+    </div>
+</div>
 
+{/* Button to manually trigger the file input */}
+<button
+    type="button"
+    onClick={() => fileInputRef.current.click()} // Trigger file input on button click
+>
+    Choose Photo
+</button>
+
+<button type="button" onClick={() => saveProfileImage(profileImage)}>
+    Save Profile Image
+</button>
                 {/* Personal Information Section */}
                 <div className="settings-section">
                     <h2>Personal Information</h2>
