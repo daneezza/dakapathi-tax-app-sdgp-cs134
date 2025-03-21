@@ -27,7 +27,7 @@ function AnswerList({ answers, questionId, onAnswerLike, onSubmitAnswer }) {
       {isExpanded && (
         <>
           <div className="answer-list">
-            <h3>Answers</h3>
+            
             {answers.length > 0 ? (
               answers.map((answer) => (
                 <Answer
@@ -40,10 +40,6 @@ function AnswerList({ answers, questionId, onAnswerLike, onSubmitAnswer }) {
             ) : (
               <p className="no-answers">No answers yet.</p>
             )}
-          </div>
-          
-          <div className="new-answer-form">
-            <AnswerForm onSubmit={handleSubmitAnswer} />
           </div>
         </>
       )}
