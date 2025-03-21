@@ -2,11 +2,10 @@
 import { Request, Response } from 'express';
 import { hashPassword, comparePassword } from '../utils/passwordUtil';
 import { sendOTPEmail } from '../utils/emailService';
-import jwt from 'jsonwebtoken';
 import { OAuth2Client } from 'google-auth-library';
 import User from '../models/User';
 
-
+// Define user interface for type safty
 interface User {
   fullname: string;
   nic: string;
@@ -17,26 +16,27 @@ interface User {
   type: string;
 }
 
-const users: User[] = [];
+
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 
+// Handle user signup
 export const signup = async (req: Request, res: Response): Promise<void> => {
   const { fullname, nic, address, birthdate, email, password, type } = req.body;
 
-
+  // Validate required feilds
   if (!fullname || !nic || !address || !birthdate || !email || !password || !type) {
     res.status(400).json({ message: 'All fields are required: fullname, NIC, address, birthdate, email, password, and type.' });
     return;
   }
 
-
+  // Validate user type
   if (type !== 'Admin' && type !== 'User') {
     res.status(400).json({ message: "Type must be either 'Admin' or 'User'." });
     return;
   }
 
-
+  // Check if user exists
   const existingUser = await User.findOne({ email });
   if (existingUser) {
     res.status(400).json({ message: 'Email already exists. Please use a different email.' });
@@ -44,15 +44,16 @@ export const signup = async (req: Request, res: Response): Promise<void> => {
   }
 
 
-
+  // Encrypt password 
   const hashedPassword = await hashPassword(password);
   const newUser = new User({ fullname, nic, address, birthdate, email, password: hashedPassword, type });
+  // Save user details in the database
   await newUser.save();
 
   res.status(201).json({ message: 'User registered successfully.', fullname, email, type,profilePic: '', });
 };
 
-
+// Handle user login
 export const login = async (req: Request, res: Response): Promise<void> => {
   const { email, password } = req.body;
 
@@ -64,14 +65,14 @@ export const login = async (req: Request, res: Response): Promise<void> => {
 
 
 
-
+  // CHeck if user exists
   const user = await User.findOne({ email });
   if (!user) {
     res.status(401).json({ message: 'Invalid email or password.' });
     return;
   }
 
-
+  // Prvent login for google sign in users 
   if (!user.password) {
     res.status(400).json({ message: 'This account was created using Google Sign-In. Please use Google to log in.' });
     return;
@@ -84,7 +85,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
     return;
   }
 
-
+  // Return user details
   res.status(200).json({
         message: 'Login successful.',
         user: {
@@ -107,13 +108,13 @@ export const login = async (req: Request, res: Response): Promise<void> => {
 
 
 
-
+// Store OTp temporrarily in memory
 const otpStore: { [key: string]: { otp: string; expiresAt: number } } = {};
 
-
+// Genarate 6 digit OTP
 const generateOTP = () => Math.floor(100000 + Math.random() * 900000).toString();
 
-
+// Send OTP to user mail
 export const sendOTP = async (req: Request, res: Response): Promise<void> => {
   try {
     const { email } = req.body;
@@ -123,7 +124,7 @@ export const sendOTP = async (req: Request, res: Response): Promise<void> => {
     }
 
     const otp = generateOTP();
-    const expiresAt = Date.now() + 5 * 60 * 1000;
+    const expiresAt = Date.now() + 5 * 60 * 1000; // OTP expires in 5 minutes
     otpStore[email] = { otp, expiresAt };
 
     await sendOTPEmail("account creation","Your Dakapathi Account Creation OTP Code",email, otp);
@@ -134,7 +135,7 @@ export const sendOTP = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-
+// Verify is the OTP entered is valid
 export const verifyOTP = async (req: Request, res: Response): Promise<void> => {
   try {
     const { email, otp } = req.body;
@@ -168,11 +169,12 @@ export const verifyOTP = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-
+// Handle google sign in 
 export const googleSignIn = async (req: Request, res: Response) => {
   const { token } = req.body;
 
   try {
+    // Verify the Google token
     const ticket = await client.verifyIdToken({
       idToken: token,
       audience: process.env.GOOGLE_CLIENT_ID,
@@ -185,9 +187,9 @@ export const googleSignIn = async (req: Request, res: Response) => {
 
     const { email, name } = payload;
 
-    
+    // Check if user exists
     let user = await User.findOne({ email });
-
+    // If no user exists assign default null values
     if (!user) {
       user = new User({
         fullname: name || 'Google User',
@@ -202,7 +204,7 @@ export const googleSignIn = async (req: Request, res: Response) => {
         quizHardScore: 0,
         profilePic: null, 
       });
-
+      // Save user in the database
       await user.save();
     }
 
@@ -229,7 +231,7 @@ export const googleSignIn = async (req: Request, res: Response) => {
   }
 };
 
-
+// Handles update user details fullname,NIC,Address,DOB
 export const updateUser = async (req: Request, res: Response): Promise<void> => {
     try {
         const { email, fullname, nic, address, birthdate } = req.body;
@@ -238,7 +240,7 @@ export const updateUser = async (req: Request, res: Response): Promise<void> => 
             res.status(400).json({ message: 'Email is required.' });
             return;
         }
-
+        // Check if user exists
         const user = await User.findOne({ email });
         if (!user) {
             res.status(404).json({ message: 'User not found.' });
@@ -250,7 +252,7 @@ export const updateUser = async (req: Request, res: Response): Promise<void> => 
         user.nic = nic || user.nic;
         user.address = address || user.address;
         user.birthdate = birthdate || user.birthdate;
-
+        // Sva the updated user details into the databse
         await user.save();
 
         res.status(200).json({ message: 'User details updated successfully.', user });
@@ -260,7 +262,7 @@ export const updateUser = async (req: Request, res: Response): Promise<void> => 
     }
 };
 
-
+// Handle password reset
 export const updateUserPassword = async (req: Request, res: Response): Promise<void> => {
     try {
         const { email, currentPassword, newPassword } = req.body;
@@ -292,6 +294,7 @@ export const updateUserPassword = async (req: Request, res: Response): Promise<v
 
         // Hash and update the new password
         user.password = await hashPassword(newPassword);
+        // Update user password in the database
         await user.save();
 
         res.status(200).json({ message: 'Password updated successfully.' });
@@ -301,7 +304,7 @@ export const updateUserPassword = async (req: Request, res: Response): Promise<v
     }
 };
 
-
+// Handel user delete
 export const deleteUser = async (req: Request, res: Response): Promise<void> => {
   try {
     const { email } = req.body;
@@ -319,7 +322,7 @@ export const deleteUser = async (req: Request, res: Response): Promise<void> => 
       return;
     }
 
-    // Delete the user
+    // Delete the user from the database
     await User.deleteOne({ email });
 
     res.status(200).json({ message: 'User account deleted successfully.' });
@@ -329,6 +332,7 @@ export const deleteUser = async (req: Request, res: Response): Promise<void> => 
   }
 };
 
+// Check if user has a password saved (To ensure if he is a google signin user)
 export const checkPasswordStatus = async (req: Request, res: Response): Promise<void> => {
     try {
         const { email } = req.query;
@@ -337,7 +341,7 @@ export const checkPasswordStatus = async (req: Request, res: Response): Promise<
             res.status(400).json({ message: "Email is required." });
             return;
         }
-
+        // Check if user exists
         const user = await User.findOne({ email });
 
         if (!user) {
@@ -352,6 +356,7 @@ export const checkPasswordStatus = async (req: Request, res: Response): Promise<
     }
 };
 
+// Handle user Guide details
 const userGuides = [
   {
     id: 1,
@@ -390,12 +395,12 @@ const userGuides = [
 ];
 
 
-
+// Handles get all user guides
 export const getUserGuides = (req: Request, res: Response): void => {
   res.status(200).json(userGuides);
 };
 
-
+// Handles get user guide by id
 export const getUserGuideById = (req: Request, res: Response): void => {
   const guideId = parseInt(req.params.id, 10);
   const guide = userGuides.find((g) => g.id === guideId);
@@ -407,5 +412,3 @@ export const getUserGuideById = (req: Request, res: Response): void => {
 
   res.status(200).json(guide);
 };
-
-export { users };
