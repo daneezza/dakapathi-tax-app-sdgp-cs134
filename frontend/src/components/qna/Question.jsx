@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import AnswerForm from './AnswerForm';
 import AnswerList from './AnswerList';
 
-function Question({ question, onQuestionLike, onAnswerSubmit, onAnswerLike }) {
+function Question({ question, userId, onQuestionLike, onAnswerSubmit, onAnswerLike }) {
   const [showAnswerForm, setShowAnswerForm] = useState(false);
   
   const handleLikeClick = () => {
@@ -16,6 +16,12 @@ function Question({ question, onQuestionLike, onAnswerSubmit, onAnswerLike }) {
   
   const formattedDate = new Date(question.createdAt).toLocaleDateString();
   
+  // Check if this user has liked this question
+  const isLiked = question.likes && question.likes.some(like => like.userId === userId);
+  
+  // Get total likes count
+  const likesCount = question.likes ? question.likes.length : 0;
+  
   return (
     <div className="question-card">
       <div className="question-header">
@@ -23,23 +29,20 @@ function Question({ question, onQuestionLike, onAnswerSubmit, onAnswerLike }) {
       </div>
       <p className="question-text">{question.text}</p>
       <div className="question-actions">
-      <div 
-        className={`like-button ${question.liked ? 'liked' : ''}`}
-        onClick={handleLikeClick}
-      >
-        <i className="heart-icon">{question.liked? "❤️" : "🤍"}</i> {question.likes.length} 
+        <div 
+          className={`like-button ${isLiked ? 'liked' : ''}`}
+          onClick={handleLikeClick}
+        >
+          <i className="heart-icon">{isLiked ? "❤️" : "🤍"}</i> {likesCount}
+        </div>
+          
+        <button 
+          className="answer-button"
+          onClick={() => setShowAnswerForm(!showAnswerForm)}
+        >
+          {showAnswerForm ? 'Cancel' : 'Answer'}
+        </button>
       </div>
-
-        
-      <button 
-            className="answer-button"
-            onClick={() => setShowAnswerForm(!showAnswerForm)}
-          >
-            {showAnswerForm ? 'Cancel' : 'Answer'}
-          </button>
-      
-        
-    </div>
       
       {showAnswerForm && (
         <AnswerForm onSubmit={handleAnswerSubmit} />
@@ -48,7 +51,9 @@ function Question({ question, onQuestionLike, onAnswerSubmit, onAnswerLike }) {
       <AnswerList 
         answers={question.answers} 
         questionId={question._id}
-        onAnswerLike={onAnswerLike} 
+        userId={userId}
+        onAnswerLike={onAnswerLike}
+        onSubmitAnswer={onAnswerSubmit}
       />
     </div>
   );
