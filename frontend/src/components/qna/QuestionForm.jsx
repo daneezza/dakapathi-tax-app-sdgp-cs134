@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 function QuestionForm({ onSubmit }) {
   const [questionText, setQuestionText] = useState('');
-
+  // handles the submission of the question
   const handleSubmit = (e) => {
     e.preventDefault();
     if (questionText.trim()) {
@@ -10,7 +10,7 @@ function QuestionForm({ onSubmit }) {
       setQuestionText('');
     }
   };
-
+  //handles the reset button
   const handleReset = () => {
     setQuestionText('');
   };
@@ -19,6 +19,7 @@ function QuestionForm({ onSubmit }) {
     <div className="question-form-container">
       <h2>Ask a Question</h2>
       <form onSubmit={handleSubmit} className="question-form">
+        {/* question entering form */}
         <textarea
           value={questionText}
           onChange={(e) => setQuestionText(e.target.value)}
@@ -26,6 +27,7 @@ function QuestionForm({ onSubmit }) {
           className="question-input"
           required
         />
+        {/* submit and reset button */}
         <div className="question-form-buttons">
           <button type="button" className="reset-button" onClick={handleReset}>Reset</button>
           <button type="submit" className="sub-button">Submit</button>

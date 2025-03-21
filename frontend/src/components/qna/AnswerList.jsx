@@ -4,7 +4,7 @@ import Answer from './Answer';
 
 function AnswerList({ answers, questionId, userId, onAnswerLike, onSubmitAnswer }) {
   const [isExpanded, setIsExpanded] = useState(false);
-
+  // Toggles the visibility of the answer list
   const toggleExpansion = () => {
     setIsExpanded(!isExpanded);
   };
@@ -12,6 +12,7 @@ function AnswerList({ answers, questionId, userId, onAnswerLike, onSubmitAnswer 
   
 
   return (
+    // reply section with answer list
     <div className="replies-section">
       <div
         className="replies-count"
@@ -22,13 +23,14 @@ function AnswerList({ answers, questionId, userId, onAnswerLike, onSubmitAnswer 
         {isExpanded ? "▼" : "►"}
       </div>
 
+      {/* display answer only when expanded */}
       {isExpanded && (
         <>
           <div className="answer-list">
             {answers.length > 0 ? (
               answers.map((answer) => (
                 <Answer
-                  key={answer._id}
+                  key={answer._id} //unique identifier
                   answer={answer}
                   questionId={questionId}
                   userId={userId}

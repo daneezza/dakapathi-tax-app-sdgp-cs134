@@ -23,6 +23,7 @@ function Question({ question, userId, onQuestionLike, onAnswerSubmit, onAnswerLi
   const likesCount = question.likes ? question.likes.length : 0;
   
   return (
+    // question list section
     <div className="question-card">
       <div className="question-header">
         <span className="question-date">{formattedDate}</span>
@@ -43,7 +44,7 @@ function Question({ question, userId, onQuestionLike, onAnswerSubmit, onAnswerLi
           {showAnswerForm ? 'Cancel' : 'Answer'}
         </button>
       </div>
-      
+      {/* answer form section */}
       {showAnswerForm && (
         <AnswerForm onSubmit={handleAnswerSubmit} />
       )}

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 
 function AnswerForm({ onSubmit }) {
+  // State to manage the text input for the answer
   const [answerText, setAnswerText] = useState('');
 
+  // Handles answer form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     if (answerText.trim()) {
@@ -13,6 +15,7 @@ function AnswerForm({ onSubmit }) {
 
   return (
     <div className="answer-form-container">
+      {/* answer form section */}
       <form onSubmit={handleSubmit} className="answer-form">
         <textarea
           value={answerText}
