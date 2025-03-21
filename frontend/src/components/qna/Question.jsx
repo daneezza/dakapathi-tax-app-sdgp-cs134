@@ -27,7 +27,7 @@ function Question({ question, onQuestionLike, onAnswerSubmit, onAnswerLike }) {
         className={`like-button ${question.liked ? 'liked' : ''}`}
         onClick={handleLikeClick}
       >
-        <i className="heart-icon">{question.liked? "❤️" : "🤍"}</i> {question.likes.length} {/* Fix here */}
+        <i className="heart-icon">{question.liked? "❤️" : "🤍"}</i> {question.likes.length} 
       </div>
 
         

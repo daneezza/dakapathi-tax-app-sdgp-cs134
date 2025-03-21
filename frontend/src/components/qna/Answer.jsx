@@ -14,9 +14,9 @@ function Answer({ answer, questionId, onAnswerLike }) {
   
   return (
     <div className="answer-card">
-      <div className="answer-header">
-        <span className="answer-date">{formattedDate}</span>
-      </div>
+      {/* <div className="answer-header"> */}
+        <p className="answer-date">{formattedDate}</p>
+      {/* </div> */}
       <p className="answer-text">{answer.text}</p>
       <div className="answer-actions">
         <div 
