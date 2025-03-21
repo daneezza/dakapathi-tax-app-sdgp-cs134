@@ -1,18 +1,18 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Login from './pages/Login.jsx';
+import Login from './Pages/Login.jsx';
 import Template from './components/template.jsx'; 
-import AboutUs from './pages/AboutUs.jsx';
-import Dashboard from './pages/Dashboard.jsx';
-import QnA from './pages/qna.jsx';
-import LearningHub from './pages/LearningHub.jsx';
-import UserGuides from './pages/UserGuides.jsx';
-import NewsFeed from './pages/NewsFeed.jsx';
+import AboutUs from './Pages/AboutUs.jsx';
+import Dashboard from './Pages/Dashboard.jsx';
+import QnA from './Pages/qna.jsx';
+import LearningHub from './Pages/LearningHub.jsx';
+import UserGuides from './Pages/UserGuides.jsx';
+import NewsFeed from './Pages/NewsFeed.jsx';
 import NewsDetail from './components/NewsDetail.jsx';
-import Game from './pages/game.jsx';
-import FAQs from './pages/FAQs.jsx';
-import PricingComingSoon from './pages/Pricing.jsx';
-import Settings from './pages/Settings.jsx';
-import TaxCalculator from './pages/TaxCalculator.jsx'
+import Game from './Pages/game.jsx';
+import FAQs from './Pages/FAQs.jsx';
+import PricingComingSoon from './Pages/Pricing.jsx';
+import Settings from './Pages/Settings.jsx';
+import TaxCalculator from './Pages/TaxCalculator.jsx'
 
 import './styles/login.css';
 import './styles/Notification.css';
