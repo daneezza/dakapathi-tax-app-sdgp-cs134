@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 
+// Mongoose schema for storing news articles
 const NewsSchema = new mongoose.Schema({
     id: { type: Number, required: true },
     title: { type: String, required: true },
@@ -18,5 +19,7 @@ const NewsSchema = new mongoose.Schema({
     stored_at: { type: Date, default: Date.now } 
 });
 
+// Creat the news model
 const News = mongoose.model('News', NewsSchema);
+// Expost the news model
 export default News;
