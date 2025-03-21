@@ -9,6 +9,7 @@ router.get("/:level", (req: any, res: any) => {
   const { level } = req.params
   const questionsForLevel = quizData[level]
 
+  //if there are no questions in that level - 404 error
   if (!questionsForLevel) {
     return res.status(404).json({
       success: false,
@@ -32,6 +33,7 @@ router.get("/:level", (req: any, res: any) => {
 router.post("/submitOne", (req: any, res: any) => {
   try {
     const userAnswer = req.body
+    //this is to find the question by level and id
     const question = quizData[userAnswer.level]?.find((q) => q.id === userAnswer.questionId)
 
     if (!question) {
@@ -70,6 +72,7 @@ router.post("/updateScore", async (req: any, res: any) => {
     // Extract input data from request body
     const { userEmail, level, score } = req.body
 
+    //validating required fields
     if (!userEmail || !level || score === undefined) {
       return res.status(400).json({
         success: false,
@@ -85,7 +88,7 @@ router.post("/updateScore", async (req: any, res: any) => {
       })
     }
 
-    // Map level to score field name
+    // this will map the level to score field name
     let scoreField: "quizEasyScore" | "quizMediumScore" | "quizHardScore"
 
     switch (level.toLowerCase()) {
