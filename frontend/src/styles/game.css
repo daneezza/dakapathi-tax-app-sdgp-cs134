@@ -458,7 +458,7 @@ border: 2px solid #4CAF50;
 100% { box-shadow: 0 0 5px #f44336; }
 }
 
-/* Add these styles to your game.css file */
+
 
 .user-scores-container {
   margin-bottom: 2rem;
@@ -535,7 +535,7 @@ border: 2px solid #4CAF50;
   text-align: center;
 }
 
-/* Make sure the app looks good on mobile devices */
+
 @media (max-width: 768px) {
   .scores-grid {
     grid-template-columns: 1fr;
