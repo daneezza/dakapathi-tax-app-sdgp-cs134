@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import '../styles/Settings.css';
-import { getErrorMessage,isValidAddress ,isValidPassword} from '../utils/validations';
+import { getErrorMessage,isValidAddress ,isValidPassword} from '../utils/validations.jsx';
 import axios from 'axios';
 import Notification from '../components/auth/Notification.jsx';
 
