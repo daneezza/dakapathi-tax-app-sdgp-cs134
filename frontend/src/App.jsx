@@ -8,7 +8,7 @@ import LearningHub from './pages/LearningHub.jsx';
 import UserGuides from './pages/UserGuides.jsx';
 import NewsFeed from './pages/NewsFeed.jsx';
 import NewsDetail from './components/NewsDetail.jsx';
-import Game from './pages/Game.jsx';
+import Game from './pages/game.jsx';
 import FAQs from './pages/FAQs.jsx';
 import PricingComingSoon from './pages/Pricing.jsx';
 import Settings from './pages/Settings.jsx';
