@@ -12,12 +12,10 @@ const taxGuides = [
   },
   {
     id: 2,
-    title: 'How to Navigate the Dashboard',
+    title: 'Dakapathi Marketing Video',
     content: [
-      '1. Log in with your registered email and password.',
-      '2. On the Dashboard, view an overview of your tax status.',
-      '3. Use the menu on the left to explore different sections, including Reports and Tax Calculator.',
-      '4. Click on any section to see detailed information.'
+      ' Dakapathi is an intelligent tax consulting web application designed specifically for Sri Lankan taxpayers. It simplifies tax calculations, provides real-time updates on tax regulations,',
+      'and offers personalized guidance to ensure compliance. With smart notifications and an easy-to-use interface, Dakapathi helps individuals and businesses manage their taxes effortlessly.',
     ],
     YoutubePath: 'https://youtu.be/Fkk9DI-8el4?si=FLYCiEmee6k4tdJq' 
   }  
