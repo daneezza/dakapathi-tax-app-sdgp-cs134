@@ -72,7 +72,7 @@
     color: rgba(255, 255, 255, 0.85);
 }
 
-/* Responsive Tweaks */
+
 @media (max-width: 768px) {
     .learning-hub-container {
         padding: 80px 15px 20px;
