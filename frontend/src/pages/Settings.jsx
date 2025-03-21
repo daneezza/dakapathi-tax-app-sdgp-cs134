@@ -291,6 +291,7 @@ const handleDeleteAccount = async () => {
                 <Notification
                     message={notification.message}
                     variant={notification.variant}
+                    className="settings-container"
                     onClose={() => setNotification({ message: '', variant: 'info' })}
                     duration={5000}
                 />
