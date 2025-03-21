@@ -13,9 +13,6 @@ router.post('/google-signin', asyncHandler(googleSignIn));
 router.post('/updateUser', updateUser);
 router.post('/update-password', updateUserPassword);
 router.get('/check-password-status', checkPasswordStatus);
-
-
-// Add the route for account deletion
 router.delete('/delete-account', asyncHandler(deleteUser));
 
 export default router;
