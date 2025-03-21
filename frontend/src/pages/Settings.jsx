@@ -193,11 +193,19 @@ function Settings() {
 
 
     const handleUpdatePassword = async () => {
-    if (!settings.security.oldPassword || !settings.security.changePassword) {
-        alert("Please fill in both password fields.");
+    const { oldPassword, changePassword } = settings.security;
+
+    // Ensure both fields are filled
+    if (!oldPassword || !changePassword) {
+        alert("Please fill in both current and new password fields.");
         return;
     }
-    
+
+    // Validate the new password
+    if (!isValidPassword(changePassword)) {
+        alert("New password must be at least 8 characters long, include 1 uppercase, 1 lowercase, 1 number, and 1 special character.");
+        return;
+    }
 
     const storedUserData = localStorage.getItem('user');
     let existingUserData = storedUserData ? JSON.parse(storedUserData) : {};
@@ -207,14 +215,14 @@ function Settings() {
             'http://localhost:3000/api/auth/update-password', // Ensure this matches your backend route
             {
                 email: existingUserData.email,
-                currentPassword: settings.security.oldPassword,
-                newPassword: settings.security.changePassword
+                currentPassword: oldPassword,
+                newPassword: changePassword
             },
             { headers: { 'Content-Type': 'application/json' } }
         );
 
         alert(response.data.message || "Password updated successfully!");
-        
+
         // Clear password fields after successful update
         setSettings((prevSettings) => ({
             ...prevSettings,
@@ -228,6 +236,7 @@ function Settings() {
         alert(error.response?.data?.message || "Failed to update password.");
     }
 };
+
 
 const handleDeleteAccount = async () => {
     try {
