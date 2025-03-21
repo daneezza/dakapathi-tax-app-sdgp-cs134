@@ -43,5 +43,5 @@ const questionSchema = new Schema<IQuestion>(
   },
   { timestamps: true }
 );
-
+// Export the Question model based on the schema
 export default mongoose.model<IQuestion>('Question', questionSchema);

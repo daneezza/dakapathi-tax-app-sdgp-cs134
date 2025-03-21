@@ -1,4 +1,5 @@
 import {Router, RequestHandler} from 'express';
+// Import controller functions
 import {
   getQuestions,
   createQuestion,
@@ -9,11 +10,15 @@ import {
 
 const router = Router();
 
-// Fix: Using the router methods correctly
+// Route to get all questions
 router.get('/', getQuestions);
+// Route to create a new question
 router.post('/', createQuestion as RequestHandler);
+// Route to like a specific question
 router.post('/:questionId/like', likeQuestion as RequestHandler);
+// Route to add an answer to a specific question
 router.post('/:questionId/answers', addAnswer as RequestHandler);
+// Route to like a specific answer for a specific question
 router.post('/:questionId/answers/:answerId/like', likeAnswer as RequestHandler);
 
 export default router;

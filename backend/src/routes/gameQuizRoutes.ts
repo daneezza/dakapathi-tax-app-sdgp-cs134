@@ -28,7 +28,7 @@ router.get("/:level", (req: any, res: any) => {
   })
 })
 
-// Submit a single answer
+// Route to submit a single answer
 router.post("/submitOne", (req: any, res: any) => {
   try {
     const userAnswer = req.body
@@ -40,7 +40,7 @@ router.post("/submitOne", (req: any, res: any) => {
         message: "Question not found",
       })
     }
-
+    // Check if the selected answer matches the correct answer
     const isCorrect = question.correctOption.toUpperCase() === userAnswer.selectedOption.toUpperCase()
 
     const result = {
@@ -67,6 +67,7 @@ router.post("/submitOne", (req: any, res: any) => {
 // Update user quiz score
 router.post("/updateScore", async (req: any, res: any) => {
   try {
+    // Extract input data from request body
     const { userEmail, level, score } = req.body
 
     if (!userEmail || !level || score === undefined) {
