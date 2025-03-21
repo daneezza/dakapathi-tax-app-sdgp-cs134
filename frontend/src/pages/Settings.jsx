@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import '../styles/Settings.css';
 import { getErrorMessage,isValidAddress ,isValidPassword} from '../utils/validations';
 import axios from 'axios';
+import Notification from '../components/auth/Notification.jsx';
 
 
 function Settings() {
@@ -10,6 +11,7 @@ function Settings() {
     const [errors, setErrors] = useState({});
     const [showConfirmPopup, setShowConfirmPopup] = useState(false);
     const [hasPassword, setHasPassword] = useState(null); // Check if user has a password
+    const [notification, setNotification] = useState({ message: '', variant: 'info' });
 
     const [settings, setSettings] = useState({
         personalInfo: {
@@ -183,10 +185,14 @@ function Settings() {
         );
 
         localStorage.setItem('user', JSON.stringify(updatedUserData));
-        alert('User details updated successfully!');
+        setNotification({ message: 'User details updated successfully!', variant: 'success' });
+        console.log('User details updated successfully!');
     } catch (error) {
         console.error('Error updating user:', error);
-        alert(error.response?.data?.message || 'Failed to update user details.');
+        setNotification({ 
+            message: error.response?.data?.message || 'Failed to update user details.', 
+            variant: 'error' 
+        });
     }
 };
 
@@ -197,12 +203,12 @@ const handleUpdatePassword = async () => {
         let existingUserData = storedUserData ? JSON.parse(storedUserData) : {};
 
         if (!changePassword) {
-            alert("New password is required.");
+            setNotification({ message: "New password is required.", variant: 'error' });
             return;
         }
 
         if (!isValidPassword(changePassword)) {
-            alert("New password must be at least 8 characters long, include 1 uppercase, 1 lowercase, 1 number, and 1 special character.");
+            setNotification({ message:"New password must be at least 8 characters long, include 1 uppercase, 1 lowercase, 1 number, and 1 special character.", variant: 'error' });
             return;
         }
 
@@ -217,7 +223,8 @@ const handleUpdatePassword = async () => {
                 { headers: { 'Content-Type': 'application/json' } }
             );
 
-            alert(response.data.message || "Password updated successfully!");
+            console.log('Password updated successfully:', response.data);
+            setNotification({ message: response.data.message || "Password updated successfully!", variant: 'success' });
 
             setSettings((prevSettings) => ({
                 ...prevSettings,
@@ -228,7 +235,10 @@ const handleUpdatePassword = async () => {
             }));
         } catch (error) {
             console.error('Error updating password:', error);
-            alert(error.response?.data?.message || "Failed to update password.");
+            setNotification({ 
+                message: error.response?.data?.message || "Failed to update password.", 
+                variant: 'error' 
+            });
         }
     };
 
@@ -239,7 +249,7 @@ const handleDeleteAccount = async () => {
         const storedUserData = localStorage.getItem('user');
         
         if (!storedUserData) {
-            alert("No user data found.");
+            setNotification({ message: "No user data found.", variant: 'error' });
             return;
         }
 
@@ -255,20 +265,36 @@ const handleDeleteAccount = async () => {
         if (response.status === 200) {
             // Successfully deleted the user, now remove them from localStorage
             localStorage.removeItem('user');
-            alert('Your account has been successfully deleted.');
-            window.location.href = '/'; // Redirect to home or login page
+            console.log('Account deleted successfully');
+            setNotification({ message: 'Your account has been successfully deleted.', variant: 'success' });
+                
+                // Redirect after a short delay to allow notification to be seen
+            setTimeout(() => {
+                window.location.href = '/'; // Redirect to home or login page
+            }, 2000);// Redirect to home or login page
         } else {
             throw new Error("Failed to delete account.");
         }
     } catch (error) {
         console.error('Error deleting account:', error);
-        alert(error.response?.data?.message || 'Failed to delete account.');
+        setNotification({ 
+            message: error.response?.data?.message || 'Failed to delete account.', 
+            variant: 'error' 
+        });
     }
 };
 
 
     return (
         <div className="settings-container">
+            {notification.message && (
+                <Notification
+                    message={notification.message}
+                    variant={notification.variant}
+                    onClose={() => setNotification({ message: '', variant: 'info' })}
+                    duration={5000}
+                />
+            )}
             <h1>Account Settings</h1>
             <p>Manage your account settings and preferences</p>
             
