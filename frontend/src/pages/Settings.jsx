@@ -9,7 +9,8 @@ function Settings() {
     const [profileImage, setProfileImage] = useState(null);
     const [errors, setErrors] = useState({});
     const [showConfirmPopup, setShowConfirmPopup] = useState(false);
-    
+    const [hasPassword, setHasPassword] = useState(null); // Check if user has a password
+
     const [settings, setSettings] = useState({
         personalInfo: {
             name: '',
@@ -34,12 +35,14 @@ function Settings() {
             setSettings((prevSettings) => ({
                 ...prevSettings,
                 personalInfo: {
-                    name: parsedUser.fullname || prevSettings.personalInfo.name,
-                    nic: parsedUser.nic || prevSettings.personalInfo.nic,
-                    address: parsedUser.address || prevSettings.personalInfo.address,
-                    dob: parsedUser.birthdate || prevSettings.personalInfo.dob
+                    name: parsedUser.fullname === "N/A" ? "" : parsedUser.fullname || prevSettings.personalInfo.name,
+                    nic: parsedUser.nic === "N/A" ? "" : parsedUser.nic || prevSettings.personalInfo.nic,
+                    address: parsedUser.address === "N/A" ? "" : parsedUser.address || prevSettings.personalInfo.address,
+                    dob: parsedUser.birthdate === "N/A" ? "" : parsedUser.birthdate || prevSettings.personalInfo.dob
                 }
             }));
+
+            checkPasswordStatus(parsedUser.email);
         }
 
         // Dynamically load Google Translate script
@@ -61,7 +64,16 @@ function Settings() {
         };
     }, []);
 
-    
+    const checkPasswordStatus = async (email) => {
+        try {
+            const response = await axios.get(
+                `http://localhost:3000/api/auth/check-password-status?email=${email}`
+            );
+            setHasPassword(response.data.hasPassword);
+        } catch (error) {
+            console.error("Error checking password status:", error);
+        }
+    };
 
     const validateField = (name, value) => {
         let errorMessage = getErrorMessage(name, value);
@@ -117,19 +129,6 @@ function Settings() {
         }));
     };
 
-    const handlePreferencesChange = (e) => {
-        const { name, value } = e.target;
-        setSettings((prevSettings) => ({
-            ...prevSettings,
-            preferences: {
-                ...prevSettings.preferences,
-                [name]: value
-            }
-        }));
-
-        // Save language preference to localStorage
-        localStorage.setItem('language', value);
-    };
 
     const handleProfileImageChange = (e) => {
         const file = e.target.files[0];
@@ -192,50 +191,46 @@ function Settings() {
 };
 
 
-    const handleUpdatePassword = async () => {
-    const { oldPassword, changePassword } = settings.security;
+const handleUpdatePassword = async () => {
+        const { oldPassword, changePassword } = settings.security;
+        const storedUserData = localStorage.getItem('user');
+        let existingUserData = storedUserData ? JSON.parse(storedUserData) : {};
 
-    // Ensure both fields are filled
-    if (!oldPassword || !changePassword) {
-        alert("Please fill in both current and new password fields.");
-        return;
-    }
+        if (!changePassword) {
+            alert("New password is required.");
+            return;
+        }
 
-    // Validate the new password
-    if (!isValidPassword(changePassword)) {
-        alert("New password must be at least 8 characters long, include 1 uppercase, 1 lowercase, 1 number, and 1 special character.");
-        return;
-    }
+        if (!isValidPassword(changePassword)) {
+            alert("New password must be at least 8 characters long, include 1 uppercase, 1 lowercase, 1 number, and 1 special character.");
+            return;
+        }
 
-    const storedUserData = localStorage.getItem('user');
-    let existingUserData = storedUserData ? JSON.parse(storedUserData) : {};
+        try {
+            const payload = hasPassword
+                ? { email: existingUserData.email, currentPassword: oldPassword, newPassword: changePassword }
+                : { email: existingUserData.email, newPassword: changePassword };
 
-    try {
-        const response = await axios.post(
-            'http://localhost:3000/api/auth/update-password', // Ensure this matches your backend route
-            {
-                email: existingUserData.email,
-                currentPassword: oldPassword,
-                newPassword: changePassword
-            },
-            { headers: { 'Content-Type': 'application/json' } }
-        );
+            const response = await axios.post(
+                'http://localhost:3000/api/auth/update-password',
+                payload,
+                { headers: { 'Content-Type': 'application/json' } }
+            );
 
-        alert(response.data.message || "Password updated successfully!");
+            alert(response.data.message || "Password updated successfully!");
 
-        // Clear password fields after successful update
-        setSettings((prevSettings) => ({
-            ...prevSettings,
-            security: {
-                oldPassword: '',
-                changePassword: ''
-            }
-        }));
-    } catch (error) {
-        console.error('Error updating password:', error);
-        alert(error.response?.data?.message || "Failed to update password.");
-    }
-};
+            setSettings((prevSettings) => ({
+                ...prevSettings,
+                security: {
+                    oldPassword: '',
+                    changePassword: ''
+                }
+            }));
+        } catch (error) {
+            console.error('Error updating password:', error);
+            alert(error.response?.data?.message || "Failed to update password.");
+        }
+    };
 
 
 const handleDeleteAccount = async () => {
@@ -360,34 +355,44 @@ const handleDeleteAccount = async () => {
                 {/* Security Section */}
                 <div className="settings-section">
                     <h2>Security</h2>
-                    <div className="settings-group">
-                        <label htmlFor="oldPassword">Current Password</label>
-                        <input
-                            type="password"
-                            id="oldPassword"
-                            name="oldPassword"
-                            value={settings.security.oldPassword}
-                            onChange={handleSecurityChange}
-                            placeholder="Enter current password"
-                        />
-                    </div>
-                    <div className="settings-group">
-                        <label htmlFor="changePassword">New Password</label>
-                        <input
-                            type="password"
-                            id="changePassword"
-                            name="changePassword"
-                            value={settings.security.changePassword}
-                            onChange={handleSecurityChange}
-                            placeholder="Enter new password"
-                        />
-                        {errors.changePassword && <p className="error-message">{errors.changePassword}</p>}
-                    </div>
-                    <button type="button" className="update-password-btn" onClick={handleUpdatePassword}>
-                        Update Password
-                    </button>
+                    
+                    {hasPassword === null ? (
+                        <p>Loading...</p>
+                    ) : (
+                        <>
+                            {hasPassword && (
+                                <div className="settings-group">
+                                    <label htmlFor="oldPassword">Current Password</label>
+                                    <input
+                                        type="password"
+                                        id="oldPassword"
+                                        name="oldPassword"
+                                        value={settings.security.oldPassword}
+                                        onChange={handleSecurityChange}
+                                        placeholder="Enter current password"
+                                    />
+                                </div>
+                            )}
+                            
+                            <div className="settings-group">
+                                <label htmlFor="changePassword">New Password</label>
+                                <input
+                                    type="password"
+                                    id="changePassword"
+                                    name="changePassword"
+                                    value={settings.security.changePassword}
+                                    onChange={handleSecurityChange}
+                                    placeholder="Enter new password"
+                                />
+                                {errors.changePassword && <p className="error-message">{errors.changePassword}</p>}
+                            </div>
+                            
+                            <button type="button" className="update-password-btn" onClick={handleUpdatePassword}>
+                                Update Password
+                            </button>
+                        </>
+                    )}
                 </div>
-
                 {/* Language Preferences Section */}
                 <div className="settings-section">
                     <h2>Language Preferences</h2>

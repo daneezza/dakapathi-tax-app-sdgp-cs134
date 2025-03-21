@@ -265,8 +265,8 @@ export const updateUserPassword = async (req: Request, res: Response): Promise<v
     try {
         const { email, currentPassword, newPassword } = req.body;
 
-        if (!email || !currentPassword || !newPassword) {
-            res.status(400).json({ message: 'Email, current password, and new password are required.' });
+        if (!email || !newPassword) {
+            res.status(400).json({ message: 'Email and new password are required.' });
             return;
         }
 
@@ -276,17 +276,18 @@ export const updateUserPassword = async (req: Request, res: Response): Promise<v
             return;
         }
 
-        // Ensure user has a password (not a Google account)
-        if (!user.password) {
-            res.status(400).json({ message: 'This account was created using Google Sign-In. Password cannot be changed this way.' });
-            return;
-        }
+        if (user.password) {
+            // If the user has a password, require currentPassword for verification
+            if (!currentPassword) {
+                res.status(400).json({ message: 'Current password is required.' });
+                return;
+            }
 
-        // Verify the current password
-        const isPasswordValid = await comparePassword(currentPassword, user.password);
-        if (!isPasswordValid) {
-            res.status(401).json({ message: 'Current password is incorrect.' });
-            return;
+            const isPasswordValid = await comparePassword(currentPassword, user.password);
+            if (!isPasswordValid) {
+                res.status(401).json({ message: 'Current password is incorrect.' });
+                return;
+            }
         }
 
         // Hash and update the new password
@@ -299,6 +300,7 @@ export const updateUserPassword = async (req: Request, res: Response): Promise<v
         res.status(500).json({ message: 'Failed to update password.' });
     }
 };
+
 
 export const deleteUser = async (req: Request, res: Response): Promise<void> => {
   try {
