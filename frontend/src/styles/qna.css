@@ -1,11 +1,10 @@
-/* Main container styling */
 .appq {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0;
 }
 
-/* Header Styling */
+
 .appq-header {
   display: flex;
   justify-content: space-between;
@@ -24,7 +23,7 @@
   margin-left: 20px;
 }
 
-/* Question Form Container */
+
 .question-form-container {
   position: absolute;
   top: 190px;
@@ -62,7 +61,7 @@
   flex-direction: column;
 }
 
-/* Question Input */
+
 .question-form textarea,
 .question-input {
   color: #000000;
@@ -77,7 +76,7 @@
   margin-bottom: 15px;
 }
 
-/* Button Container */
+
 .question-form-buttons,
 .button-container {
   display: flex;
@@ -85,7 +84,7 @@
   gap: 10px;
 }
 
-/* Reset Button */
+
 .button-reset,
 .reset-button {
   padding: 8px 25px;
@@ -105,7 +104,7 @@
   transform: translateY(-3px);
 }
 
-/* Submit Button */
+
 .button-submit,
 .sub-button {
   padding: 8px 25px;
@@ -116,14 +115,13 @@
   color: rgb(0, 0, 0);
 }
 
-/* Question List Container */
+
 .question-list-container,
 .question-list {
   position: absolute;
   top: 500px;
   left: 400px;
   padding: clamp(1rem, 5vw, 2rem);
-  
   max-width: 800px;
   color: #ffffff;
   z-index: 5;
@@ -138,7 +136,7 @@
   overflow: hidden;
 }
 
-/* Like Buttons */
+
 .like-button.user-liked,
 .answer-like-button.user-liked,
 .like-button.liked {
@@ -153,7 +151,7 @@
   opacity: 0.8;
 }
 
-/* Question Item */
+
 .question-item,
 .question-card {
   color: white;
@@ -164,7 +162,7 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-/* Question Content */
+
 .question-content,
 .question-text {
   margin-bottom: 15px;
@@ -182,7 +180,7 @@
   color: #000000;
 }
 
-/* Interaction Bar */
+
 .interaction-bar,
 .question-actions {
   display: flex;
@@ -192,7 +190,7 @@
   border-bottom: 1px solid #eee;
 }
 
-/* Button Styling */
+
 .like-button, 
 .share-button, 
 .bookmark-button, 
@@ -216,7 +214,7 @@
   color: #f1c232;
 }
 
-/* Replies Count */
+
 .replies-count {
   margin-top: 10px;
   font-size: 13px;
@@ -224,7 +222,7 @@
   padding: 5px 0;
 }
 
-/* Answers Container */
+
 .answers-container,
 .answer-list {
   margin-top: 15px;
@@ -232,7 +230,7 @@
   border-top: 1px dashed #eee;
 }
 
-/* Answer Item */
+
 .answer-item,
 .answer-card {
   padding: 10px;
@@ -254,7 +252,7 @@
 }
 
 
-/* New Answer Form */
+
 .new-answer-form,
 .answer-form-container {
   margin-top: 15px;
@@ -290,7 +288,7 @@
   transform: translateY(-3px);
 }
 
-/* Error and Loading Messages */
+
 .error-message {
   background-color: rgba(198, 40, 40, 0.2);
   color: #ff5252;
@@ -315,7 +313,7 @@
 }
 
 
-/* Media Queries */
+
 @media (max-width: 768px) {
   .app-main {
     margin-left: 0;
