@@ -1,7 +1,7 @@
 import React from 'react';
 import Question from './Question';
 
-function QuestionList({ questions, onQuestionLike, onAnswerSubmit, onAnswerLike }) {
+function QuestionList({ questions, userId, onQuestionLike, onAnswerSubmit, onAnswerLike }) {
   return (
     <div className="question-list">
       {questions.length === 0 ? (
@@ -11,6 +11,7 @@ function QuestionList({ questions, onQuestionLike, onAnswerSubmit, onAnswerLike 
           <Question
             key={question._id}
             question={question}
+            userId={userId}
             onQuestionLike={onQuestionLike}
             onAnswerSubmit={onAnswerSubmit}
             onAnswerLike={onAnswerLike}

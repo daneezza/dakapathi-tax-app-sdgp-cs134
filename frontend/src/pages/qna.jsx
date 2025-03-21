@@ -5,10 +5,19 @@ import '../styles/qna.css';
 import QuestionForm from '../components/qna/QuestionForm';
 import QuestionList from '../components/qna/QuestionList';
 
-const QnA= () => {
+const QnA = () => {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [userId, setUserId] = useState(() => {
+    // Get userId from localStorage or create a new one
+    const savedUserId = localStorage.getItem('userId');
+    if (savedUserId) return savedUserId;
+    
+    const newUserId = 'user-' + Math.random().toString(36).substr(2, 9);
+    localStorage.setItem('userId', newUserId);
+    return newUserId;
+  });
 
   useEffect(() => {
     fetchQuestions();
@@ -31,7 +40,7 @@ const QnA= () => {
     try {
       const response = await axios.post('http://localhost:3000/api/questions', {
         text: questionText,
-        userId: 'user-' + Math.random().toString(36).substr(2, 9), // Generate random userId
+        userId: userId,
       });
       setQuestions([response.data, ...questions]);
     } catch (err) {
@@ -42,9 +51,6 @@ const QnA= () => {
 
   const handleQuestionLike = async (questionId) => {
     try {
-      // Generate a random userId for demo purposes
-      const userId = 'user-' + Math.random().toString(36).substr(2, 9);
-      
       const response = await axios.post(`http://localhost:3000/api/questions/${questionId}/like`, {
         userId,
       });
@@ -61,8 +67,6 @@ const QnA= () => {
 
   const handleAnswerSubmit = async (questionId, answerText) => {
     try {
-      const userId = 'user-' + Math.random().toString(36).substr(2, 9);
-      
       const response = await axios.post(`http://localhost:3000/api/questions/${questionId}/answers`, {
         text: answerText,
         userId,
@@ -80,8 +84,6 @@ const QnA= () => {
 
   const handleAnswerLike = async (questionId, answerId) => {
     try {
-      const userId = 'user-' + Math.random().toString(36).substr(2, 9);
-      
       const response = await axios.post(
         `http://localhost:3000/api/questions/${questionId}/answers/${answerId}/like`,
         { userId }
@@ -99,7 +101,7 @@ const QnA= () => {
 
   return (
     <div className="appq">
-      <h1>Q&A Forum</h1>
+      
       <div className="appq-main">
         <QuestionForm onSubmit={handleQuestionSubmit} />
         {error && <div className="error-message">{error}</div>}
@@ -108,6 +110,7 @@ const QnA= () => {
         ) : (
           <QuestionList
             questions={questions}
+            userId={userId}
             onQuestionLike={handleQuestionLike}
             onAnswerSubmit={handleAnswerSubmit}
             onAnswerLike={handleAnswerLike}

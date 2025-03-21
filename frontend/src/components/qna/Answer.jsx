@@ -1,29 +1,28 @@
 import React from 'react';
 
-function Answer({ answer, questionId, onAnswerLike }) {
+function Answer({ answer, questionId, userId, onAnswerLike }) {
   const handleLikeClick = () => {
     onAnswerLike(questionId, answer._id);
   };
   
   const formattedDate = new Date(answer.createdAt).toLocaleDateString();
   
-  // Handle the likes count properly - check if it's an array or object
-  const likesCount = Array.isArray(answer.likes) 
-    ? answer.likes.length 
-    : (typeof answer.likes === 'number' ? answer.likes : 0);
+  // Check if this user has liked this answer
+  const isLiked = answer.likes && answer.likes.some(like => like.userId === userId);
+  
+  // Get total likes count
+  const likesCount = answer.likes ? answer.likes.length : 0;
   
   return (
     <div className="answer-card">
-      {/* <div className="answer-header"> */}
-        <p className="answer-date">{formattedDate}</p>
-      {/* </div> */}
+      <p className="answer-date">{formattedDate}</p>
       <p className="answer-text">{answer.text}</p>
       <div className="answer-actions">
         <div 
-          className={`like-button ${answer.liked ? 'liked' : ''}`}
+          className={`like-button ${isLiked ? 'liked' : ''}`}
           onClick={handleLikeClick}
         >
-          <i className="heart-icon">{answer.liked? "❤️" : "🤍"}</i> {likesCount}
+          <i className="heart-icon">{isLiked ? "❤️" : "🤍"}</i> {likesCount}
         </div>
       </div>
     </div>

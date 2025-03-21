@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 import Answer from './Answer';
-import AnswerForm from './AnswerForm';
 
-function AnswerList({ answers, questionId, onAnswerLike, onSubmitAnswer }) {
+
+function AnswerList({ answers, questionId, userId, onAnswerLike, onSubmitAnswer }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleExpansion = () => {
     setIsExpanded(!isExpanded);
   };
 
-  const handleSubmitAnswer = (answerText) => {
-    onSubmitAnswer(questionId, answerText);
-  };
+  
 
   return (
     <div className="replies-section">
@@ -27,13 +25,13 @@ function AnswerList({ answers, questionId, onAnswerLike, onSubmitAnswer }) {
       {isExpanded && (
         <>
           <div className="answer-list">
-            
             {answers.length > 0 ? (
               answers.map((answer) => (
                 <Answer
                   key={answer._id}
                   answer={answer}
                   questionId={questionId}
+                  userId={userId}
                   onAnswerLike={onAnswerLike}
                 />
               ))
