@@ -7,6 +7,7 @@ import { useUserScores, ScoreDisplay } from "../components/game/score-display"
 import "../styles/game.css"
 
 const Game = () => {
+  //State variables for managing quiz questions, answers, and user progress.
   const [questions, setQuestions] = useState([])
   const [answers, setAnswers] = useState({})
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
@@ -23,7 +24,7 @@ const Game = () => {
   const [showBackConfirmation, setShowBackConfirmation] = useState(false)
   const [results, setResults] = useState([])
 
-  // Use our custom hook for user scores
+  //custom hook for user scores
   const {
     userEmail,
     userName,
@@ -34,6 +35,8 @@ const Game = () => {
     syncWithDatabase,
     getTrophyIcon,
   } = useUserScores()
+
+  //fetching questions from the backend based on the levl
 
   const fetchQuizQuestions = async (level) => {
     setIsLoading(true)
@@ -62,6 +65,8 @@ const Game = () => {
     }
   }
 
+  //updating answer selected by the user for the current question
+
   const handleOptionChange = (option) => {
     const currentQuestion = questions[currentQuestionIndex]
     if (currentQuestion) {
@@ -71,6 +76,8 @@ const Game = () => {
       }))
     }
   }
+
+  //submits the selected answer to the backend
 
   const handleSubmitAnswer = async () => {
     const currentQuestion = questions[currentQuestionIndex]
@@ -106,6 +113,7 @@ const Game = () => {
     }
   }
 
+  //to move to the next question, if it is the last question, then submit answer
   const handleNextQuestion = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1)
@@ -119,15 +127,16 @@ const Game = () => {
     }
   }
 
-  // Function to save user score to the backend using our custom hook
+  // Function to save user score to the backend
   const saveUserScore = async () => {
     if (!selectedLevel) return
     
     console.log(`Saving score for level ${selectedLevel}: ${score}`)
-    // Use the saveScore function from our custom hook
+    
     await saveScore(selectedLevel, score)
   }
-
+  
+  //for moving to the previous question
   const handlePreviousQuestion = () => {
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex(currentQuestionIndex - 1)
@@ -136,6 +145,7 @@ const Game = () => {
     }
   }
 
+  // to confirm whether the user wants to go back to the level page or proceed with the quiz
   const handleBackToLevels = () => {
     setShowBackConfirmation(true)
   }
@@ -169,6 +179,7 @@ const Game = () => {
 
   const currentQuestion = questions[currentQuestionIndex]
 
+  //Updates the current question ID when the question list changes.
   useEffect(() => {
     if (questions.length > 0) {
       setCurrentQuestionId(questions[currentQuestionIndex]?.id || null)
@@ -209,7 +220,7 @@ const Game = () => {
 
       {!isQuizStarted ? (
         <div>
-          {/* Use our ScoreDisplay component */}
+          {/* show quiz levels */}
           <ScoreDisplay scores={userScores} getTrophyIcon={getTrophyIcon} title={`${userName}'s High Scores:`} />
 
           <div className="level-button-container">
@@ -225,6 +236,7 @@ const Game = () => {
           </div>
         </div>
       ) : isQuizCompleted ? (
+        //scoreboard at the end of the quiz
         <div className="quiz-card">
           {error && <p style={{ color: "red" }}>{error}</p>}
           <div className="final-txt">

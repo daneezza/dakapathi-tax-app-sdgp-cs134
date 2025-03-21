@@ -6,7 +6,7 @@ import "../../styles/game.css"
 
 // A service to handle all score-related operations
 export const ScoreService = {
-  // Get user scores from localStorage
+  // Retrieves user scores from localStorage
   getLocalScores() {
     try {
       const userData = localStorage.getItem("user")
@@ -43,7 +43,7 @@ export const ScoreService = {
     }
   },
 
-  // Get the appropriate trophy icon based on score
+  // Determines which trophy icon to display based on score percentage
   getTrophyIcon(score, maxScore = 10) {
     const percentage = maxScore > 0 ? (score / maxScore) * 100 : 0
     if (percentage >= 90) return "🏆"
@@ -91,7 +91,7 @@ export function useUserScores() {
     }
   }, [])
 
-  // Sync scores with database
+  // Function to sync scores with the database
   const syncWithDatabase = async (email, scores) => {
     if (!email) return
     
@@ -103,7 +103,7 @@ export function useUserScores() {
       })
       
       if (response.data.success) {
-        // Update local scores with what came back from the server
+        // Update local scores with the data received from the server
         const serverUser = response.data.user
         const updatedScores = {
           quizEasyScore: serverUser.quizEasyScore,
@@ -122,7 +122,7 @@ export function useUserScores() {
     }
   }
 
-  // Save score locally and to database
+  // Function to save a new score locally and to the database
   const saveScore = async (level, score) => {
     setIsLoading(true)
     
@@ -154,7 +154,7 @@ export function useUserScores() {
     // Save to database
     try {
       if (userEmail) {
-        // Use the updateScore endpoint to update one specific score
+        // Send score update request to the server
         const response = await axios.post("http://localhost:3000/api/quiz/updateScore", {
           userEmail: userEmail,
           level: level.toLowerCase(),
@@ -189,7 +189,7 @@ export function useUserScores() {
   }
 }
 
-// Score display component
+
 export const ScoreDisplay = ({ scores, getTrophyIcon, title = "Your High Scores:" }) => {
   return (
     <div className="user-scores-container">
