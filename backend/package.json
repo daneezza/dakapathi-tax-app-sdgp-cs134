@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "build": "tsc -p . --diagnostics && echo Build completed",
     "test": "echo \"No tests specified\" && exit 0",
     "start": "nodemon src/app.ts"
   },

@@ -1,1 +1,12 @@
+# Node modules
 node_modules/
+
+# Distribution folders
+dist/
+dist-ssr/
+
+# Environment variable file
+.env
+
+# Ignore IDE configuration folder
+.idea/

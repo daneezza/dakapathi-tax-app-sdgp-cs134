@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 
+// Mongoose schema for storing user details
 const userSchema = new mongoose.Schema({
     fullname: { type: String, required: true },
     nic: { type: String, required: true },
@@ -14,6 +15,7 @@ const userSchema = new mongoose.Schema({
     quizHardScore: { type: Number, default: 0 }
 });
 
+// Create user model
 const User = mongoose.model('User', userSchema);
-
+// Export user model
 export default User;

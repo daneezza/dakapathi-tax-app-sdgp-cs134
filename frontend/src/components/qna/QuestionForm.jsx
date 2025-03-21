@@ -1,50 +1,40 @@
-"use client"
+import React, { useState } from 'react';
 
-import { useState } from "react"
-import "../../styles/questionForm.css"
-
-const QuestionForm = ({ onSubmit }) => {
-  const [title, setTitle] = useState("")
-
-  const handleChange = (e) => {
-    setTitle(e.target.value)
-  }
-
-  const handleSubmit = () => {
-    if (!title.trim()) {
-      return
+function QuestionForm({ onSubmit }) {
+  const [questionText, setQuestionText] = useState('');
+  // handles the submission of the question
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (questionText.trim()) {
+      onSubmit(questionText);
+      setQuestionText('');
     }
-
-    onSubmit({ title })
-    setTitle("")
-  }
-
+  };
+  //handles the reset button
   const handleReset = () => {
-    setTitle("")
-  }
+    setQuestionText('');
+  };
 
   return (
     <div className="question-form-container">
-      <h1>Ask a Question</h1>
-      <div className="form-content">
+      <h2>Ask a Question</h2>
+      <form onSubmit={handleSubmit} className="question-form">
+        {/* question entering form */}
         <textarea
+          value={questionText}
+          onChange={(e) => setQuestionText(e.target.value)}
           placeholder="Write your question here..."
-          value={title}
-          onChange={handleChange}
           className="question-input"
+          required
         />
-        <div className="button-container">
-          <button className="reset-button" onClick={handleReset}>
-            Reset
-          </button>
-          <button className="sub-button" onClick={handleSubmit}>
-            Submit
-          </button>
+        {/* submit and reset button */}
+        <div className="question-form-buttons">
+          <button type="button" className="reset-button" onClick={handleReset}>Reset</button>
+          <button type="submit" className="sub-button">Submit</button>
         </div>
-      </div>
+      </form>
     </div>
-  )
+  );
 }
 
-export default QuestionForm
-
+export default QuestionForm;

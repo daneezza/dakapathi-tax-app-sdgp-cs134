@@ -1,4 +1,4 @@
-/* wrap everything in a better looking container */
+
 .faq-wrapper {
   max-width: 900px;
   margin: 160px auto; 
@@ -21,7 +21,7 @@
   font-weight: bold;
 }
 
-/* center the entire faq container */
+
 .faq-container {
   display: flex;
   flex-direction: column;
@@ -50,7 +50,7 @@
   position: relative;
 }
 
-/* add a gradient border */
+
 .faq-item::before {
   content: "";
   position: absolute;
@@ -79,7 +79,7 @@
   z-index: -1;
 }
 
-/* prevent jumping when expanding */
+
 .faq-answer {
   max-height: 0;
   overflow: hidden;
@@ -87,10 +87,10 @@
   padding: 0 15px;
 }
 
-/* when answer is visible */
+
 .faq-item.open .faq-answer {
-  max-height: 200px; /* allow full expansion */
-  padding: 10px 15px; /* add spacing when open */
+  max-height: 200px; 
+  padding: 10px 15px; 
 }
 
 
@@ -116,7 +116,7 @@
   text-align: center;
 }
 
-/* adjust the arrow icon */
+
 .arrow {
   font-size: 20px;
   transition: transform 0.2s;
