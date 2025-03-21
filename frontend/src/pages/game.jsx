@@ -8,21 +8,21 @@ import "../styles/game.css"
 
 const Game = () => {
   //State variables for managing quiz questions, answers, and user progress.
-  const [questions, setQuestions] = useState([]) //to store the question
-  const [answers, setAnswers] = useState({}) //to store the answers selected by the user
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0) //to track the current question id
-  const [isLoading, setIsLoading] = useState(false) //shows whether the data being loaded
-  const [isQuizStarted, setIsQuizStarted] = useState(false) //to track if the quiz has started
-  const [isQuizCompleted, setIsQuizCompleted] = useState(false) //to track of the quiz completed
+  const [questions, setQuestions] = useState([])
+  const [answers, setAnswers] = useState({})
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
+  const [isLoading, setIsLoading] = useState(false)
+  const [isQuizStarted, setIsQuizStarted] = useState(false)
+  const [isQuizCompleted, setIsQuizCompleted] = useState(false)
   const [error, setError] = useState(null)
-  const [submittedAnswer, setSubmittedAnswer] = useState(null) //to store submitted answer result
-  const [score, setScore] = useState(0) //user score
-  const [showScore, setShowScore] = useState(false) //score display visibility
-  const [currentQuestionId, setCurrentQuestionId] = useState(null) //current question id
-  const [submittedAnswers, setSubmittedAnswers] = useState({}) //submitted answers
-  const [selectedLevel, setSelectedLevel] = useState(null) //track the level
-  const [showBackConfirmation, setShowBackConfirmation] = useState(false) //confirmation pop up 
-  const [results, setResults] = useState([]) //quiz results
+  const [submittedAnswer, setSubmittedAnswer] = useState(null)
+  const [score, setScore] = useState(0)
+  const [showScore, setShowScore] = useState(false)
+  const [currentQuestionId, setCurrentQuestionId] = useState(null)
+  const [submittedAnswers, setSubmittedAnswers] = useState({})
+  const [selectedLevel, setSelectedLevel] = useState(null)
+  const [showBackConfirmation, setShowBackConfirmation] = useState(false)
+  const [results, setResults] = useState([])
 
   //custom hook for user scores
   const {
@@ -48,7 +48,7 @@ const Game = () => {
       if (!response.data.success) {
         throw new Error(response.data.message)
       }
-      //initialize quiz state
+
       setQuestions(response.data.questions)
       setSelectedLevel(level)
       setIsQuizStarted(true)
@@ -149,7 +149,7 @@ const Game = () => {
   const handleBackToLevels = () => {
     setShowBackConfirmation(true)
   }
-  // Confirms exiting the quiz and resets the state.
+
   const confirmBackToLevels = () => {
     setIsQuizStarted(false)
     setAnswers({})
@@ -163,7 +163,6 @@ const Game = () => {
     setShowBackConfirmation(false)
   }
 
-  // Restarts the quiz, resetting all states.
   const handleRestartQuiz = () => {
     setAnswers({})
     setCurrentQuestionIndex(0)

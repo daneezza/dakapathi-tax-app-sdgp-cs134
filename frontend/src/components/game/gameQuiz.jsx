@@ -12,15 +12,13 @@ const Quiz = ({
   currentQuestionId,
   submittedAnswers,
 }) => {
-  //to get the current question by the index
   const currentQuestion = questions[currentQuestionIndex]
 
-  //if the question is not available
   if (!currentQuestion) {
     return <div>Loading...</div>
   }
-
   // Function to determine the styling of answer options based on submission results
+
   const getOptionStyle = (option) => {
     if (currentQuestionId && submittedAnswers[currentQuestionId]) {
       const result = submittedAnswers[currentQuestionId]
@@ -28,10 +26,8 @@ const Quiz = ({
       // If the selected option is correct, apply the 'correct-answer' class
       if (result?.selectedOption === option && result?.isCorrect) {
         return "quiz-option correct-answer"
-        // If the selected option is incorrect, apply the 'incorrect-answer' class
       } else if (result?.selectedOption === option && !result?.isCorrect) {
         return "quiz-option incorrect-answer"
-        // Indicate the correct answer if the user got it wrong
       } else if (result?.correctOption === option && !result?.isCorrect) {
         return "quiz-option correct-answer-hint"
       }
@@ -61,7 +57,7 @@ const Quiz = ({
               value={opt.option}
               checked={currentQuestionId !== null && answers[currentQuestionId] === opt.option}
               onChange={() => handleOptionChange(opt.option)}
-              disabled={submittedAnswers[currentQuestionId || 0] !== undefined} //this is disabled after submission
+              disabled={submittedAnswers[currentQuestionId || 0] !== undefined}
             />
             {/* Display the text of the answer option */}
             {opt.text}
@@ -74,9 +70,9 @@ const Quiz = ({
           className="submit-button"
           onClick={handleSubmitAnswer}
           disabled={
-            submittedAnswer !== null || //if already submitted
-            currentQuestionId === null || //if there is no current question id
-            !answers[currentQuestionId] || //if the user did not choose any answer
+            submittedAnswer !== null ||
+            currentQuestionId === null ||
+            !answers[currentQuestionId] ||
             submittedAnswers[currentQuestionId || 0] !== undefined
           }
         >

@@ -5,14 +5,13 @@ import AnswerList from './AnswerList';
 function Question({ question, userId, onQuestionLike, onAnswerSubmit, onAnswerLike }) {
   const [showAnswerForm, setShowAnswerForm] = useState(false);
   
-  // Handles the like button click for the question
   const handleLikeClick = () => {
     onQuestionLike(question._id);
   };
   
   const handleAnswerSubmit = (answerText) => {
     onAnswerSubmit(question._id, answerText);
-    setShowAnswerForm(false); //to hide the answer form after submitting
+    setShowAnswerForm(false);
   };
   
   const formattedDate = new Date(question.createdAt).toLocaleDateString();
@@ -49,7 +48,7 @@ function Question({ question, userId, onQuestionLike, onAnswerSubmit, onAnswerLi
       {showAnswerForm && (
         <AnswerForm onSubmit={handleAnswerSubmit} />
       )}
-      {/* list of answers for the particular question */}
+      
       <AnswerList 
         answers={question.answers} 
         questionId={question._id}

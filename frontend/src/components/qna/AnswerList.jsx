@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import Answer from './Answer';
 
 
-function AnswerList({ answers, questionId, userId, onAnswerLike }) {
-  // State to manage whether the answer list is expanded or collapsed
+function AnswerList({ answers, questionId, userId, onAnswerLike, onSubmitAnswer }) {
   const [isExpanded, setIsExpanded] = useState(false);
-  // Toggles the visibility of the answer list when user clicks on replies
+  // Toggles the visibility of the answer list
   const toggleExpansion = () => {
     setIsExpanded(!isExpanded);
   };
@@ -15,7 +14,6 @@ function AnswerList({ answers, questionId, userId, onAnswerLike }) {
   return (
     // reply section with answer list
     <div className="replies-section">
-      {/* clickable text to toggle the answer list */}
       <div
         className="replies-count"
         onClick={toggleExpansion}
@@ -29,7 +27,6 @@ function AnswerList({ answers, questionId, userId, onAnswerLike }) {
       {isExpanded && (
         <>
           <div className="answer-list">
-            {/* If there are answers, map through and render each Answer component */}
             {answers.length > 0 ? (
               answers.map((answer) => (
                 <Answer
