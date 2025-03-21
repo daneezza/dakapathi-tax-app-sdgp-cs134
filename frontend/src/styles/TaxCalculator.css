@@ -1,4 +1,3 @@
-/*TAX CALCULATOR stylings.. here we gooooo */
 .cal-topic {
   color: #e9e9e9;
   margin-top: 10px;
@@ -10,16 +9,16 @@
 
 .cal-container {
   display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 1.8rem;
-    margin-top: 10px;
-    margin-bottom: 90px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 1.8rem;
+  margin-top: 10px;
+  margin-bottom: 90px;
 }
 
-/* new Container for Wrapping | cal content on a single conatiner*/
+
 .outer-wrapper {
   display: flex;
   flex-direction: column;
@@ -49,29 +48,27 @@
   border-width: 5px;
   border-style: solid;
   border-color: #FFD700;
-  
-  /* enable internal scrolling */
   max-height: 600px;
   overflow-y: auto; 
 }
 
-/* hide scrollbar in WebKit browsers */
+
 .calculator-container::-webkit-scrollbar {
   width: 0px;
   background: transparent;
 }
 
-/* hide scrollbar in Firefox */
+
 .calculator-container {
   scrollbar-width: none;
 }
 
-/* hide scrollbar in MS Edge */
+
 .calculator-container::-webkit-scrollbar-thumb {
   display: none;
 }
 
-/*--input filed--*/
+
 .input-section {
   display: flex;
   flex-direction: column;
@@ -88,7 +85,7 @@
 }
 
 
-/* Dropdown */
+
 select {
   padding: 12px;
   font-size: 1.0rem;
@@ -102,35 +99,35 @@ select {
   cursor: pointer;
   font-weight: bold;
   transition: all 0.3s ease-in-out;
-  box-shadow: 0px 4px 8px rgba(146, 147, 147, 0.3); /* giving a little glow */
+  box-shadow: 0px 4px 8px rgba(146, 147, 147, 0.3); 
   
-  /* removing the default arrow */
+  
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   
-  /* customized dropdown arrow */
+  
   background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 140'><polygon fill='%23FFD700' points='70,100 10,40 130,40'/></svg>");
   background-repeat: no-repeat;
   background-position: right 15px center;
   background-size: 12px;
 }
 
-/* hover and focus effect on the selection section*/
+
 select:hover,
 select:focus {
   border-color: #ff3300;  
-  box-shadow: 0px 6px 12px rgba(255, 51, 0, 0.5); /* a stronger glow */
+  box-shadow: 0px 6px 12px rgba(255, 51, 0, 0.5); 
   transform: scale(1.05); 
 }
 
-/* dropdown open effect */
+
 select:focus-visible {
   outline: 3px solid #ff6600;  
   transform: scale(1.05);
 }
 
-/* support for older browsers | remove default dropdown arrow in IE :) */
+
 select::-ms-expand {
   display: none; 
 }
@@ -138,7 +135,7 @@ select::-ms-expand {
 
 select::after {
   content: "▼"; 
-  font-size: 1.4rem; /* make the arrow looks bigger */
+  font-size: 1.4rem;
   color: #ff6600;
   position: absolute;
   right: 10px;
@@ -147,20 +144,20 @@ select::after {
   pointer-events: none;
 }
 
-/* smooth animation when opening */
+
 select:focus {
   outline: none;
   transform: scale(1.05); 
 }
 
-/* new focus effect for modern feel */
+
 select:focus-visible {
   outline: 3px solid #ff6600;  
   transform: scale(1.05); 
 }
 
 
-/*CALCULATE button*/
+
 button.calculate-btn {
   background: linear-gradient(135deg, #ffcc00, #ff6600); 
   color: rgb(0, 0, 0);
@@ -172,17 +169,17 @@ button.calculate-btn {
   font-weight: bold;
   text-transform: uppercase;
   transition: all 0.3s ease-in-out;
-  box-shadow: 0px 5px 15px rgba(255, 102, 0, 0.5); /* glowing effect */
+  box-shadow: 0px 5px 15px rgba(255, 102, 0, 0.5); 
   margin-top: 10px;
 }
 
 button.calculate-btn:hover {
   background: linear-gradient(135deg, #ff6600, #ff3300); 
-  transform: scale(1.1); /* zoom */
+  transform: scale(1.1); 
   box-shadow: 0px 8px 20px rgba(255, 51, 0, 0.7); 
 }
 
-/*Dakapathi tax result*/
+
 .result-section {
   margin-top: 20px;
   padding: 20px;
@@ -202,10 +199,10 @@ button.calculate-btn:hover {
   padding: 15px;
   background-color: #ffffff;
   color: #000000;
-  position: relative; /* required to position the pseudo element */
+  position: relative; 
 }
 
-/* create the folded corner */
+
 .result-section p::after {
   content: "";
   position: absolute;
@@ -214,8 +211,8 @@ button.calculate-btn:hover {
   width: 20px; 
   height: 20px; 
   background-color: black;
-  transform: rotate(45deg); /* rotate the square for the folded effect */
-  z-index: 1; /* appears on top */
+  transform: rotate(45deg); 
+  z-index: 1; 
 }
 
 
@@ -234,7 +231,7 @@ pre {
 }
 
 
-/* enter amount filed */
+
 input[type="number"] {
 padding: 12px;
 font-size: 1.0rem; 
@@ -248,7 +245,7 @@ transition: all 0.3s ease-in-out;
 box-shadow: 0px 4px 8px rgba(146, 147, 147, 0.3); 
 }
 
-/* hover and focus effect */
+
 input[type="number"]:hover, input[type="number"]:focus {
 border-color: #0056b3; 
 box-shadow: 0px 6px 12px rgba(0, 86, 179, 0.5); 
@@ -256,13 +253,13 @@ transform: scale(1.05);
 outline: none;
 }
 
-/* placeholder */
+
 input[type="number"]::placeholder {
 color: #999;
 font-style: italic;
 }
 
-/* remove default number field arrows */
+
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
 -webkit-appearance: none;
@@ -270,11 +267,11 @@ margin: 0;
 }
 
 input[type="number"] {
--moz-appearance: textfield; /* Firefox */
+-moz-appearance: textfield; 
 }
 
 
-/* DOWNLOAD REPORT button */
+
 .download-btn {
 background: linear-gradient(135deg, #ff416c, #ff4b2b); 
 color: rgb(0, 0, 0);
@@ -282,7 +279,7 @@ font-size: 1.3rem;
 font-weight: bold;
 padding: 15px 40px;
 border: none;
-border-radius: 50px; /* Smooth rounded corners */
+border-radius: 50px; 
 cursor: pointer;
 transition: all 0.3s ease-in-out;
 box-shadow: 0px 5px 15px rgba(255, 65, 108, 0.5);
@@ -292,21 +289,21 @@ margin-top: 20px;
 margin-bottom: 20px;
 }
 
-/* hover effect */
+
 .download-btn:hover {
 background: linear-gradient(135deg, #ff4b2b, #ff416c); 
 transform: scale(1.1); 
 box-shadow: 0px 8px 20px rgba(255, 65, 108, 0.8);
 }
 
-/* active (click) effect */
+
 .download-btn:active {
-transform: scale(0.95); /* shrinks when clicked */
+transform: scale(0.95); 
 box-shadow: 0px 3px 10px rgba(255, 65, 108, 0.4);
 }
 
 
-/* disclaimer */
+
 .disclaimer-container {
   background-color: #e2dbc4;
   color: #7e6f3e;
@@ -322,7 +319,7 @@ box-shadow: 0px 3px 10px rgba(255, 65, 108, 0.4);
   animation: fadeOut 10s ease-in-out forwards; 
 }
 
-/* animation for fading out the disclaimer */
+
 @keyframes fadeOut {
   0% {
     opacity: 1;
