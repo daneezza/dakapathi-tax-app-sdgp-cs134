@@ -3,7 +3,7 @@ import Login from './pages/Login.jsx';
 import Template from './components/template.jsx'; 
 import AboutUs from './pages/AboutUs.jsx';
 import Dashboard from './pages/Dashboard.jsx';
-import QnA from './pages/QnA.jsx';
+import QnA from './pages/qna.jsx';
 import LearningHub from './pages/LearningHub.jsx';
 import UserGuides from './pages/UserGuides.jsx';
 import NewsFeed from './pages/NewsFeed.jsx';
