@@ -12,7 +12,8 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    background: rgba(15, 15, 15, 0.9); /* Dark background with transparency */
+    background: #000000; /* Dark background with transparency */
+    border: 4px solid #FFD700;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25); /* Enhanced shadow */
     transition: all 0.3s ease;
 }
@@ -41,9 +42,9 @@
 .settings-group select {
     width: 100%;
     padding: 12px; /* Increased from 8px */
-    border: 1px solid #dbbe05;
-    border-radius: 6px; /* Increased from 4px */
-    background-color: #ffffff73;
+    border: 4px solid #FFD700;
+    border-radius: 8px; /* Increased from 4px */
+    background-color: #ffffff;
     color: #000000;
     transition: border-color 0.3s ease;
     font-size: 1rem; /* Explicit font size */
