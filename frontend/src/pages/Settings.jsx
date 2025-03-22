@@ -143,12 +143,42 @@ const handleProfileImageChange = async (e) => {
         reader.onload = async (e) => {
             const base64String = e.target.result;
 
-            // Log the base64 string to ensure it's being read correctly
-            console.log('Base64 image string:', base64String);
+            // Create an image element to load the file
+            const img = new Image();
+            img.onload = () => {
+                // Create a canvas element to resize the image
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
 
-            // Save the profile image before updating the state
-            await saveProfileImage(base64String);
-            setProfileImage(base64String); // Update the UI with the new profile image
+                // Set the desired width and height (you can adjust these values)
+                const maxWidth = 450;  // Set the width for low quality image
+                const maxHeight = 450; // Set the height for low quality image
+
+                // Calculate the aspect ratio
+                const ratio = Math.min(maxWidth / img.width, maxHeight / img.height);
+                const width = img.width * ratio;
+                const height = img.height * ratio;
+
+                // Set canvas size
+                canvas.width = width;
+                canvas.height = height;
+
+                // Draw the resized image on the canvas
+                ctx.drawImage(img, 0, 0, width, height);
+
+                // Convert canvas to base64 (low-quality image)
+                const lowQualityBase64 = canvas.toDataURL('image/jpeg', 0.5); // 0.5 is the quality (between 0 and 1)
+
+                // Log the base64 string to ensure it's being read correctly
+                console.log('Base64 low quality image string:', lowQualityBase64);
+
+                // Save the profile image before updating the state
+                saveProfileImage(lowQualityBase64);  // Save the low quality image
+                setProfileImage(lowQualityBase64);  // Update the UI with the new profile image
+            };
+
+            // Set the image source to the base64 string
+            img.src = base64String;
         };
 
         // Read the file as a base64 string
