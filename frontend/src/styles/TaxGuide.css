@@ -72,11 +72,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;  /* Updated to ensure responsiveness */
+  width: 100%;  
   max-width: 80%;
   height: 60%;
-  border-top: 8px solid #000000;  /* Top border */
-  border-bottom: 8px solid #000000;  /* Bottom border */
+  border-top: 8px solid #000000;  
+  border-bottom: 8px solid #000000;  
 }
 
 .tax-video-container iframe {
@@ -118,20 +118,20 @@
   }
 
   .tax-guide {
-    flex-direction: column; /* Stack elements vertically */
-    height: auto; /* Allow height to adjust */
+    flex-direction: column; 
+    height: auto; 
   }
 
   .tax-video-container,
   .tax-text-container {
-    width: 100%;  /* Full width on smaller screens */
-    height: auto; /* Adjust height for responsiveness */
+    width: 100%;  
+    height: auto; 
   }
 }
 
 @media (max-width: 600px) {
   .tax-guides-page {
-    margin-left: 20px; /* Smaller margin for very small screens */
+    margin-left: 20px; 
   }
 
   .tax-guides-container {
@@ -144,7 +144,7 @@
 
   .tax-video-container,
   .tax-text-container {
-    width: 100%;  /* Full width */
-    height: auto; /* Height adjusts automatically */
+    width: 100%;  
+    height: auto; 
   }
 }

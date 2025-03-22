@@ -437,9 +437,9 @@ const handleDeleteAccount = async () => {
                         <input
                             type="file"
                             ref={fileInputRef}
-                            style={{ display: 'none' }}  // File input is hidden
+                            style={{ display: 'none' }}  // file input is hidden
                             accept="image/*"
-                            onChange={handleProfileImageChange}  // Trigger when file changes
+                            onChange={handleProfileImageChange}  // trigger when file changes
                         />
                     </div>
                 </div>
