@@ -23,6 +23,8 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const apiUrl = process.env.REACT_APP_BACKEND_URL;
+
 
 // Enable cors and body parser
 app.use(cors());
@@ -47,6 +49,6 @@ app.get('/api/taxGuides', getTaxGuides);
 app.get('/api/taxGuides/:id', getTaxGuideById);
 
 // Start the server and isted on the specified port
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+app.listen(apiUrl, () => {
+    console.log(`Server running on http://localhost:${apiUrl}`);
 });
