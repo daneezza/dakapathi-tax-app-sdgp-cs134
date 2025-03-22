@@ -103,9 +103,12 @@ html, body, #root, .app-container {
 }
 
 .nav-icon {
-    border: none;
-    outline: none;
+    border-radius: 50%; 
+    object-fit: cover;  
+    width: clamp(12px, 1.5vw, 15px); 
+    height: clamp(12px, 1.5vw, 15px); 
 }
+
 
 .menu-button {
     margin-left: clamp(-35px, -3vw, -10px);
