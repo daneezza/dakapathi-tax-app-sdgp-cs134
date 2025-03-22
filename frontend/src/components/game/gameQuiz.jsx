@@ -53,7 +53,7 @@ const Quiz = ({
 
       {/* Display answer options */}
       {currentQuestion.options.map((opt) => (
-        <div key={opt.option} className="question-text">
+        <div key={opt.option} className="quiz-text">
           <label className={getOptionStyle(opt.option)}>
             <input
               type="radio"
