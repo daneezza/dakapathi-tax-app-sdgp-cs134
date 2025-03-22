@@ -13,17 +13,16 @@ const TaxGuides = () => {
 
   return (
     <div className="tax-guides-page">
-      <h1 className="heading">Tax Guide</h1>
-      <div className="guides-container">
+      <h1 className="tax-heading">Tax Guide</h1>
+      <div className="tax-guides-container">
         {guides.map((guide, index) => {
           const isEven = index % 2 === 0;
-  
           const videoId = guide.YoutubePath.split('youtu.be/')[1]?.split('?')[0];
-  
+
           return (
             <React.Fragment key={guide.id}>
-              <div className={`guide ${isEven ? "even" : "odd"}`}>
-                <div className="video-container">
+              <div className={`tax-guide ${isEven ? "tax-even" : "tax-odd"}`}>
+                <div className="tax-video-container">
                   {videoId && (
                     <iframe
                       width="560"
@@ -36,11 +35,11 @@ const TaxGuides = () => {
                     />
                   )}
                 </div>
-                <div className="text-container">
-                  <h2 className="guide-title">
+                <div className="tax-text-container">
+                  <h2 className="tax-guide-title">
                     {guide.id}) {guide.title}
                   </h2>
-                  <div className="guide-content">
+                  <div className="tax-guide-content">
                     {guide.content.map((step, idx) => (
                       <p key={idx}>{step}</p>
                     ))}
