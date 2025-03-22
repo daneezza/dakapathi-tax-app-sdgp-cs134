@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import '../styles/Settings.css';
-import { getErrorMessage,isValidAddress ,isValidPassword} from '../utils/validations.jsx';
+import { getErrorMessage,isValidAddress ,isValidPassword} from '../utils/validations';
 import axios from 'axios';
 import Notification from '../components/auth/Notification.jsx';
 
@@ -64,6 +64,7 @@ function Settings() {
                 );
             };
         };
+
 
         fetchProfileImage();
 
@@ -133,9 +134,7 @@ function Settings() {
             }
         }));
     };
-
-
-    //---------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------
 const handleProfileImageChange = async (e) => {
     const file = e.target.files ? e.target.files[0] : null; // Check if e.target.files exists
     if (file) {
@@ -230,7 +229,9 @@ const fetchProfileImage = async () => {
 };
 
 
-//------------------------------------------------------------------
+
+    
+//-----------------------------------------------------------------------------------------
     const handleAvatarClick = () => {
         fileInputRef.current.click();
     };
@@ -388,42 +389,41 @@ const handleDeleteAccount = async () => {
             <p>Manage your account settings and preferences</p>
             
             <form onSubmit={handleSubmit}>
-                 {/* Profile Picture Section */}
-<div className="settingsPic-section">
-    <div className="profile-picture-container">
-        <div className="user-avatar" onClick={handleAvatarClick}>
-            {profileImage ? (
-                <img src={profileImage} alt="Profile" />
-            ) : (
-                <div className="avatar-placeholder">
-                    <div className="camera-icon">
-                        <img src="src/assets/cam.png" alt="Camera" className="camera-icon-img" />
+               {/* Profile Picture Section */}
+                <div className="settingsPic-section">
+                    <div className="profile-picture-container">
+                        <div className="user-avatar" onClick={handleAvatarClick}>
+                            {profileImage ? (
+                                <img src={profileImage} alt="Profile" />
+                            ) : (
+                                <div className="avatar-placeholder">
+                                    <div className="camera-icon">
+                                        <img src="src/assets/cam.png" alt="Camera" className="camera-icon-img" />
+                                    </div>
+                                    <span>Choose photo</span>
+                                </div>
+                            )}
+                        </div>
+                        <input
+                            type="file"
+                            ref={fileInputRef}
+                            style={{ display: 'none' }}  // File input is hidden
+                            accept="image/*"
+                            onChange={handleProfileImageChange}  // Trigger when file changes
+                        />
                     </div>
-                    <span>Choose photo</span>
                 </div>
-            )}
-        </div>
-        <input
-            type="file"
-            ref={fileInputRef}
-            style={{ display: 'none' }}  // File input is hidden
-            accept="image/*"
-            onChange={handleProfileImageChange}  // Trigger when file changes
-        />
-    </div>
-</div>
+                <div className="Photo-buttons">
+                {/* Button to manually trigger the file input */}
+                <button type="button" onClick={() => fileInputRef.current.click()} className="Choose-photo">
+                    Choose Photo
+                </button>
 
-{/* Button to manually trigger the file input */}
-<button
-    type="button"
-    onClick={() => fileInputRef.current.click()} // Trigger file input on button click
->
-    Choose Photo
-</button>
+                <button type="button" onClick={() => saveProfileImage(profileImage)} className="Save-photo">
+                    Save Profile Image
+                </button>
+                </div>
 
-<button type="button" onClick={() => saveProfileImage(profileImage)}>
-    Save Profile Image
-</button>
                 {/* Personal Information Section */}
                 <div className="settings-section">
                     <h2>Personal Information</h2>
