@@ -75,6 +75,8 @@
   width: 100%;  /* Updated to ensure responsiveness */
   max-width: 80%;
   height: 60%;
+  border-top: 8px solid #000000;  /* Top border */
+  border-bottom: 8px solid #000000;  /* Bottom border */
 }
 
 .tax-video-container iframe {
