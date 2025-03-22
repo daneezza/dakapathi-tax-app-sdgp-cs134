@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Answer from './Answer';
 
 
-function AnswerList({ answers, questionId, userId, onAnswerLike }) {
+function AnswerList({ answers, questionId, userEmail, onAnswerLike }) {
   // State to manage whether the answer list is expanded or collapsed
   const [isExpanded, setIsExpanded] = useState(false);
   // Toggles the visibility of the answer list when user clicks on replies
@@ -36,7 +36,7 @@ function AnswerList({ answers, questionId, userId, onAnswerLike }) {
                   key={answer._id} //unique identifier
                   answer={answer}
                   questionId={questionId}
-                  userId={userId}
+                  userEmail={userEmail}
                   onAnswerLike={onAnswerLike}
                 />
               ))

@@ -1,7 +1,7 @@
 import React from 'react';
 import Question from './Question';
 
-function QuestionList({ questions, userId, onQuestionLike, onAnswerSubmit, onAnswerLike }) {
+function QuestionList({ questions, userEmail, onQuestionLike, onAnswerSubmit, onAnswerLike }) {
   return (
     <div className="question-list">
       {/* Display message if no questions are available */}
@@ -13,7 +13,7 @@ function QuestionList({ questions, userId, onQuestionLike, onAnswerSubmit, onAns
           <Question
             key={question._id}
             question={question}
-            userId={userId}
+            userEmail={userEmail}
             onQuestionLike={onQuestionLike}
             onAnswerSubmit={onAnswerSubmit}
             onAnswerLike={onAnswerLike}

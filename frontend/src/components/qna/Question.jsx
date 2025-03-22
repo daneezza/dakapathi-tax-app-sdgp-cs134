@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import AnswerForm from './AnswerForm';
 import AnswerList from './AnswerList';
 
-function Question({ question, userId, onQuestionLike, onAnswerSubmit, onAnswerLike }) {
+function Question({ question, userEmail, onQuestionLike, onAnswerSubmit, onAnswerLike }) {
   const [showAnswerForm, setShowAnswerForm] = useState(false);
   
   // Handles the like button click for the question
@@ -18,7 +18,7 @@ function Question({ question, userId, onQuestionLike, onAnswerSubmit, onAnswerLi
   const formattedDate = new Date(question.createdAt).toLocaleDateString();
   
   // Check if this user has liked this question
-  const isLiked = question.likes && question.likes.some(like => like.userId === userId);
+  const isLiked = question.likes && question.likes.some(like => like.userEmail === userEmail);
   
   // Get total likes count
   const likesCount = question.likes ? question.likes.length : 0;
@@ -53,7 +53,7 @@ function Question({ question, userId, onQuestionLike, onAnswerSubmit, onAnswerLi
       <AnswerList 
         answers={question.answers} 
         questionId={question._id}
-        userId={userId}
+        userEmail={userEmail}
         onAnswerLike={onAnswerLike}
         onSubmitAnswer={onAnswerSubmit}
       />

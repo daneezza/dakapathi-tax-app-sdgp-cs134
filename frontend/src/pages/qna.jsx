@@ -9,15 +9,52 @@ const QnA = () => {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [userId, setUserId] = useState(() => {
-    // generate or create a user id
-    const savedUserId = localStorage.getItem('userId');
-    if (savedUserId) return savedUserId;
-    //random unique user id
-    const newUserId = 'user-' + Math.random().toString(36).substr(2, 9);
-    localStorage.setItem('userId', newUserId);
-    return newUserId;
+  // Getting user email from localStorage using the same pattern as getLocalScores
+  const [userEmail, setUserEmail] = useState(() => {
+    try {
+      const userData = localStorage.getItem("user");
+      if (!userData) return '';
+      
+      const user = JSON.parse(userData);
+      return user.email || '';
+    } catch (error) {
+      console.error("Error getting user email from localStorage:", error);
+      return '';
+    }
   });
+
+   // Check for user data changes
+   useEffect(() => {
+    const checkUserData = () => {
+      try {
+        const userData = localStorage.getItem("user");
+        if (!userData) {
+          if (userEmail !== '') setUserEmail('');
+          return;
+        }
+        
+        const user = JSON.parse(userData);
+        const storedEmail = user.email || '';
+        
+        if (storedEmail !== userEmail) {
+          setUserEmail(storedEmail);
+        }
+      } catch (error) {
+        console.error("Error checking user data:", error);
+      }
+    };
+    
+    // Initial check
+    checkUserData();
+    
+    // Set up a listener for storage events
+    window.addEventListener('storage', checkUserData);
+    
+    // Clean up
+    return () => {
+      window.removeEventListener('storage', checkUserData);
+    };
+  }, [userEmail]);
 
   useEffect(() => {
     fetchQuestions();
@@ -37,10 +74,15 @@ const QnA = () => {
   };
   //handles submitting a new question
   const handleQuestionSubmit = async (questionText) => {
+    if (!userEmail) {
+      setError('Please log in to submit a question');
+      return;
+    }
+
     try {
       const response = await axios.post('http://localhost:3000/api/questions', {
         text: questionText,
-        userId: userId,
+        userEmail: userEmail,
       });
       //add a new question to the list
       setQuestions([response.data, ...questions]);
@@ -51,9 +93,13 @@ const QnA = () => {
   };
   //handles liking a question
   const handleQuestionLike = async (questionId) => {
+    if (!userEmail) {
+      setError('Please log in to submit a question');
+      return;
+    }
     try {
       const response = await axios.post(`http://localhost:3000/api/questions/${questionId}/like`, {
-        userId,
+        userEmail,
       });
       
       // update the liked question in the state
@@ -68,10 +114,15 @@ const QnA = () => {
 
   //handle submitting an answer to a question
   const handleAnswerSubmit = async (questionId, answerText) => {
+    if (!userEmail) {
+      setError('Please log in to submit an answer');
+      return;
+    }
+
     try {
       const response = await axios.post(`http://localhost:3000/api/questions/${questionId}/answers`, {
         text: answerText,
-        userId,
+        userEmail,
       });
       
       // Update questions state with the new answer
@@ -85,10 +136,14 @@ const QnA = () => {
   };
   //handles liking an answer
   const handleAnswerLike = async (questionId, answerId) => {
+    if (!userEmail) {
+      setError('Please log in to like answers');
+      return;
+    }
     try {
       const response = await axios.post(
         `http://localhost:3000/api/questions/${questionId}/answers/${answerId}/like`,
-        { userId }
+        { userEmail }
       );
       
       // Update corresponding question with the liked answer
@@ -114,7 +169,7 @@ const QnA = () => {
           // Render the list of questions
           <QuestionList
             questions={questions}
-            userId={userId}
+            userEmail={userEmail}
             onQuestionLike={handleQuestionLike}
             onAnswerSubmit={handleAnswerSubmit}
             onAnswerLike={handleAnswerLike}
