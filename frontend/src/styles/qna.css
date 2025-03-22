@@ -166,7 +166,7 @@
 .question-content,
 .question-text {
   margin-bottom: 15px;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   margin-top: 10px;
   background-color: #000000;
   border-radius: 8px;
@@ -177,7 +177,7 @@
 .question-content p,
 .question-text {
   font-size: 16px;
-  color: #000000;
+  color: #ffffff;
 }
 
 

@@ -15,15 +15,15 @@ export const getQuestions = async (req: Request, res: Response) => {
 // Create a new question
 export const createQuestion = async (req: Request, res: Response) => {
   try {
-    const { text, userId } = req.body;
+    const { text, userEmail } = req.body;
     // Validating input data
-    if (!text || !userId) {
-      return res.status(400).json({ message: 'Text and userId are required' });
+    if (!text || !userEmail) {
+      return res.status(400).json({ message: 'Text and userEmail are required' });
     }
     // Creating a new question document
     const newQuestion = new Question({
       text,
-      userId,
+      userEmail,
       likes: [], // Initial empty likes array
       answers: [],
     });
@@ -39,10 +39,10 @@ export const createQuestion = async (req: Request, res: Response) => {
 export const likeQuestion = async (req: Request, res: Response) => {
   try {
     const { questionId } = req.params;
-    const { userId } = req.body;
-    // Validating userId
-    if (!userId) {
-      return res.status(400).json({ message: 'userId is required' });
+    const { userEmail } = req.body;
+    // Validating userEmail
+    if (!userEmail) {
+      return res.status(400).json({ message: 'userEmail is required' });
     }
     // Finding the question by ID
     const question = await Question.findById(questionId);
@@ -53,7 +53,7 @@ export const likeQuestion = async (req: Request, res: Response) => {
 
     // Checking if the user has already liked the question
     const alreadyLikedIndex = question.likes.findIndex(
-      (like: any) => like.userId == userId
+      (like: any) => like.userEmail == userEmail
     );
 
     if (alreadyLikedIndex !== -1) {
@@ -61,7 +61,7 @@ export const likeQuestion = async (req: Request, res: Response) => {
       question.likes.splice(alreadyLikedIndex, 1);
     } else {
       // If not liked yet, add the like
-      question.likes.push({ userId } as any);
+      question.likes.push({ userEmail } as any);
     }
     // Saving the updated question
     const updatedQuestion = await question.save();
@@ -75,10 +75,10 @@ export const likeQuestion = async (req: Request, res: Response) => {
 export const addAnswer = async (req: Request, res: Response) => {
   try {
     const { questionId } = req.params;
-    const { text, userId } = req.body;
+    const { text, userEmail } = req.body;
     // Validating input data
-    if (!text || !userId) {
-      return res.status(400).json({ message: 'Text and userId are required' });
+    if (!text || !userEmail) {
+      return res.status(400).json({ message: 'Text and userEmail are required' });
     }
     // Finding the question by ID
     const question = await Question.findById(questionId);
@@ -89,7 +89,7 @@ export const addAnswer = async (req: Request, res: Response) => {
     // Creating a new answer object
     const newAnswer: any = {
       text,
-      userId,
+      userEmail,
       likes: [] // Initial empty likes array for the answer
     };
     // Adding the answer to the question's answers array
@@ -106,10 +106,10 @@ export const addAnswer = async (req: Request, res: Response) => {
 export const likeAnswer = async (req: Request, res: Response) => {
   try {
     const { questionId, answerId } = req.params;
-    const { userId } = req.body;
+    const { userEmail } = req.body;
     // Validating userId
-    if (!userId) {
-      return res.status(400).json({ message: 'userId is required' });
+    if (!userEmail) {
+      return res.status(400).json({ message: 'userEmail is required' });
     }
     // Finding the question by ID
     const question = await Question.findById(questionId);
@@ -131,14 +131,14 @@ export const likeAnswer = async (req: Request, res: Response) => {
      
     // Checking if the user has already liked the answer
     const likeIndex = answer.likes.findIndex(
-      (like: any) => like.userId == userId
+      (like: any) => like.userEmail == userEmail
     );
     if (likeIndex !== -1) {
       // If already liked, remove the like
     answer.likes.splice(likeIndex, 1);
     } else {
       // If not liked yet, add the like
-      answer.likes.push({ userId } as any);
+      answer.likes.push({ userEmail } as any);
     }
     // Saving the updated question with the modified answer likes
     const updatedQuestion = await question.save();

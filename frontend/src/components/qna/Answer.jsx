@@ -1,7 +1,7 @@
 import React from 'react';
 
 //handles the click event for the like button
-function Answer({ answer, questionId, userId, onAnswerLike }) {
+function Answer({ answer, questionId, userEmail, onAnswerLike }) {
   const handleLikeClick = () => {
     onAnswerLike(questionId, answer._id);
   };
@@ -10,7 +10,7 @@ function Answer({ answer, questionId, userId, onAnswerLike }) {
   const formattedDate = new Date(answer.createdAt).toLocaleDateString();
   
   // Check if this user has liked this answer
-  const isLiked = answer.likes && answer.likes.some(like => like.userId === userId);
+  const isLiked = answer.likes && answer.likes.some(like => like.userEmail === userEmail);
   
   // calculating the total likes counts
   const likesCount = answer.likes ? answer.likes.length : 0;
