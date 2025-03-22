@@ -6,7 +6,7 @@ dist/
 dist-ssr/
 
 # Environment variable file
-.env
+
 
 # Ignore IDE configuration folder
 .idea/
