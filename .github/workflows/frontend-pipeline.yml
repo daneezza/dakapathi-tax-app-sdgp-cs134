@@ -39,3 +39,9 @@ jobs:
         with:
           name: build
           path: frontend/dist
+
+      - name: Trigger Vercel Frontend Deployment
+        run: |
+          curl -X POST "$VERCEL_DEPLOY_HOOK"
+        env:
+          VERCEL_DEPLOY_HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
