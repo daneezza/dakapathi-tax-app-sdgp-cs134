@@ -20,7 +20,7 @@ const Login = () => {
   const handleGoogleAuth = async (credentialResponse) => {
     try {
       const { credential } = credentialResponse;
-      const response = await axios.post('http://localhost:3000/api/auth/google-signin', { token: credential });
+      const response = await axios.post('${REACT_APP_BACKEND_URL}/api/auth/google-signin', { token: credential });
       if (response.data.user) {
             localStorage.setItem('user', JSON.stringify(response.data.user)); 
       }
