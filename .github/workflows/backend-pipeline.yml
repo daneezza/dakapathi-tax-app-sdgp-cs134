@@ -39,3 +39,10 @@ jobs:
         with:
           name: backend-artifacts
           path: backend/dist  # Adjust according to your build output path
+          
+      - name: Trigger Render Backend Deployment
+        run: |
+          curl -X POST "$RENDER_DEPLOY_HOOK"
+        env:
+          RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+  
