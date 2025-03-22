@@ -34,7 +34,7 @@
     gap: 20px;
     flex-wrap: wrap;
     padding: 20px;
-    background: #1e1e1e;
+    background: #131313;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
@@ -58,18 +58,21 @@
 .text-container {
     flex: 1;
     min-width: 300px;
+    margin-left: 40px;
+    margin-right: 20px;
 }
 
 .guide-title {
     font-size: 1.8rem;
     margin-bottom: 10px;
-    color: #1a7631;
+    color: #FFD700;
 }
 
 .guide-content {
     font-size: 1rem;
     color: #fff;
     line-height: 1.5;
+    margin-left: 30px;
 }
 
 .guide-content p {
@@ -79,7 +82,7 @@
 
 .guide-divider {
     border: none;
-    border-top: 1px solid #F7EF8A;
+    border-top: 2px solid #FFD700;
     margin: 20px 0;
 }
 
