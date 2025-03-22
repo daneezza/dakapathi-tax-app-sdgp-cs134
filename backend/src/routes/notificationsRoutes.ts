@@ -1,5 +1,9 @@
-// import { Router } from "express";
+import { Router } from 'express';
+import { createNotification, getNotifications } from '../controllers/notificationsController';
 
-// const notificationsRouter = Router();
+const router = Router();
 
-// notificationsRouter.get("/", getNotifications);
+router.post('/', createNotification);
+router.get('/:userId', getNotifications);
+
+export default router;
