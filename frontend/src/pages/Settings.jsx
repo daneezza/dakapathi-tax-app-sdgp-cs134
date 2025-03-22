@@ -443,16 +443,7 @@ const handleDeleteAccount = async () => {
                         />
                     </div>
                 </div>
-                <div className="Photo-buttons">
-                {/* Button to manually trigger the file input */}
-                <button type="button" onClick={() => fileInputRef.current.click()} className="Choose-photo">
-                    Choose Photo
-                </button>
-
-                <button type="button" onClick={() => saveProfileImage(profileImage)} className="Save-photo">
-                    Save Profile Image
-                </button>
-                </div>
+                
 
                 {/* Personal Information Section */}
                 <div className="settings-section">
