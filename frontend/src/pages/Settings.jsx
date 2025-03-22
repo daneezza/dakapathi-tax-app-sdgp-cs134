@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import '../styles/Settings.css';
-import { getErrorMessage,isValidAddress ,isValidPassword} from '../utils/validations.jsx';
+import { getErrorMessage,isValidAddress ,isValidPassword} from '../utils/validations';
 import axios from 'axios';
 import Notification from '../components/auth/Notification.jsx';
 
@@ -64,6 +64,7 @@ function Settings() {
                 );
             };
         };
+
 
         fetchProfileImage();
 
@@ -133,9 +134,7 @@ function Settings() {
             }
         }));
     };
-
-
-    //---------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------
 const handleProfileImageChange = async (e) => {
     const file = e.target.files ? e.target.files[0] : null; // Check if e.target.files exists
     if (file) {
@@ -144,12 +143,42 @@ const handleProfileImageChange = async (e) => {
         reader.onload = async (e) => {
             const base64String = e.target.result;
 
-            // Log the base64 string to ensure it's being read correctly
-            console.log('Base64 image string:', base64String);
+            // Create an image element to load the file
+            const img = new Image();
+            img.onload = () => {
+                // Create a canvas element to resize the image
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
 
-            // Save the profile image before updating the state
-            await saveProfileImage(base64String);
-            setProfileImage(base64String); // Update the UI with the new profile image
+                // Set the desired width and height (you can adjust these values)
+                const maxWidth = 450;  // Set the width for low quality image
+                const maxHeight = 450; // Set the height for low quality image
+
+                // Calculate the aspect ratio
+                const ratio = Math.min(maxWidth / img.width, maxHeight / img.height);
+                const width = img.width * ratio;
+                const height = img.height * ratio;
+
+                // Set canvas size
+                canvas.width = width;
+                canvas.height = height;
+
+                // Draw the resized image on the canvas
+                ctx.drawImage(img, 0, 0, width, height);
+
+                // Convert canvas to base64 (low-quality image)
+                const lowQualityBase64 = canvas.toDataURL('image/jpeg', 0.5); // 0.5 is the quality (between 0 and 1)
+
+                // Log the base64 string to ensure it's being read correctly
+                console.log('Base64 low quality image string:', lowQualityBase64);
+
+                // Save the profile image before updating the state
+                saveProfileImage(lowQualityBase64);  // Save the low quality image
+                setProfileImage(lowQualityBase64);  // Update the UI with the new profile image
+            };
+
+            // Set the image source to the base64 string
+            img.src = base64String;
         };
 
         // Read the file as a base64 string
@@ -230,7 +259,9 @@ const fetchProfileImage = async () => {
 };
 
 
-//------------------------------------------------------------------
+
+    
+//-----------------------------------------------------------------------------------------
     const handleAvatarClick = () => {
         fileInputRef.current.click();
     };
@@ -388,42 +419,32 @@ const handleDeleteAccount = async () => {
             <p>Manage your account settings and preferences</p>
             
             <form onSubmit={handleSubmit}>
-                 {/* Profile Picture Section */}
-<div className="settingsPic-section">
-    <div className="profile-picture-container">
-        <div className="user-avatar" onClick={handleAvatarClick}>
-            {profileImage ? (
-                <img src={profileImage} alt="Profile" />
-            ) : (
-                <div className="avatar-placeholder">
-                    <div className="camera-icon">
-                        <img src="src/assets/cam.png" alt="Camera" className="camera-icon-img" />
+               {/* Profile Picture Section */}
+                <div className="settingsPic-section">
+                    <div className="profile-picture-container">
+                        <div className="user-avatar" onClick={handleAvatarClick}>
+                            {profileImage ? (
+                                <img src={profileImage} alt="Profile" />
+                            ) : (
+                                <div className="avatar-placeholder">
+                                    <div className="camera-icon">
+                                        <img src="src/assets/cam.png" alt="Camera" className="camera-icon-img" />
+                                    </div>
+                                    <span>Choose photo</span>
+                                </div>
+                            )}
+                        </div>
+                        <input
+                            type="file"
+                            ref={fileInputRef}
+                            style={{ display: 'none' }}  // File input is hidden
+                            accept="image/*"
+                            onChange={handleProfileImageChange}  // Trigger when file changes
+                        />
                     </div>
-                    <span>Choose photo</span>
                 </div>
-            )}
-        </div>
-        <input
-            type="file"
-            ref={fileInputRef}
-            style={{ display: 'none' }}  // File input is hidden
-            accept="image/*"
-            onChange={handleProfileImageChange}  // Trigger when file changes
-        />
-    </div>
-</div>
+                
 
-{/* Button to manually trigger the file input */}
-<button
-    type="button"
-    onClick={() => fileInputRef.current.click()} // Trigger file input on button click
->
-    Choose Photo
-</button>
-
-<button type="button" onClick={() => saveProfileImage(profileImage)}>
-    Save Profile Image
-</button>
                 {/* Personal Information Section */}
                 <div className="settings-section">
                     <h2>Personal Information</h2>

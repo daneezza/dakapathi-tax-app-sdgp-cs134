@@ -1,0 +1,124 @@
+.tax-guides-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 20px 20px;
+}
+
+.tax-heading {
+  text-align: center;
+  margin-top: 130px;
+  margin-bottom: 50px;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.764);
+  display: inline-block;
+  padding: 10px 30px;
+  border-radius: 50px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tax-guides-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+}
+
+.tax-guide {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 20px;
+  background: #1e1e1e;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  width: 80%;
+  max-width: 3000px;
+  height: 600px;
+  border: 2px solid #505050;
+}
+
+.tax-even {
+  flex-direction: row;
+}
+
+.tax-odd {
+  flex-direction: row-reverse;
+}
+
+.tax-guide:hover {
+  transform: translateX(25px) translateY(5px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.tax-video-container,
+.tax-text-container {
+  flex: 1;
+  min-width: 300px;
+}
+
+.tax-video-container {
+  background: #333;
+  height: 100%;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  height: 60%;
+}
+
+.tax-video-container iframe {
+  max-width: 100%;
+  max-height: 100%;
+  border: none;
+}
+
+.tax-text-container {
+  flex: 1;
+  min-width: 300px;
+}
+
+.tax-guide-title {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  color: #1a7631;
+}
+
+.tax-guide-content {
+  font-size: 1rem;
+  color: #fff;
+  line-height: 1.5;
+}
+
+.tax-guide-content p {
+  margin: 0.5em 0;
+}
+
+@media (max-width: 768px) {
+  .tax-guides-page {
+    margin-left: 50px;
+  }
+
+  .tax-guides-container {
+    margin-left: 50px;
+  }
+}
+
+@media (max-width: 600px) {
+  .tax-guides-page {
+    margin-left: 50px;
+  }
+
+  .tax-guides-container {
+    margin-left: 50px;
+  }
+}
