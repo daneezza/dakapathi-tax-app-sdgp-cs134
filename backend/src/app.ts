@@ -23,6 +23,8 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+//const apiUrl = process.env.REACT_APP_BACKEND_URL;
+
 
 // Enable cors and body parser
 app.use(cors());
