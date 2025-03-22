@@ -189,7 +189,7 @@ export function useUserScores() {
   }
 }
 
-
+//components to display user scores
 export const ScoreDisplay = ({ scores, getTrophyIcon, title = "Your High Scores:" }) => {
   return (
     <div className="user-scores-container">
