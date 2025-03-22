@@ -7,7 +7,7 @@ const LearningHub = () => {
     const pages = [
         { icon: <FaBook />, title: 'User Guide', description: 'Learn how to navigate the app', path: '/user-guide' },
         { icon: <FaBrain />, title: 'Gamified Learning', description: 'Master tax concepts through interactive learning', path: '/gamefied' },
-        { icon: <FaTrophy />, title: 'Tax Guide', description: 'Build practical tax skills with real-world examples', path: '/page3' },
+        { icon: <FaTrophy />, title: 'Tax Guide', description: 'Build practical tax skills with real-world examples', path: '/tax-guide' },
     ];
 
     return (
