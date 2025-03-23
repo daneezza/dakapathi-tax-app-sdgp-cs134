@@ -22,7 +22,7 @@ connectDB();
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 //const apiUrl = process.env.REACT_APP_BACKEND_URL;
 
 
