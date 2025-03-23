@@ -23,11 +23,15 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-//const apiUrl = process.env.REACT_APP_BACKEND_URL;
 
 
 // Enable cors and body parser
-app.use(cors());
+app.use(cors({
+    origin: ['https://dakapathi.vercel.app', 'http://localhost:5173'], // Add your frontend URLs
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(bodyParser.json());
 app.use(express.json());
 
