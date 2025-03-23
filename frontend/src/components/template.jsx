@@ -124,7 +124,7 @@ function Navbar({ links, toggleSidebar, notification, setNotification }) {
                       <br />
                       <span className="nic-no">NIC: {userData.nic || "Update NIC in Settings"}</span>
                     </div>
-                    <a href="/settings">Settings</a>
+                    <Link to="/settings">Settings</Link>
                     <a onClick={handleLogout} className="logout-button">
                       Logout
                     </a>
