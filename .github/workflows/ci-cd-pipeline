@@ -39,11 +39,11 @@ jobs:
           name: backend-artifacts
           path: backend/dist  # Adjust according to your build output path
 
-      # - name: Trigger Render Backend Deployment
-      #   run: |
-      #     curl -X POST "$RENDER_DEPLOY_HOOK"
-      #   env:
-      #     RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+      - name: Trigger Render Backend Deployment
+        run: |
+          curl -X POST "$RENDER_DEPLOY_HOOK"
+        env:
+          RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
 
   frontend:
     runs-on: ubuntu-latest
@@ -75,8 +75,8 @@ jobs:
           name: build
           path: frontend/dist
 
-      # - name: Trigger Vercel Frontend Deployment
-      #   run: |
-      #     curl -X POST "$VERCEL_DEPLOY_HOOK"
-      #   env:
-      #     VERCEL_DEPLOY_HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+      - name: Trigger Vercel Frontend Deployment
+        run: |
+          curl -X POST "$VERCEL_DEPLOY_HOOK"
+        env:
+          VERCEL_DEPLOY_HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
