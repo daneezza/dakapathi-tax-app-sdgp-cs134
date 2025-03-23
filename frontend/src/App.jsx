@@ -13,6 +13,7 @@ import Game from './Pages/game';
 import FAQs from "./Pages/FAQs";
 import TaxCalculator from "./components/TaxCalculator";
 import Pricing from "./Pages/Pricing";
+import NotificationCenter from './components/NotificationCenter/NotificationCenter';
 
 
 
@@ -26,6 +27,9 @@ import "./styles/TaxCalculator.css";
 
 
 function App() {
+
+  const userId = "2";
+
   return(
     <Router>
       <Routes>
@@ -41,6 +45,7 @@ function App() {
         <Route path="/faq" element={<Template><FAQs /></Template>} />
         <Route path="/tax-cal" element={<Template><TaxCalculator /></Template>} />
         <Route path="/pricing" element={<Template><Pricing /></Template>} />
+        <Route path='/notifications' element={<Template><NotificationCenter /></Template>} />
 
 
 
