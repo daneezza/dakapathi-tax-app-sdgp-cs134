@@ -107,7 +107,7 @@ function Navbar({ links, toggleSidebar, notification, setNotification }) {
       <ul className="nav-links">
         {links.map((link, index) => (
           <li key={index}>
-            {link.href === "/pricing" ? (
+            {link.href === "/notifications" ? (
               <img src={notificationIcon} alt="Notifications" className="nav-icon" />
             ) : link.href === "/profile" ? (
               <div className="profile-container" ref={dropdownRef}>
@@ -208,7 +208,7 @@ function Template({
     { href: "/about", text: "About Us" },
     { href: "/pricing", text: "Pricing" },
     { href: "/faq", text: "FAQ" },
-    { href: "#notifications", text: "" },
+    { href: "/notifications", text: "" },
     { href: "/profile", text: "" }
   ],
   sidebarItems = [

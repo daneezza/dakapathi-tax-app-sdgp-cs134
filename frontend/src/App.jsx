@@ -41,6 +41,7 @@ function App() {
         <Route path="/faq" element={<Template><FAQs/></Template>} />
         <Route path="/tax-cal" element={<Template>< TaxCalculator/></Template>} />
         <Route path="/pricing" element={<Template><PricingComingSoon/></Template>} />
+        <Route path="/notifications" element={<Template><PricingComingSoon/></Template>} />
         <Route path="/settings" element={<Template><Settings/></Template>} />
         <Route path="/tax-guide" element={<Template><TaxGuide/></Template>} />
       </Routes>
