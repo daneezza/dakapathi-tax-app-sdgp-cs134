@@ -172,7 +172,6 @@ export const verifyOTP = async (req: Request, res: Response): Promise<void> => {
 
 // Handle google sign in 
 export const googleSignIn = async (req: Request, res: Response) => {
-  console.log('Google Sign-In request received');
   const { token } = req.body;
 
   try {
