@@ -428,7 +428,7 @@ const handleDeleteAccount = async () => {
                             ) : (
                                 <div className="avatar-placeholder">
                                     <div className="camera-icon">
-                                        <img src="src/assets/cam.png" alt="Camera" className="camera-icon-img" />
+                                        <img src="/assets/cam.png" alt="Camera" className="camera-icon-img" />
                                     </div>
                                     <span>Choose photo</span>
                                 </div>
