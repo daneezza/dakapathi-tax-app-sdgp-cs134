@@ -5,6 +5,7 @@ import OTPVerification from '../components/auth/OTPVerification';
 import axios from 'axios';
 import ForgotPassword from './ForgotPassword';
 import Notification from '../components/auth/Notification.jsx';
+import { createNotification } from '../components/NotificationCenter/NotificationCenter.jsx'
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -46,7 +47,6 @@ const Login = () => {
         email: formData.email,
         password: formData.password,
       });
-
       console.log('Login successful:', response.data);
       setNotification({ message: 'Login Succesful', variant: 'success' });
       setErrorMessage('');
