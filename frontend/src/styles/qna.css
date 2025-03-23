@@ -25,7 +25,7 @@
 
 
 .question-form-container {
-  position: absolute; 
+  position: fixed; 
   top: 190px; 
   left: 50%; 
   padding: clamp(1rem, 5vw, 2rem);
@@ -39,7 +39,7 @@
   background: #000000bd; 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
-  margin-bottom: 50px;
+  margin-bottom: 100px;
 }
 
 
@@ -118,7 +118,7 @@
 
 .question-list-container,
 .question-list {
-  position: absolute;
+  position: fixed;
   top: 500px;
   left: 50%; 
   padding: clamp(1rem, 5vw, 2rem);
