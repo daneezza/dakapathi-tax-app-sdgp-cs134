@@ -28,18 +28,19 @@
   position: fixed; 
   top: 190px; 
   left: 50%; 
+  transform: translate(-50%, -50%); 
   padding: clamp(1rem, 5vw, 2rem);
   max-width: 800px;
   color: #ffffff; 
   z-index: 5;
   border-radius: 12px;
-  width: 1000px;
+  width: 1000px; 
   align-items: center;
   text-align: center;
   background: #000000bd; 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
-  margin-bottom: 100px;
+  margin-bottom: 50px;
 }
 
 
@@ -118,9 +119,10 @@
 
 .question-list-container,
 .question-list {
-  position: fixed;
-  top: 500px;
+  position: fixed; 
+  top: 500px; 
   left: 50%; 
+  transform: translate(-50%, -50%); 
   padding: clamp(1rem, 5vw, 2rem);
   max-width: 800px;
   color: #ffffff;
