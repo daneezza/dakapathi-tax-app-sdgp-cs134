@@ -6,7 +6,7 @@ const teamMembers = [
     
     name: 'Inam Irshad',
     role: 'Co-Founder',
-    image: 'src/assets/members/developer02.jpg',
+    image: '/assets/members/developer02.jpg',
     github: 'https://github.com/ItsInam',
     linkedin: 'http://www.linkedin.com/in/inam-irshad',
     instagram: 'https://www.instagram.com/_.its_inam.__'
@@ -14,7 +14,7 @@ const teamMembers = [
   {
     name: 'Methuni Mallikaratchy',
     role: 'Co-Founder',
-    image: 'src/assets/members/developer04.jpg',
+    image: '/assets/members/developer04.jpg',
     github: 'https://github.com/Methu04',
     linkedin: 'https://www.linkedin.com/in/methuni-mallikaratchy-16045133b',
     instagram: 'https://www.instagram.com/methuuuu_ni/'
@@ -23,7 +23,7 @@ const teamMembers = [
     
     name: 'Daneesha Hansaka',
     role: 'Co-Founder',
-    image: 'src/assets/members/developer01.jpg',
+    image: '/assets/members/developer01.jpg',
     github: 'https://github.com/daneezza',
     linkedin: 'https://www.linkedin.com/in/daneezza/',
     instagram: 'https://www.instagram.com/daneezza/'
@@ -32,7 +32,7 @@ const teamMembers = [
     
     name: 'Nethasa Manawadu',
     role: 'Co-Founder',
-    image: 'src/assets/members/developer05.jpg',
+    image: '/assets/members/developer05.jpg',
     github: 'https://github.com/nethasa-manawadu',
     linkedin: 'http://www.linkedin.com/in/nethasa-manawadu-7041832a7',
     instagram: 'https://www.instagram.com/nethasa_m/'
@@ -41,7 +41,7 @@ const teamMembers = [
     
     name: 'Stephan Theekshana',
     role: 'Co-Founder',
-    image: 'src/assets/members/developer03.jpg',
+    image: '/assets/members/developer03.jpg',
     github: 'https://github.com/Stephanperera04',
     linkedin: 'https://www.linkedin.com/in/stephan-perera-8a202a241',
     instagram: 'https://www.instagram.com/stephan_theekshana'
@@ -51,7 +51,7 @@ const teamMembers = [
 function AboutUs() {
   return (
     <div className="about-us-container">
-      <h1>Tax Titans of <img className="dakapathi-logo" src="src/assets/images/dakapathi.png" alt="SL flag"/></h1>
+      <h1>Tax Titans of <img className="dakapathi-logo" src="/assets/images/dakapathi.png" alt="dakapathi logo"/></h1>
      
       <p className='about-description'>
         At the intersection of innovation and social responsibility, our team of five visionary developers presents Dakapathi, Sri Lanka’s first versatile tax management web app. 
@@ -69,13 +69,13 @@ function AboutUs() {
               <p>{member.role}</p>
               <div className="social-links">
                 <a href={member.github} target="_blank" rel="noopener noreferrer" title="Github">
-                  <img src="src/assets/icons/github-icon.png" alt="GitHub" className="social-icon" />
+                  <img src="/assets/icons/github-icon.png" alt="GitHub" className="social-icon" />
                 </a>
                 <a href={member.linkedin} target="_blank" rel="noopener noreferrer" title="LinkedIn">
-                  <img src="src/assets/icons/linkedin-icon.png" alt="LinkedIn" className="social-icon" />
+                  <img src="/assets/icons/linkedin-icon.png" alt="LinkedIn" className="social-icon" />
                 </a>
                 <a href={member.instagram} target="_blank" rel="noopener noreferrer" title="Instagram">
-                  <img src="src/assets/icons/instagram-icon.png" alt="Instagram" className="social-icon" />
+                  <img src="/assets/icons/instagram-icon.png" alt="Instagram" className="social-icon" />
                 </a>
               </div>
             </div>
@@ -91,13 +91,13 @@ function AboutUs() {
         {/* Social media icons */}
         <div className="social-icons">
           <a href="https://www.instagram.com/dakapathi.official/" target="_blank" rel="noopener noreferrer" title="Instagram">
-            <img src="src/assets/icons/instagram-black.png" alt="Instagram" />
+            <img src="/assets/icons/instagram-black.png" alt="Instagram" />
           </a>
           <a href="https://www.tiktok.com/@dakapathi.official" target="_blank" rel="noopener noreferrer" title="TikTok">
-            <img src="src/assets/icons/tiktok-black.png" alt="TikTok" />
+            <img src="/assets/icons/tiktok-black.png" alt="TikTok" />
           </a>
           <a href="https://www.facebook.com/share/164LtWpVr9/" target="_blank" rel="noopener noreferrer" title="Facebook">
-            <img src="src/assets/icons/facebook-black.png" alt="TikTok" />
+            <img src="/assets/icons/facebook-black.png" alt="TikTok" />
           </a>
         </div>
         <p>© 2024 Dakapathi. All rights reserved.</p>

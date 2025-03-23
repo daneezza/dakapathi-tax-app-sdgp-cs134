@@ -19,7 +19,7 @@ function Dashboard() {
     const cardContent = {
         taxCalculator: {
             title: "Tax Calculator",
-            image: "src/assets/images/cal.png",
+            image: "/assets/images/cal.png",
             content: (
                 <>
                     <h3>Tax Calculator</h3>
@@ -29,7 +29,7 @@ function Dashboard() {
         },
         aiChatbot: {
             title: "AI Chatbot",
-            image: "src/assets/images/ai.png",
+            image: "/assets/images/ai.png",
             content: (
                 <>
                     <h3>AI Chatbot</h3>
@@ -39,7 +39,7 @@ function Dashboard() {
         },
         taxGuide: {
             title: "Tax - Guide",
-            image: "src/assets/images/guide.png",
+            image: "/assets/images/guide.png",
             content: (
                 <>
                     <h3>Tax Guide</h3>
@@ -49,7 +49,7 @@ function Dashboard() {
         },
         gameLearn: {
             title: "Gamified Learning",
-            image: "src/assets/images/game.png",
+            image: "/assets/images/game.png",
             content: (
                 <>
                     <h3>Gamified Learning</h3>
@@ -59,7 +59,7 @@ function Dashboard() {
         },
         newsFeed: {
             title: "News Feed",
-            image: "src/assets/images/news.png",
+            image: "/assets/images/news.png",
             content: (
                 <>
                     <h3>News Feed</h3>
@@ -69,7 +69,7 @@ function Dashboard() {
         },
         qAndA: {
             title: "Q&A",
-            image: "src/assets/images/qna.png",
+            image: "/assets/images/qna.png",
             content: (
                 <>
                     <h3>Q&A</h3>
@@ -79,7 +79,7 @@ function Dashboard() {
         },
         faq: {
             title: "FAQ",
-            image: "src/assets/images/faq.png",
+            image: "/assets/images/faq.png",
             content: (
                 <>
                     <h3>FAQ</h3>
@@ -132,8 +132,8 @@ function Dashboard() {
 
     return (
         <div className="dashboard">
-            <h1 className="dashboard-title">Welcome, {userName} to <img className="dakapathi-logo" src="src/assets/images/dakapathi.png" alt="SL flag"/></h1>
-            <p className="dashboard-aim"><i>&quot;In ancient Sri Lanka <img className="sri-lanka-flag" src="src/assets/images/sri-lanka-flag.png" alt="SL flag"/>, Dakapathi wasn’t just a tax, it was the king’s way of fueling the nation, a system that kept the kingdom strong. Today, that spirit lives on. Bringing tax awareness and transparency to build a more informed and responsible society, we turn complexity into clarity, making every citizen a force for progress.&quot;</i></p>
+            <h1 className="dashboard-title">Welcome, {userName} to <img className="dakapathi-logo" src="/assets/images/dakapathi.png" alt="dakapathi logo"/></h1>
+            <p className="dashboard-aim"><i>&quot;In ancient Sri Lanka <img className="sri-lanka-flag" src="/assets/images/sri-lanka-flag.png" alt="SL flag"/>, Dakapathi wasn’t just a tax, it was the king’s way of fueling the nation, a system that kept the kingdom strong. Today, that spirit lives on. Bringing tax awareness and transparency to build a more informed and responsible society, we turn complexity into clarity, making every citizen a force for progress.&quot;</i></p>
             
             <div className="quick-actions">
                 <h2 className="section-title">Legacy Elements</h2>
