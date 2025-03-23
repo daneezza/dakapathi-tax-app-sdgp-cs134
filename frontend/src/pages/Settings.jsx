@@ -134,54 +134,50 @@ function Settings() {
             }
         }));
     };
-//---------------------------------------------------------------------------------------------
+//---------------------------Pfp stuff------------------------------------------------------------------
 const handleProfileImageChange = async (e) => {
-    const file = e.target.files ? e.target.files[0] : null; // Check if e.target.files exists
+    const file = e.target.files ? e.target.files[0] : null; 
     if (file) {
         const reader = new FileReader();
 
         reader.onload = async (e) => {
             const base64String = e.target.result;
 
-            // Create an image element to load the file
             const img = new Image();
             img.onload = () => {
-                // Create a canvas element to resize the image
+                // craete a canvas element to resize the image
                 const canvas = document.createElement('canvas');
                 const ctx = canvas.getContext('2d');
 
-                // Set the desired width and height (you can adjust these values)
-                const maxWidth = 450;  // Set the width for low quality image
-                const maxHeight = 450; // Set the height for low quality image
+                const maxWidth = 450;  
+                const maxHeight = 450; 
 
-                // Calculate the aspect ratio
+                // calculate the aspect ratio
                 const ratio = Math.min(maxWidth / img.width, maxHeight / img.height);
                 const width = img.width * ratio;
                 const height = img.height * ratio;
 
-                // Set canvas size
+                // set canvas size
                 canvas.width = width;
                 canvas.height = height;
 
-                // Draw the resized image on the canvas
+                // draw the resized image on the canvas
                 ctx.drawImage(img, 0, 0, width, height);
 
-                // Convert canvas to base64 (low-quality image)
-                const lowQualityBase64 = canvas.toDataURL('image/jpeg', 0.5); // 0.5 is the quality (between 0 and 1)
+                // convert canvas to base64 (low quality image)
+                const lowQualityBase64 = canvas.toDataURL('image/jpeg', 0.5); 
 
-                // Log the base64 string to ensure it's being read correctly
                 console.log('Base64 low quality image string:', lowQualityBase64);
 
-                // Save the profile image before updating the state
-                saveProfileImage(lowQualityBase64);  // Save the low quality image
-                setProfileImage(lowQualityBase64);  // Update the UI with the new profile image
+               
+                saveProfileImage(lowQualityBase64);  
+                setProfileImage(lowQualityBase64);  
             };
 
-            // Set the image source to the base64 string
             img.src = base64String;
         };
 
-        // Read the file as a base64 string
+
         reader.readAsDataURL(file);
     } else {
         console.error('No file selected.');
@@ -192,7 +188,7 @@ const handleProfileImageChange = async (e) => {
 
 const saveProfileImage = async (base64Image) => {
     try {
-        // Retrieve email from localStorage
+
         const storedUserData = localStorage.getItem('user');
         let existingUserData = storedUserData ? JSON.parse(storedUserData) : null;
         
@@ -201,17 +197,17 @@ const saveProfileImage = async (base64Image) => {
             return;
         }
 
-        const email = existingUserData.email;  // Retrieve the email from the stored user data
+        const email = existingUserData.email; 
 
-        // Define the updatedUserData object
+       
         const updatedUserData = {
-            email: email,  // Use the email from localStorage
-            profilePic: base64Image, // Include the base64 image
+            email: email,  
+            profilePic: base64Image, 
         };
 
-        console.log('Saving profile image for:', email);  // Log the email for debugging
+        console.log('Saving profile image for:', email); 
 
-        // Send the profile image to the backend
+       
         const response = await axios.post(
             'https://dakapathi-tax-app-sdgp-cs134.onrender.com/api/auth/updateProfileImage',
             updatedUserData,
@@ -227,11 +223,11 @@ const saveProfileImage = async (base64Image) => {
         console.error('Error saving profile image:', error);
     }
 };
-//-------------------fetch the pfp-------------------------------------------
+//----------------------Fetch the pfp-------------------------------------------
 
 const fetchProfileImage = async () => {
     try {
-        // Retrieve user data from localStorage
+       
         const storedUserData = localStorage.getItem('user');
         let existingUserData = storedUserData ? JSON.parse(storedUserData) : null;
 
@@ -240,16 +236,15 @@ const fetchProfileImage = async () => {
             return;
         }
 
-        const email = existingUserData.email; // Retrieve the email from the stored user data
+        const email = existingUserData.email; 
 
-        console.log('Fetching profile image for:', email); // Log the email for debugging
+        console.log('Fetching profile image for:', email); 
 
-        // Fetch the profile image from the backend
         const response = await axios.get(`https://dakapathi-tax-app-sdgp-cs134.onrender.com/api/auth/getProfileImage?email=${email}`);
 
         if (response.status === 200 && response.data.profileImage) {
             console.log('Profile image fetched successfully');
-            setProfileImage(response.data.profileImage); // Update UI with fetched image
+            setProfileImage(response.data.profileImage); 
         } else {
             console.error('Error fetching profile image:', response.data);
         }
@@ -259,9 +254,9 @@ const fetchProfileImage = async () => {
 };
 
 
-
-    
 //-----------------------------------------------------------------------------------------
+
+
     const handleAvatarClick = () => {
         fileInputRef.current.click();
     };
@@ -375,22 +370,20 @@ const handleDeleteAccount = async () => {
         const userData = JSON.parse(storedUserData);
         const userEmail = userData.email;
 
-        // Call the API to delete the user from the database using the stored email
         const response = await axios.delete('https://dakapathi-tax-app-sdgp-cs134.onrender.com/api/auth/delete-account', {
             data: { email: userEmail },
             headers: { 'Content-Type': 'application/json' }
         });
 
         if (response.status === 200) {
-            // Successfully deleted the user, now remove them from localStorage
+
             localStorage.removeItem('user');
             console.log('Account deleted successfully');
             setNotification({ message: 'Your account has been successfully deleted.', variant: 'success' });
                 
-                // Redirect after a short delay to allow notification to be seen
             setTimeout(() => {
-                window.location.href = '/'; // Redirect to home or login page
-            }, 2000);// Redirect to home or login page
+                window.location.href = '/'; // redirect to login page
+            }, 2000);
         } else {
             throw new Error("Failed to delete account.");
         }
@@ -437,9 +430,9 @@ const handleDeleteAccount = async () => {
                         <input
                             type="file"
                             ref={fileInputRef}
-                            style={{ display: 'none' }}  // file input is hidden
+                            style={{ display: 'none' }}  
                             accept="image/*"
-                            onChange={handleProfileImageChange}  // trigger when file changes
+                            onChange={handleProfileImageChange} 
                         />
                     </div>
                 </div>

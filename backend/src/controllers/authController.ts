@@ -305,7 +305,7 @@ export const updateUserPassword = async (req: Request, res: Response): Promise<v
     }
 };
 
-// Handel user delete
+// -------------------user deletion from the database------------------
 export const deleteUser = async (req: Request, res: Response): Promise<void> => {
   try {
     const { email } = req.body;
@@ -315,7 +315,7 @@ export const deleteUser = async (req: Request, res: Response): Promise<void> => 
       return;
     }
 
-    // Find the user by email
+    // find the user by email
     const user = await User.findOne({ email });
 
     if (!user) {
@@ -323,7 +323,7 @@ export const deleteUser = async (req: Request, res: Response): Promise<void> => 
       return;
     }
 
-    // Delete the user from the database
+    // delete the user from the database
     await User.deleteOne({ email });
 
     res.status(200).json({ message: 'User account deleted successfully.' });
@@ -398,12 +398,12 @@ const userGuides = [
 ];
 
 
-// Handles get all user guides
+// handles get all user guides
 export const getUserGuides = (req: Request, res: Response): void => {
   res.status(200).json(userGuides);
 };
 
-// Handles get user guide by id
+// handles get user guide by id
 export const getUserGuideById = (req: Request, res: Response): void => {
   const guideId = parseInt(req.params.id, 10);
   const guide = userGuides.find((g) => g.id === guideId);
@@ -417,10 +417,10 @@ export const getUserGuideById = (req: Request, res: Response): void => {
 };
 
 
-// New function to update profile image
+// function to update profile image
 export const updateProfileImage = async (req: Request, res: Response): Promise<void> => {
   try {
-      const { email, profilePic } = req.body; // Base64 image and email
+      const { email, profilePic } = req.body; // base64 image and email
 
       if (!email || !profilePic) {
           res.status(400).json({ message: 'Email and profile image are required.' });
@@ -433,8 +433,8 @@ export const updateProfileImage = async (req: Request, res: Response): Promise<v
           return;
       }
 
-      // Update user's profile image
-      user.profilePic = profilePic; // Store the base64 image in the database
+      // update user's pfp
+      user.profilePic = profilePic; // store the base64 image in the database
       await user.save();
 
       res.status(200).json({ message: 'Profile image updated successfully.' });
@@ -444,7 +444,7 @@ export const updateProfileImage = async (req: Request, res: Response): Promise<v
   }
 };
 
-// Fetch Profile Image by Email
+// -------------fetch pfp by email-----------------------
 export const getProfileImage = async (req: Request, res: Response) => {
   try {
       const { email } = req.query;
@@ -453,14 +453,14 @@ export const getProfileImage = async (req: Request, res: Response) => {
           return res.status(400).json({ error: 'Email is required' });
       }
 
-      // Find the user by email
+      //find the user by the email
       const user = await User.findOne({ email });
 
       if (!user) {
           return res.status(404).json({ error: 'User not found' });
       }
 
-      // Send the profile image back
+      // send the profile image back
       res.status(200).json({ profileImage: user.profilePic });
   } catch (error) {
       console.error('Error fetching profile image:', error);

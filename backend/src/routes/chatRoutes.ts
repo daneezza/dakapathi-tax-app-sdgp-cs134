@@ -3,7 +3,7 @@ import { chatController } from "../controllers/chatController";
 
 const router = express.Router();
 
-// POST route for handling chat messages
+// for handling chat messages
 router.post("/", async (req, res) => {
     try {
         await chatController(req, res);  // process chat logic
