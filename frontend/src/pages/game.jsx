@@ -43,7 +43,7 @@ const Game = () => {
     setError(null)
 
     try {
-      const response = await axios.get(`http://localhost:3000/api/quiz/${level}`)
+      const response = await axios.get(`https://dakapathi-tax-app-sdgp-cs134.onrender.com/api/quiz/${level}`)
 
       if (!response.data.success) {
         throw new Error(response.data.message)
@@ -93,7 +93,7 @@ const Game = () => {
     setError(null)
 
     try {
-      const response = await axios.post("http://localhost:3000/api/quiz/submitOne", userAnswer)
+      const response = await axios.post("https://dakapathi-tax-app-sdgp-cs134.onrender.com/api/quiz/submitOne", userAnswer)
       const result = response.data.result
 
       setSubmittedAnswer(result)
