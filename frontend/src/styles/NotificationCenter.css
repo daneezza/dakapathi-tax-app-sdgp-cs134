@@ -1,0 +1,108 @@
+/* Notification Center Container */
+
+.notification-page{
+    display: flex;
+    align-items:center;
+    justify-content: center;
+}
+.notification-center {
+    width: 800px;
+    margin-top: 10%;
+    background-color: #1e1e1e; /* Dark background */
+    border: 1px solid #333; /* Dark border */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+    color: #ffffff; /* White text */
+    font-family: 'Arial', sans-serif; /* Modern font */
+}
+
+/* Notification Center Header */
+.notification-center h2 {
+    margin-bottom: 16px;
+    font-size: 24px;
+    color: #ffffff; /* White text */
+    text-align: center; /* Center the header */
+    font-weight: bold;
+}
+
+/* Notification Item */
+.notification-item {
+    padding: 15px;
+    border-bottom: 1px solid #444; /* Darker border */
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+    cursor: pointer; /* Indicate clickable items */
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between icon and text */
+}
+
+/* Remove border from the last item */
+.notification-item:last-child {
+    border-bottom: none;
+}
+
+/* Hover Effect for Notification Items */
+.notification-item:hover {
+    background-color: #333; /* Darker background on hover */
+    border-radius: 8px; /* Rounded corners on hover */
+}
+
+/* Notification Message */
+.notification-item p {
+    margin: 0;
+    font-size: 16px;
+    color: #ffffff; /* White text */
+    flex: 1; /* Take remaining space */
+}
+
+/* Notification Timestamp */
+.notification-item small {
+    color: #888; /* Light gray for timestamp */
+    font-size: 12px;
+}
+
+/* Notification Icon (Optional) */
+.notification-item .icon {
+    width: 24px;
+    height: 24px;
+    background-color: #555; /* Icon background */
+    border-radius: 50%; /* Circular icon */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff; /* White icon */
+    font-size: 14px;
+}
+
+/* Unread Notification Indicator */
+.notification-item.unread {
+    background-color: #2a2a2a; /* Slightly lighter background for unread */
+}
+
+.notification-item.unread .icon {
+    background-color: #007bff; /* Blue icon for unread */
+}
+
+/* Animation for New Notifications */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.notification-item {
+    animation: fadeIn 0.5s ease; /* Fade-in animation */
+}
+
+/* No Notifications Message */
+.notification-center .no-notifications {
+    text-align: center;
+    color: #888; /* Light gray */
+    font-size: 14px;
+    margin-top: 10px;
+}
