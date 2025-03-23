@@ -366,29 +366,31 @@ const userGuides = [
       '1. Navigate to the Signup page.',
       '2. Enter your Fullname, NIC, Address, and Birthdate.',
       '3. Provide a valid Email and create a secure Password.',
-      '4. Click the Signup button to complete the registration process.'
+      '4. Click the Signup button.',
+      '5. Verify your email address using the OTP sent to your email.',
+      '6. Your account is created successfully.'
     ],
     videoPath: 'create-account.mp4' 
   },
   {
     id: 2,
-    title: 'How to Navigate the Dashboard',
+    title: 'How to Login to Your Account',
     content: [
-      '1. Log in with your registered email and password.',
-      '2. On the Dashboard, view an overview of your tax status.',
-      '3. Use the menu on the left to explore different sections, including Reports and Tax Calculator.',
-      '4. Click on any section to see detailed information.'
+      '1. Navigate to Login Page',
+      '2. Enter your Account Credentials (Email, Password).',
+      '3. Click Login.',
+      '4. You have successfully logged in.'
     ],
-    videoPath: 'navigate-dashboarde.mp4' 
+    videoPath: 'login.mp4' 
   },
   {
     id: 3,
     title: 'How to Use the Tax Calculator Feature',
     content: [
-      '1. Navigate to the Tax Calculator page from the menu.',
-      '2. Enter your income details accurately.',
+      '1. Navigate to the Tax Calculator page from the Side Bar.',
+      '2. Select tax type from the dropdown menu.',
       '3. Click the Calculate button to see the tax results.',
-      '4. Review the calculated tax amount displayed on the page.',
+      '4. Click download report to download a the report.',
     ],
     videoPath: 'tax-calculator.mp4' 
   }
