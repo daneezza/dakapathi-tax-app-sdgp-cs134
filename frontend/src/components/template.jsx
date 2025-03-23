@@ -7,15 +7,15 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Notification from '../components/auth/Notification.jsx';
 
 // Import logo and icons
-import logo from '../assets/logo.png';
-import notificationIcon from '../assets/notification.png';
-import profileIcon from '../assets/profile.png';
-import menuIcon from '../assets/menu-icon.png';
-import dashboardIcon from '../assets/sidebar/home.png';
-import calculatorIcon from '../assets/sidebar/calculator.png';
-import newsIcon from '../assets/sidebar/news.png';
-import learningIcon from '../assets/sidebar/learning.png';
-import qaIcon from '../assets/sidebar/qa.png';
+import logo from '/assets/logo.png';
+import notificationIcon from '/assets/notification.png';
+import profileIcon from '/assets/profile.png';
+import menuIcon from '/assets/menu-icon.png';
+import dashboardIcon from '/assets/sidebar/home.png';
+import calculatorIcon from '/assets/sidebar/calculator.png';
+import newsIcon from '/assets/sidebar/news.png';
+import learningIcon from '/assets/sidebar/learning.png';
+import qaIcon from '/assets/sidebar/qa.png';
 
 function Navbar({ links, toggleSidebar, notification, setNotification }) {
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
