@@ -7,6 +7,7 @@ const NewsFeed = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   
+  // Retrive the news from the backend
   useEffect(() => {
     const fetchNews = async () => {
       try {
