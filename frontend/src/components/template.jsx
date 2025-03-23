@@ -107,7 +107,7 @@ function Navbar({ links, toggleSidebar, notification, setNotification }) {
       <ul className="nav-links">
         {links.map((link, index) => (
           <li key={index}>
-            {link.href === "#notifications" ? (
+            {link.href === "/pricing" ? (
               <img src={notificationIcon} alt="Notifications" className="nav-icon" />
             ) : link.href === "/profile" ? (
               <div className="profile-container" ref={dropdownRef}>
