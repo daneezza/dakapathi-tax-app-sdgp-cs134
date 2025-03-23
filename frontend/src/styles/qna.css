@@ -119,6 +119,7 @@
 .question-list-container,
 .question-list {
   position: absolute;
+  margin-top: 50px;
   top: 500px;
   left: 50%;
   transform: translateX(-50%);
