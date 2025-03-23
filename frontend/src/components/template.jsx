@@ -208,7 +208,7 @@ function Template({
     { href: "/about", text: "About Us" },
     { href: "/pricing", text: "Pricing" },
     { href: "/faq", text: "FAQ" },
-    { href: "#notifications", text: "" },
+    { href: "/pricing", text: "" },
     { href: "/profile", text: "" }
   ],
   sidebarItems = [
