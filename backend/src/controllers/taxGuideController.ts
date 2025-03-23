@@ -9,6 +9,7 @@ const taxGuides = [
       'Unlike the standard calendar year, Sri Lanka’s financial year runs from April 1st to March 31st. This timeline is crucial for tax filing and compliance. Understanding these tax periods and currency nuances is vital for effective financial planning and smooth business operations.',
     ],
     YoutubePath: 'https://youtu.be/Xr2870I6ESg?si=AJV-zNypSd88Qnl7' 
+    //Added video link
   },
   {
     id: 2,
@@ -18,6 +19,7 @@ const taxGuides = [
       'and offers personalized guidance to ensure compliance. With smart notifications and an easy-to-use interface, Dakapathi helps individuals and businesses manage their taxes effortlessly.',
     ],
     YoutubePath: 'https://youtu.be/JZE6C57DQfA?si=XSXEiy_6pfSYcFlo' 
+    //Added video link
   }  
 ];
 
