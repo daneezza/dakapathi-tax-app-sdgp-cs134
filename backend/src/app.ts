@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes';
 import otpRoutes from './routes/otpRoutes';
+import notificationRoutes from './routes/notificationsRoutes';
 import forgotPasswordRoutes from './routes/forgotPasswordRoutes';
 import cors from 'cors';
 import questionRoutes from './routes/questionRoutes';
@@ -33,7 +34,7 @@ app.use('/api/password', forgotPasswordRoutes);
 app.use('/api/questions', questionRoutes);
 app.use('/api/news', newsRouter);
 app.use('/api/quiz', quizRoutes);
-
+app.use('/api/notifications', notificationRoutes);
 
 app.use(express.json());
 app.use("/api/tax", taxRoutes);
