@@ -63,7 +63,7 @@ function Navbar({ links, toggleSidebar }) {
             to={link.href}
             className={location.pathname === link.href ? 'selected' : ''}
             >
-              {link.href === "#notifications" && <img src={notificationIcon} alt="Notifications" className="nav-icon" />}
+              {link.href === "/notifications" && <img src={notificationIcon} alt="Notifications" className="nav-icon" />}
               {link.href === "/profile" && (
                 <div className="profile-container">
                   <button onClick={toggleProfileDropdown} className="profile-button">
@@ -153,7 +153,7 @@ function Template({
     { href: "/about", text: "About Us" },
     { href: "/pricing", text: "Pricing" },
     { href: "/faq", text: "FAQ" },
-    { href: "#notifications", text: "" },
+    { href: "/notifications", text: "" },
     { href: "/profile", text: "" }
   ],
   sidebarItems = [
