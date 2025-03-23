@@ -1,4 +1,4 @@
-import image1 from '/logo.png'
+import image1 from '../../assets/logo.png'
 import PropTypes from 'prop-types';
 
 const AuthHeader = ({ isLogin, setIsLogin }) => {
