@@ -73,7 +73,7 @@ function Settings() {
     const checkPasswordStatus = async (email) => {
         try {
             const response = await axios.get(
-                `http://localhost:3000/api/auth/check-password-status?email=${email}`
+                `https://dakapathi-tax-app-sdgp-cs134.onrender.com/api/auth/check-password-status?email=${email}`
             );
             setHasPassword(response.data.hasPassword);
         } catch (error) {
@@ -213,7 +213,7 @@ const saveProfileImage = async (base64Image) => {
 
         // Send the profile image to the backend
         const response = await axios.post(
-            'http://localhost:3000/api/auth/updateProfileImage',
+            'https://dakapathi-tax-app-sdgp-cs134.onrender.com/api/auth/updateProfileImage',
             updatedUserData,
             { headers: { 'Content-Type': 'application/json' } }
         );
@@ -245,7 +245,7 @@ const fetchProfileImage = async () => {
         console.log('Fetching profile image for:', email); // Log the email for debugging
 
         // Fetch the profile image from the backend
-        const response = await axios.get(`http://localhost:3000/api/auth/getProfileImage?email=${email}`);
+        const response = await axios.get(`https://dakapathi-tax-app-sdgp-cs134.onrender.com/api/auth/getProfileImage?email=${email}`);
 
         if (response.status === 200 && response.data.profileImage) {
             console.log('Profile image fetched successfully');
@@ -298,7 +298,7 @@ const fetchProfileImage = async () => {
 
     try {
         const response = await axios.post(
-            'http://localhost:3000/api/auth/updateUser',
+            'https://dakapathi-tax-app-sdgp-cs134.onrender.com/api/auth/updateUser',
             updatedUserData,
             { headers: { 'Content-Type': 'application/json' } }
         );
@@ -337,7 +337,7 @@ const handleUpdatePassword = async () => {
                 : { email: existingUserData.email, newPassword: changePassword };
 
             const response = await axios.post(
-                'http://localhost:3000/api/auth/update-password',
+                'https://dakapathi-tax-app-sdgp-cs134.onrender.com/api/auth/update-password',
                 payload,
                 { headers: { 'Content-Type': 'application/json' } }
             );
@@ -376,7 +376,7 @@ const handleDeleteAccount = async () => {
         const userEmail = userData.email;
 
         // Call the API to delete the user from the database using the stored email
-        const response = await axios.delete('http://localhost:3000/api/auth/delete-account', {
+        const response = await axios.delete('https://dakapathi-tax-app-sdgp-cs134.onrender.com/api/auth/delete-account', {
             data: { email: userEmail },
             headers: { 'Content-Type': 'application/json' }
         });

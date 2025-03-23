@@ -31,7 +31,7 @@ const OTPVerification = ({ otp, handleOTPChange, handleOTPSubmit, setShowOTP, se
 
   try {
     
-    await axios.post('http://localhost:3000/api/otp/verify-otp', {
+    await axios.post('https://dakapathi-tax-app-sdgp-cs134.onrender.com/api/otp/verify-otp', {
       email: JSON.parse(localStorage.getItem('signupData')).email,
       otp: otpCode
     });
@@ -51,7 +51,7 @@ const OTPVerification = ({ otp, handleOTPChange, handleOTPSubmit, setShowOTP, se
       type: 'User'                           
     };
     try{
-      await axios.post('http://localhost:3000/api/auth/signup', finalSignupData);
+      await axios.post('https://dakapathi-tax-app-sdgp-cs134.onrender.com/api/auth/signup', finalSignupData);
 
       setNotification({ message: 'Signup successful!', variant: 'success' });
       localStorage.removeItem('signupData'); 

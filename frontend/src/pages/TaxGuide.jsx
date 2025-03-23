@@ -6,7 +6,7 @@ const TaxGuides = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3000/api/taxGuides')
+      .get('https://dakapathi-tax-app-sdgp-cs134.onrender.com/api/taxGuides')
       .then((response) => setGuides(response.data))
       .catch((error) => console.error('Error fetching guides:', error));
   }, []);

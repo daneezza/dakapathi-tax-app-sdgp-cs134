@@ -6,7 +6,7 @@ const UserGuides = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3000/api/guides')
+      .get('https://dakapathi-tax-app-sdgp-cs134.onrender.com/api/guides')
       .then((response) => setGuides(response.data))
       .catch((error) => console.error('Error fetching guides:', error));
   }, []);
@@ -25,7 +25,7 @@ const UserGuides = () => {
                     <div className="video-container">
                       <video controls>
                         <source
-                          src={`http://localhost:3000/videos/${guide.videoPath}`}
+                          src={`https://dakapathi-tax-app-sdgp-cs134.onrender.com/videos/${guide.videoPath}`}
                           type="video/mp4"
                         />
                         Your browser does not support the video tag.
@@ -57,7 +57,7 @@ const UserGuides = () => {
                     <div className="video-container">
                       <video controls>
                         <source
-                          src={`http://localhost:3000/videos/${guide.videoPath}`}
+                          src={`https://dakapathi-tax-app-sdgp-cs134.onrender.com/videos/${guide.videoPath}`}
                           type="video/mp4"
                         />
                         Your browser does not support the video tag.

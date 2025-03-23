@@ -39,7 +39,7 @@ e.preventDefault();
 if (errors.otp || errors.password || errors.confirmPassword) return;
 
 try {
-    const response = await axios.post('http://localhost:3000/api/password/reset-password', {
+    const response = await axios.post('https://dakapathi-tax-app-sdgp-cs134.onrender.com/api/password/reset-password', {
     email,
     otp,
     newPassword,

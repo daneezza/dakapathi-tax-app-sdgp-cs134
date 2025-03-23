@@ -20,7 +20,7 @@ const Chatbot: React.FC = () => {
         setIsTyping(true); 
 
         try {
-            const response = await axios.post("http://localhost:3000/chat", { message: input });
+            const response = await axios.post("https://dakapathi-tax-app-sdgp-cs134.onrender.com/chat", { message: input });
             const botReply = response.data.reply || "I didn't understand that.";
 
             setTimeout(() => {

@@ -63,7 +63,7 @@ const QnA = () => {
   const fetchQuestions = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:3000/api/questions');
+      const response = await axios.get('https://dakapathi-tax-app-sdgp-cs134.onrender.com/api/questions');
       setQuestions(response.data);
       setLoading(false);
     } catch (err) {
@@ -80,7 +80,7 @@ const QnA = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:3000/api/questions', {
+      const response = await axios.post('https://dakapathi-tax-app-sdgp-cs134.onrender.com/api/questions', {
         text: questionText,
         userEmail: userEmail,
       });
@@ -98,7 +98,7 @@ const QnA = () => {
       return;
     }
     try {
-      const response = await axios.post(`http://localhost:3000/api/questions/${questionId}/like`, {
+      const response = await axios.post(`https://dakapathi-tax-app-sdgp-cs134.onrender.com/api/questions/${questionId}/like`, {
         userEmail,
       });
       
@@ -120,7 +120,7 @@ const QnA = () => {
     }
 
     try {
-      const response = await axios.post(`http://localhost:3000/api/questions/${questionId}/answers`, {
+      const response = await axios.post(`https://dakapathi-tax-app-sdgp-cs134.onrender.com/api/questions/${questionId}/answers`, {
         text: answerText,
         userEmail,
       });
@@ -142,7 +142,7 @@ const QnA = () => {
     }
     try {
       const response = await axios.post(
-        `http://localhost:3000/api/questions/${questionId}/answers/${answerId}/like`,
+        `https://dakapathi-tax-app-sdgp-cs134.onrender.com/api/questions/${questionId}/answers/${answerId}/like`,
         { userEmail }
       );
       

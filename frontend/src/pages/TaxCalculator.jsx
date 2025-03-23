@@ -29,7 +29,7 @@ const TaxCalculator = () => {
 
     const amountValue = typeof amount === "string" ? parseFloat(amount) : amount;
     try {
-      const response = await axios.post("http://localhost:3000/api/tax/calculate", {
+      const response = await axios.post("https://dakapathi-tax-app-sdgp-cs134.onrender.com/api/tax/calculate", {
         taxType,
         amount: amountValue,
       });

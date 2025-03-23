@@ -21,7 +21,7 @@ const handleChange = (e) => {
 const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        await axios.post('http://localhost:3000/api/password/request-reset', { email });
+        await axios.post('https://dakapathi-tax-app-sdgp-cs134.onrender.com/api/password/request-reset', { email });
         setNotification({ message: 'Password reset instructions have been sent to your email.', variant: 'success' });
         setTimeout(() => {
             setShowResetForm(true);

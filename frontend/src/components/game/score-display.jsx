@@ -97,7 +97,7 @@ export function useUserScores() {
     
     try {
       setIsLoading(true)
-      const response = await axios.post("http://localhost:3000/api/quiz/syncScores", {
+      const response = await axios.post("https://dakapathi-tax-app-sdgp-cs134.onrender.com/api/quiz/syncScores", {
         userEmail: email,
         scores: scores
       })
@@ -155,7 +155,7 @@ export function useUserScores() {
     try {
       if (userEmail) {
         // Send score update request to the server
-        const response = await axios.post("http://localhost:3000/api/quiz/updateScore", {
+        const response = await axios.post("https://dakapathi-tax-app-sdgp-cs134.onrender.com/api/quiz/updateScore", {
           userEmail: userEmail,
           level: level.toLowerCase(),
           score: score

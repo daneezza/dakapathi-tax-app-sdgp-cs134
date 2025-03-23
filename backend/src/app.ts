@@ -28,7 +28,7 @@ const PORT = process.env.PORT || 3000;
 
 // Enable cors and body parser
 app.use(cors({
-    origin: ['https://dakapathi-tax-app-sdgp-cs134.onrender.com', 'http://localhost:5173'], // Add your frontend URLs
+    origin: process.env.REACT_APP_FRONTEND_URL,
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
@@ -57,3 +57,4 @@ app.get('/api/taxGuides/:id', getTaxGuideById);
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
+

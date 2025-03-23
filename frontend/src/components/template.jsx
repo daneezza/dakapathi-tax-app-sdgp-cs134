@@ -40,7 +40,7 @@ function Navbar({ links, toggleSidebar, notification, setNotification }) {
   const fetchProfileImage = async (email) => {
     try {
       console.log('Fetching profile image for:', email); // Debugging log
-      const response = await axios.get(`http://localhost:3000/api/auth/getProfileImage?email=${email}`);
+      const response = await axios.get(`https://dakapathi-tax-app-sdgp-cs134.onrender.com/api/auth/getProfileImage?email=${email}`);
 
       if (response.status === 200 && response.data.profileImage) {
         console.log('Profile image fetched successfully');

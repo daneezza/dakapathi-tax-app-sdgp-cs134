@@ -173,7 +173,7 @@ const SignupForm = ({ handleSubmit, handleGoogleAuth }) => {
         localStorage.setItem('signupData', JSON.stringify(formData));
   
         // Send OTP to the user
-        await axios.post('http://localhost:3000/api/otp/send-otp', { email: formData.email });
+        await axios.post('https://dakapathi-tax-app-sdgp-cs134.onrender.com/api/otp/send-otp', { email: formData.email });
         
       } catch (error) {
         console.error('Error sending OTP:', error);
