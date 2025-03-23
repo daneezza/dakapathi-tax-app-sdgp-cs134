@@ -19,7 +19,7 @@ function Dashboard() {
     const cardContent = {
         taxCalculator: {
             title: "Tax Calculator",
-            image: "/assets/images/cal.png",
+            image: "./assets/images/cal.png",
             content: (
                 <>
                     <h3>Tax Calculator</h3>
@@ -29,7 +29,7 @@ function Dashboard() {
         },
         aiChatbot: {
             title: "AI Chatbot",
-            image: "/assets/images/ai.png",
+            image: "./assets/images/ai.png",
             content: (
                 <>
                     <h3>AI Chatbot</h3>
