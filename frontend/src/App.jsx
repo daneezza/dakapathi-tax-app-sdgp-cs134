@@ -14,6 +14,7 @@ import PricingComingSoon from './pages/Pricing.jsx';
 import Settings from './pages/Settings.jsx';
 import TaxCalculator from './pages/TaxCalculator.jsx'
 import TaxGuide from './pages/TaxGuide.jsx';
+import Pricing from './pages/NotificationCenter.jsx';
 
 import './styles/login.css';
 import './styles/Notification.css';
@@ -41,7 +42,7 @@ function App() {
         <Route path="/faq" element={<Template><FAQs/></Template>} />
         <Route path="/tax-cal" element={<Template>< TaxCalculator/></Template>} />
         <Route path="/pricing" element={<Template><PricingComingSoon/></Template>} />
-        <Route path="/notifications" element={<Template><PricingComingSoon/></Template>} />
+        <Route path="/notifications" element={<Template><Pricing/></Template>} />
         <Route path="/settings" element={<Template><Settings/></Template>} />
         <Route path="/tax-guide" element={<Template><TaxGuide/></Template>} />
       </Routes>
